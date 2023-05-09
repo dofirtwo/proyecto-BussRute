@@ -78,11 +78,15 @@ WSGI_APPLICATION = 'BussRute.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+<<<<<<< HEAD
         'NAME': 'basepruebaproyecto',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306'
+=======
+        'NAME': BASE_DIR / '',
+>>>>>>> 3bf43b2e0c6fd5ad3f9b7e729d981ca98cfcf3ed
     }
 }
 
@@ -121,7 +125,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+<<<<<<< HEAD
 STATIC_URL = '/static/'
+=======
+STATIC_URL = 'static/'
+>>>>>>> 3bf43b2e0c6fd5ad3f9b7e729d981ca98cfcf3ed
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+<<<<<<< HEAD
 from appBussRute import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -23,4 +24,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('inicio/',views.inicio),
+=======
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+>>>>>>> 3bf43b2e0c6fd5ad3f9b7e729d981ca98cfcf3ed
 ]
