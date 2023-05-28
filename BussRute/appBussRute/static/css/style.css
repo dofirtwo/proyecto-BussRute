@@ -1,0 +1,21 @@
+#map { 
+    height: 500px;
+}
+
+header{
+    height: 140px;
+    /* background-color: ; */
+}
+
+body{
+    background-color: #ECEFF1;
+}
+.btn-custom {
+    background-color: #87CEEB; /* Color rojo personalizado */
+    /* Otras propiedades de estilo opcionales */
+    color : #151515;/* Color de texto */
+    /* ... */
+  }
+label{
+   color: #151515;
+}
