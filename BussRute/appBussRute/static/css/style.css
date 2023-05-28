@@ -1,0 +1,207 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.testimonios {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.testimonios_header {
+    margin: 50px 0px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.testimonios_header h2 {
+    font-size: 2,9rem;
+    font-weight: 500;
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+}
+
+.testimonios_contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.testimonios_caja {
+    width: 500px;
+    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 20px;
+    margin: 15px;
+    cursor: pointer;
+}
+
+.perfil-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 30px;
+}
+
+.perfil-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: center;
+}
+
+.perfil {
+    display: flex;
+    align-items: center;
+}
+
+.name-user {
+    display: flex;
+    flex-direction: column;
+}
+
+.name-user strong {
+    color: #3d3d3d;
+    font-size: 1.3rem;
+
+}
+
+.reseñas {
+    color: #f9d71c;
+
+}
+
+.caja-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.comentarios_clientes p {
+    color: #4b4b4b;
+}
+
+.agregarComentarios {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.agregarComentarioHeader {
+    margin: 50px 0px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.agregarComentarioHeader h1 {
+    font-size: 2,9rem;
+    font-weight: 500;
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+}
+
+.agregarComentarioContenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+
+
+::selection {
+    color: white;
+    background-color: #252525;
+}
+
+/* Ninguna de las imagenes son de mi propiedad, a continuación están los links de los autores
+
+Imágenes en Unsplash: https://unsplash.com/@xps
+Logo Dell: https://worldvectorlogo.com/logo/dell-1
+
+*/
+
+:root {
+    --dark: #c8e2d6;
+    --dark-x: #87abab; 
+    --light: #000000;
+    ::placeholder { color: black; }
+}
+
+body {
+    font-family: 'Spartan', sans-serif;
+    font-weight: 300;
+    color: var(--light);
+}
+
+.text-light { color: var(--light) }
+.bg-dark { background-color: var(--dark) !important; }
+.bg-dark-x { background-color: var(--dark-x); }
+
+.btn {
+    min-height: 3.125rem;
+    font-weight: 600;
+}
+
+.form-control {
+    min-height: 3.125rem;
+    line-height: initial;
+}
+.form-control:focus {
+    background-color: var(--dark-x);
+    outline: none;
+}
+
+.img-2 {
+    background-image: url('../img/AutobuseseKool.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.img-1 {
+    background-image: url('../img/Coomotor.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.img-3 {
+    background-image: url('../img/Flotahuila.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.img-4 {
+    background-image: url('../img/Cootranshuila.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.img-5 {
+    background-image: url('../img/Cootransneiva.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.logo{
+    width: 50%;
+}
+.logo1{
+    width: 52%;
+}

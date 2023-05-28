@@ -23,4 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('inicio/',views.inicio),
+    path('comentarios/', views.comentarios),
+    path('agregarComentario/', views.agregarComentario),
+    path('inicioSesion/',views.inicioSesion),
 ]
