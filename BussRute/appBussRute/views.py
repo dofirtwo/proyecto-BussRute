@@ -6,6 +6,8 @@ from appBussRute.models import Comentario
 def inicio(request):
     return render(request,"inicio.html")
 
+def visualizarRutas(request):
+    return render(request, "usuario/inicio.html")
 def comentarios(request):
     comentarios = Comentario.objects.all()
     return render(request, 'comentarios/comentarios.html', {'comentarios': comentarios})

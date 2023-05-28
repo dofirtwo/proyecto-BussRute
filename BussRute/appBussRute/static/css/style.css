@@ -1,3 +1,30 @@
+#map { 
+    height: 500px;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.testimonios {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.btn-custom {
+    background-color: #87CEEB; /* Color rojo personalizado */
+    /* Otras propiedades de estilo opcionales */
+    color : #151515;/* Color de texto */
+    /* ... */
+  }
+label{
+   color: #151515;
+}
 *{
     margin: 0;
     padding: 0;
@@ -147,6 +174,7 @@ Logo Dell: https://worldvectorlogo.com/logo/dell-1
 }
 
 body {
+    background-color: #ECEFF1;
     font-family: 'Spartan', sans-serif;
     font-weight: 300;
     color: var(--light);

@@ -1,0 +1,55 @@
+{% extends "index.html" %}
+{% block encabezado %}
+{% include "encabezado.html" %}
+{% endblock %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock %}
+{% block contenido %}
+
+<section class="testimonios">
+  <div class="testimonios_header">
+    <h2>Comentarios existentes </h2>
+    <br>
+  </div>
+  <!-- Testimonios contenedor -->
+  <div class="testimonios_contenedor">
+    <!-- CAJA 1 -->
+    {% for comentario in comentarios %}
+    <div class="testimonios_caja">
+      <div class="caja-top">
+        <div class="perfil">
+          <!-- Nombre y Usuario -->
+          <div class="name-user">
+            <strong>{{ comentario.nombre }}</strong>
+          </div>
+        </div>
+        <!-- Reseñas -->
+        <div class="reseñas">
+          <i class="fa fa-heart"></i>
+          <i class="fa fa-heart"></i>
+          <i class="fa fa-heart"></i>
+          <i class="fa fa-heart"></i>
+        </div>
+      </div>
+      <!-- Comentarios -->
+      <div class="comentarios_clientes">
+        <p>{{ comentario.comentario }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <br>
+  <form action="/agregarComentario/" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-success" type="submit">Agregar Comentario</button>
+  </form>
+</section>
+
+{% endblock %}
+{% block piePagina %}
+{% include "piePagina.html" %}
+{% endblock %}
+
+
