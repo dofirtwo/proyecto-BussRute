@@ -1,0 +1,73 @@
+/* Ninguna de las imagenes son de mi propiedad, a continuación están los links de los autores
+
+Imágenes en Unsplash: https://unsplash.com/@xps
+Logo Dell: https://worldvectorlogo.com/logo/dell-1
+
+*/
+
+:root {
+    --dark: #c8e2d6;
+    --dark-x: #87abab; 
+    --light: #000000;
+    ::placeholder { color: black; }
+}
+
+body {
+    font-family: 'Spartan', sans-serif;
+    font-weight: 300;
+    color: var(--light);
+}
+
+.text-light { color: var(--light) }
+.bg-dark { background-color: var(--dark) !important; }
+.bg-dark-x { background-color: var(--dark-x); }
+
+.btn {
+    min-height: 3.125rem;
+    font-weight: 600;
+}
+
+.form-control {
+    min-height: 3.125rem;
+    line-height: initial;
+}
+.form-control:focus {
+    background-color: var(--dark-x);
+    outline: none;
+}
+
+.img-2 {
+    background-image: url('../img/AutobuseseKool.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.img-1 {
+    background-image: url('../img/Coomotor.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.img-3 {
+    background-image: url('../img/Flotahuila.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.img-4 {
+    background-image: url('../img/Cootranshuila.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.img-5 {
+    background-image: url('../img/Cootransneiva.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.logo{
+    width: 50%;
+}
+.logo1{
+    width: 52%;
+}
