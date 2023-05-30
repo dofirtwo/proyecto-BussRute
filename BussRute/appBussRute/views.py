@@ -40,3 +40,6 @@ def agregarComentario(request):
     
 def inicioSesion(request):
     return render(request,"inicioSesion.html")
+
+def vistaRegistrarRuta(request):
+    return render(request,"admin/frmRegistrarRuta.html")

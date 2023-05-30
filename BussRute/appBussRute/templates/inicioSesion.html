@@ -50,12 +50,11 @@
             </div>
         </div>
         <div class="col-lg-5 bg-dark d-flex flex-column align-items-end min-vh-100">
-            <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 mb-auto w-100 d-flex col-2">
-                <img src="../static/img/Logo Aplicacion1.png" class="img-fluid logo" />
-                <img src="../static/img/Logo Empresa1.png" class="img-fluid logo1">
+            <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 mb-auto w-100 col-2 text-center">
+                <img src="../static/img/Logo Aplicacion1.png" class="img-fluid logo"/>          
             </div>
             <div class="align-self-center w-100 px-lg-5 py-lg-4 p-4">
-                <h1 class="font-weight-bold mb-4">Bienvenido de vuelta</h1>
+                <h1 class="text-center font-weight-bold mb-4">Bienvenido de vuelta</h1>
                 <form class="mb-5">
                     <div class="mb-4">
                         <label for="exampleInputEmail1" class="form-label font-weight-bold">Email</label>
@@ -69,7 +68,7 @@
                         <a href="" id="emailHelp" class="font-weight-bold text-decoration-none"
                             style="color: black;">¿Has olvidado tu contraseña?</a>
                     </div>
-                    <button type="submit" class="btn btn-success w-100 bg-dark-y">Iniciar sesión</button>
+                    <button type="submit" class="btn btn-custom w-100 bg-dark-y">Iniciar sesión</button>
                 </form>
 
                 <p class="font-weight-bold text-center text-muted">O inicia sesión con</p>
@@ -80,6 +79,9 @@
                             class="fab fa-facebook-f lead mr-2"></i> Facebook</button>
                 </div>
             </div>
+            <div class="text-center">
+                <img src="../static/img/Logo Empresa1.png" class="img-fluid logo1">
+            </div>
             <div class="text-center px-lg-5 pt-lg-3 pb-lg-4 p-4 mt-auto w-100">
                 <p class="d-inline-block mb-0">¿Todavia no tienes una cuenta?</p> <a href=""
                     class="font-weight-bold text-decoration-none" style="color: black;">Crea una ahora</a>
@@ -87,6 +89,7 @@
         </div>
     </div>
 </section>
+<br>
 {% endblock %}
 {% block pie_pagina %}
 {% include "pie_pagina.html" %}

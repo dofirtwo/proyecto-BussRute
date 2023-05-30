@@ -8,7 +8,7 @@
 {% block contenido %}
 <br>
     <form action="">
-        <div class="principal" style="width: 100%;">                         
+        <div class="principal mx-3">                         
             <div class="form-group row mt-2">
                 <div class="mb-3 col-lg-6">
                     <div id="map">
@@ -21,7 +21,7 @@
                         </div>
                         <div class="mb-3 col-lg-2">
                             <div class="dropdown dropend">
-                                <a style="color: #00A99D;" class="dropdown-toggle" data-bs-toggle="dropdown">Barrio</a>
+                                <a style="color: #00A99D; text-decoration: none;" class="dropdown-toggle" data-bs-toggle="dropdown">Barrio</a>
                                 <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Diego de Ospina</a></li>
                                 <li><a class="dropdown-item" href="#">Puertas del Sol</a></li>
@@ -31,7 +31,7 @@
                         </div>
                         <div class="mb-3 col-lg-2">
                             <div class="dropdown dropend">
-                                <a style="color: #00A99D;" class="dropdown-toggle" data-bs-toggle="dropdown">Comuna</a>
+                                <a style="color: #00A99D;  text-decoration: none;" class="dropdown-toggle" data-bs-toggle="dropdown">Comuna</a>
                                 <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Comuna 4</a></li>
                                 <li><a class="dropdown-item" href="#">Comuna 5</a></li>
@@ -41,7 +41,7 @@
                         </div>
                         <div class="mb-3 col-lg-2">
                             <div class="dropdown dropend">
-                                <a style="color: #00A99D;" class="dropdown-toggle" data-bs-toggle="dropdown">Sitios Reconocibles</a>
+                                <a style="color: #00A99D;  text-decoration: none;" class="dropdown-toggle" data-bs-toggle="dropdown">Sitios Reconocibles</a>
                                 <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Comuneros</a></li>
                                 <li><a class="dropdown-item" href="#">San Pedro Plaza</a></li>
@@ -95,7 +95,7 @@
                     <button class="btn btn-custom">Guardar Ruta</button>
                 </div>
                 <div class="mb-1 col-lg-2">
-                    <button class="btn btn-custom">Comentar</button>
+                    <button type="button" onclick="redirigir()" class="btn btn-custom">Comentar</button>
                 </div>
                 <div class="mb-1 col-lg-2">
                     <button class="btn btn-custom">Añadir a Favoritos</button>

@@ -30,6 +30,7 @@
           <i class="fa fa-heart"></i>
           <i class="fa fa-heart"></i>
           <i class="fa fa-heart"></i>
+          <i class="fa fa-heart"></i>
         </div>
       </div>
       <!-- Comentarios -->
@@ -43,7 +44,7 @@
   <form action="/agregarComentario/" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button class="btn btn-success" type="submit">Agregar Comentario</button>
+    <button class="btn btn-custom" type="submit">Agregar Comentario</button>
   </form>
 </section>
 

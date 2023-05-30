@@ -1,6 +1,26 @@
+/* CSS DE VARGAS */
 #map { 
     height: 500px;
 }
+
+.btn-opuesto{
+    background-color: #EBA487;
+    color : #151515;
+}
+
+.btn-custom {
+    background-color: #87CEEB; /* Color rojo personalizado */
+    /* Otras propiedades de estilo opcionales */
+    color : #151515;/* Color de texto */
+    /* ... */
+  }
+label{
+   color: #151515;
+}
+input{
+    color: #151515;
+}
+/* CSS DE CASTAÑEDA */
 
 *{
     margin: 0;
@@ -16,15 +36,6 @@
     width: 100%;
 }
 
-.btn-custom {
-    background-color: #87CEEB; /* Color rojo personalizado */
-    /* Otras propiedades de estilo opcionales */
-    color : #151515;/* Color de texto */
-    /* ... */
-  }
-label{
-   color: #151515;
-}
 *{
     margin: 0;
     padding: 0;
@@ -51,9 +62,10 @@ label{
 .testimonios_header h2 {
     font-size: 2,9rem;
     font-weight: 500;
-    background-color: black;
-    color: white;
+    background-color: #87CEEB;
+    color: #151515;
     padding: 10px 20px;
+    border-radius: 100px;
 }
 
 .testimonios_contenedor {
@@ -104,7 +116,7 @@ label{
 }
 
 .reseñas {
-    color: #f9d71c;
+    color: #00A99D;
 
 }
 
@@ -139,9 +151,10 @@ label{
 .agregarComentarioHeader h1 {
     font-size: 2,9rem;
     font-weight: 500;
-    background-color: black;
-    color: white;
+    background-color: #87CEEB;
+    color: #151515;
     padding: 10px 20px;
+    border-radius: 100px;
 }
 
 .agregarComentarioContenedor {
@@ -166,10 +179,12 @@ Logo Dell: https://worldvectorlogo.com/logo/dell-1
 
 */
 
+/* CSS DE CATAÑO */
+
 :root {
-    --dark: #c8e2d6;
-    --dark-x: #87abab; 
-    --light: #000000;
+    --dark: #ECEFF1;
+    --dark-x: #F5F5E8; 
+    --light: #151515;
     ::placeholder { color: black; }
 }
 
@@ -227,9 +242,104 @@ body {
     background-position: center;
 }
 
+.logoMenu{
+    width: 25%;
+}
 .logo{
     width: 50%;
 }
 .logo1{
-    width: 52%;
+    width: 20%;
+}
+
+/* CSS DE ARIADNA */
+
+.imagen{
+    background-color: #B0C4DE;
+    width: 80%;
+    height: 300px;
+}
+
+
+.circulo{
+    background-color: #00A99D;
+    border-radius: 50%;
+    width: 70%;
+    padding-bottom: 70%;
+    max-height: 300px;
+    margin: auto;
+}
+ 
+@media (max-width: 767px) {
+    .clasexd {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+
+@media (min-width: 768px) {
+    .clasexd {
+        margin-left: 60px;
+        width: 60%;
+    }
+}
+
+/*CAROUSEL*/
+.carousel-img {
+    width: 100%;
+    margin: 0 auto;
+}
+  
+@media (min-width: 768px) {
+    .carousel-img {
+        width: 50%;
+    }
+}
+
+
+.tituloCarousel{
+    font-size: 50px;
+    margin-bottom: 50px;
+    margin-top: 60px;
+}
+
+@media only screen and (max-width: 767px) {
+    .tituloCarousel {
+      font-size: 25px;
+    }
+  }
+
+
+
+.BackTesti {
+    background-color: #B0C4DE;
+    border: 1px solid black;
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .UsuarioLog {
+    background-color: #EBA487;
+    border: 1px solid black;
+    width: 40%;
+    height: 100px;
+    margin: 30px;
+  }
+  
+  @media (min-width: 768px) {
+    .BackTesti {
+      margin-top: 50px;
+    }
+  }
+  
+.bordesito{
+    border: solid 1px black;
+    margin-top: 50px;
+}
+  
+
+.contenido{
+    margin: 30px;
+    
 }
