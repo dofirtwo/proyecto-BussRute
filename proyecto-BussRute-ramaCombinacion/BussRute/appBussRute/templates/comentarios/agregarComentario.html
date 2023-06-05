@@ -1,0 +1,65 @@
+{% extends "index.html" %}
+{% block encabezado %}
+{% include "encabezado.html" %}
+{% endblock %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock %}
+{% block contenido %}
+<section class="agregarComentarios">
+  <div class="agregarComentarioHeader">
+    <h1>Agregar Comentario</h1>
+    <span>Cuentanos tu opinión sobre nuestro sitio.</span>
+  </div>
+  <!-- Formulario para agregar comentarios -->
+  <div class="agregarComentarioContenedor">
+    <form class="needs-validation" action="/agregarComentario/" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="">
+        <div class="col">
+          <div class="">
+            <label for="txtNombre" class="form-label">Nombre</label>
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="inputGroupPrepend">@</span>
+              <input type="text" class="form-control" id="txtNombre" name="txtNombre"
+                aria-describedby="inputGroupPrepend" required>
+              <div class="invalid-feedback">
+                Porfavor ingrese un nombre.
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="col">
+          <div class="col">
+            <label for="txtComentario" class="form-label">Comentario: </label>
+            <input type="text" class="form-control" id="txtComentario" name="txtComentario" required>
+            <div class="invalid-feedback">
+              Porfavor ingresar un comentario valido.
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="col-12">
+        <button class="btn btn-custom" type="submit">Enviar Comentario</button>
+        <a href="/comentarios/"><button class="btn btn-opuesto" name="regresar"
+            onclick="disableValidation()">Regresar</button></a>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  function disableValidation() {
+    var inputs = document.querySelectorAll('.needs-validation input');
+    inputs.forEach(function (input) {
+      input.removeAttribute('required');
+    });
+  }
+</script>
+
+{% endblock %}
+{% block piePagina %}
+{% include "piePagina.html" %}
+{% endblock %}
