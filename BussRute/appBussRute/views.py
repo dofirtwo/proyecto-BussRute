@@ -6,6 +6,9 @@ from appBussRute.models import Comentario
 def inicio(request):
     return render(request,"inicio.html")
 
+def crearCuenta(request):
+    return render(request,"crearCuenta.html")
+
 def visualizarRutas(request):
     return render(request, "usuario/inicio.html")
 def comentarios(request):
