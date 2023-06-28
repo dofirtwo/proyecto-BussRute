@@ -8,7 +8,7 @@
 {% block contenido %}
 <br>
     <form action="">
-        <div class="principal" style="width: 100%;">                         
+        <div class="principal mx-3">                         
             <div class="form-group row mt-2">
                 <div class="mb-3 col-lg-6">
                     <div id="map">
@@ -21,7 +21,7 @@
                         </div>
                         <div class="mb-3 col-lg-2">
                             <div class="dropdown dropend">
-                                <a style="color: #00A99D;" class="dropdown-toggle" data-bs-toggle="dropdown">Barrio</a>
+                                <a style="color: #00A99D; text-decoration: none;" class="dropdown-toggle" data-bs-toggle="dropdown">Barrio</a>
                                 <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Diego de Ospina</a></li>
                                 <li><a class="dropdown-item" href="#">Puertas del Sol</a></li>
@@ -31,7 +31,7 @@
                         </div>
                         <div class="mb-3 col-lg-2">
                             <div class="dropdown dropend">
-                                <a style="color: #00A99D;" class="dropdown-toggle" data-bs-toggle="dropdown">Comuna</a>
+                                <a style="color: #00A99D;  text-decoration: none;" class="dropdown-toggle" data-bs-toggle="dropdown">Comuna</a>
                                 <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Comuna 4</a></li>
                                 <li><a class="dropdown-item" href="#">Comuna 5</a></li>
@@ -41,7 +41,7 @@
                         </div>
                         <div class="mb-3 col-lg-2">
                             <div class="dropdown dropend">
-                                <a style="color: #00A99D;" class="dropdown-toggle" data-bs-toggle="dropdown">Sitios Reconocibles</a>
+                                <a style="color: #00A99D;  text-decoration: none;" class="dropdown-toggle" data-bs-toggle="dropdown">Sitios Reconocibles</a>
                                 <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Comuneros</a></li>
                                 <li><a class="dropdown-item" href="#">San Pedro Plaza</a></li>
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="input-group rounded">
-                        <select id="site-select" class="form-select" style="background-color: #F5F5E8">
+                        <select id="" class="form-select" style="background-color: #F5F5E8">
                             <option value="0">Seleccione</option>
                             <option value="Ruta7">Ruta 7</option>
                             <option value="Ruta19">Ruta 19</option>
@@ -90,19 +90,81 @@
                         </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="mb-1 col-lg-2">
+            <div class="form-group row ">
+                <div class=" col-lg-2">
                     <button class="btn btn-custom">Guardar Ruta</button>
                 </div>
-                <div class="mb-1 col-lg-2">
-                    <button class="btn btn-custom">Comentar</button>
+                <div class=" col-lg-2">
+                    <button type="button" onclick="redirigir()" class="btn btn-custom">Comentar</button>
                 </div>
-                <div class="mb-1 col-lg-2">
-                    <button class="btn btn-custom">Añadir a Favoritos</button>
+                <div class=" col-lg-2">
+                    <button type="button"  class="btn btn-custom" data-toggle="modal" data-target="#exampleModal">Añadir a Favoritos</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: #87CEEB;">
+                                    <h5 class="modal-title" id="exampleModalLabel">Rutas Favoritas <i class="fa-solid fa-star" style="color: #d2cd37;"></i></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <section  class="testimonios">
+                                        <div class="form-group row testimonios_contenedor">
+                                            <div class="mb-1 col-lg-6 comentarios_clientes">
+                                                Ruta: 7
+                                                <br>
+                                                Empresa: Coomotor
+                                            </div>
+                                            <div class="mb-1 col-lg-3 justify-content-end">
+                                                <button class="btn btn-custom">Visualizar</button>
+                                            </div>
+                                            <div class="mb-1 col-lg-3 justify-content-end">
+                                                <button class="btn btn-opuesto">Eliminar</button>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group row testimonios_contenedor">
+                                            <div class="mb-1 col-lg-6 comentarios_clientes">
+                                                Rutas 19
+                                                <br>
+                                                Empresa: FlotaHuila
+                                            </div>
+                                            <div class="mb-1 col-lg-3 justify-content-end">
+                                                <button class="btn btn-custom">Visualizar</button>
+                                            </div>
+                                            <div class="mb-1 col-lg-3 justify-content-end">
+                                                <button class="btn btn-opuesto">Eliminar</button>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group row testimonios_contenedor">
+                                            <div class="mb-1 col-lg-6 comentarios_clientes">
+                                                Ruta: 19
+                                                <br>
+                                                Empresa: FlotaHuila
+                                            </div>
+                                            <div class="mb-1 col-lg-3 justify-content-end">
+                                                <button class="btn btn-custom">Visualizar</button>
+                                            </div>
+                                            <div class="mb-1 col-lg-3 justify-content-end">
+                                                <button class="btn btn-opuesto">Eliminar</button>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-opuesto" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </form>
+    <br>
     {% load static %}
     <script src="{%static '../static/js/mapa.js'%}"></script>
 {% endblock %}

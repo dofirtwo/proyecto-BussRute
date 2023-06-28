@@ -24,4 +24,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('inicio/',views.inicio),
     path('visualizarRutas/',views.visualizarRutas),
+    path('comentarios/', views.comentarios),
+    path('agregarComentario/', views.agregarComentario),
+    path('inicioSesion/',views.inicioSesion),
+    path('vistaRegistrarRuta/',views.vistaRegistrarRuta),
+    path('registrarCuenta/', views.crearCuenta),
+    path('registroRuta/', views.registroRuta)
 ]
