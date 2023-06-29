@@ -1,28 +1,33 @@
 /* CSS DE VARGAS */
-#map { 
+#map {
     height: 500px;
 }
 
-.btn-opuesto{
+.btn-opuesto {
     background-color: #EBA487;
-    color : #151515;
+    color: #151515;
 }
 
 .btn-custom {
-    background-color: #87CEEB; /* Color rojo personalizado */
+    background-color: #87CEEB;
+    /* Color rojo personalizado */
     /* Otras propiedades de estilo opcionales */
-    color : #151515;/* Color de texto */
+    color: #151515;
+    /* Color de texto */
     /* ... */
-  }
-label{
-   color: #151515;
 }
-input{
+
+label {
     color: #151515;
 }
+
+input {
+    color: #151515;
+}
+
 /* CSS DE CASTAÑEDA */
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -36,7 +41,7 @@ input{
     width: 100%;
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -60,7 +65,7 @@ input{
 }
 
 .testimonios_header h2 {
-    font-size: 2,9rem;
+    font-size: 2, 9rem;
     font-weight: 500;
     background-color: #87CEEB;
     color: #151515;
@@ -93,7 +98,7 @@ input{
     margin-right: 30px;
 }
 
-.perfil-img img{
+.perfil-img img {
     width: 100%;
     height: 100%;
     object-fit: center;
@@ -149,7 +154,7 @@ input{
 }
 
 .agregarComentarioHeader h1 {
-    font-size: 2,9rem;
+    font-size: 2, 9rem;
     font-weight: 500;
     background-color: #87CEEB;
     color: #151515;
@@ -183,9 +188,12 @@ Logo Dell: https://worldvectorlogo.com/logo/dell-1
 
 :root {
     --dark: #ECEFF1;
-    --dark-x: #F5F5E8; 
+    --dark-x: #F5F5E8;
     --light: #151515;
-    ::placeholder { color: black; }
+
+    ::placeholder {
+        color: black;
+    }
 }
 
 body {
@@ -195,9 +203,17 @@ body {
     color: var(--light);
 }
 
-.text-light { color: var(--light) }
-.bg-dark { background-color: var(--dark) !important; }
-.bg-dark-x { background-color: var(--dark-x); }
+.text-light {
+    color: var(--light) !important
+}
+
+.bg-dark {
+    background-color: var(--dark) !important;
+}
+
+.bg-dark-x {
+    background-color: var(--dark-x);
+}
 
 .btn {
     min-height: 3.125rem;
@@ -208,6 +224,7 @@ body {
     min-height: 3.125rem;
     line-height: initial;
 }
+
 .form-control:focus {
     background-color: var(--dark-x);
     outline: none;
@@ -230,6 +247,7 @@ body {
     background-size: cover;
     background-position: center;
 }
+
 .img-4 {
     background-image: url('../img/Cootranshuila.jpg');
     background-size: cover;
@@ -242,26 +260,28 @@ body {
     background-position: center;
 }
 
-.logoMenu{
+.logoMenu {
     width: 25%;
 }
-.logo{
+
+.logo {
     width: 50%;
 }
-.logo1{
+
+.logo1 {
     width: 20%;
 }
 
 /* CSS DE ARIADNA */
 
-.imagen{
+.imagen {
     background-color: #B0C4DE;
     width: 80%;
     height: 300px;
 }
 
 
-.circulo{
+.circulo {
     background-color: #00A99D;
     border-radius: 50%;
     width: 70%;
@@ -269,7 +289,7 @@ body {
     max-height: 300px;
     margin: auto;
 }
- 
+
 @media (max-width: 767px) {
     .clasexd {
         margin-left: 0;
@@ -290,7 +310,7 @@ body {
     width: 100%;
     margin: 0 auto;
 }
-  
+
 @media (min-width: 768px) {
     .carousel-img {
         width: 50%;
@@ -298,7 +318,7 @@ body {
 }
 
 
-.tituloCarousel{
+.tituloCarousel {
     font-size: 50px;
     margin-bottom: 50px;
     margin-top: 60px;
@@ -306,9 +326,9 @@ body {
 
 @media only screen and (max-width: 767px) {
     .tituloCarousel {
-      font-size: 25px;
+        font-size: 25px;
     }
-  }
+}
 
 
 
@@ -317,29 +337,49 @@ body {
     border: 1px solid black;
     text-align: center;
     margin-top: 30px;
-  }
-  
-  .UsuarioLog {
+}
+
+.UsuarioLog {
     background-color: #EBA487;
     border: 1px solid black;
     width: 40%;
     height: 100px;
     margin: 30px;
-  }
-  
-  @media (min-width: 768px) {
+}
+
+@media (min-width: 768px) {
     .BackTesti {
-      margin-top: 50px;
+        margin-top: 50px;
     }
-  }
-  
-.bordesito{
+}
+
+.bordesito {
     border: solid 1px black;
     margin-top: 50px;
 }
-  
 
-.contenido{
+
+.contenido {
     margin: 30px;
-    
+
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: -130px;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0.125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: .25rem;
 }

@@ -51,31 +51,43 @@
         </div>
         <div class="col-lg-5 bg-dark d-flex flex-column align-items-end min-vh-100">
             <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 mb-auto w-100 col-2 text-center">
-                <img src="../static/img/Logo Aplicacion1.png" class="img-fluid logo"/>          
+                <img src="../static/img/Logo Aplicacion1.png" class="img-fluid logo" />
             </div>
             <div class="align-self-center w-100 px-lg-5 py-lg-4 p-4">
                 <h1 class="text-center font-weight-bold mb-4">Bienvenido de vuelta</h1>
-                <form class="mb-5">
+                <form class="mb-5" action="/iniciarSesion/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div class="mb-4">
-                        <label for="exampleInputEmail1" class="form-label font-weight-bold">Email</label>
-                        <input type="email" class="form-control bg-dark-x border-0 text-light" id="exampleInputEmail1"
-                            placeholder="Ingresa tu email" aria-describedby="emailHelp">
+                        <label for="exampleEmail" class="form-label font-weight-bold">Correo</label>
+                        <input type="email" class="form-control border-0 text-light" id="correoUsuarioInicio"
+                            placeholder="Ingresa un email" name="correoUsuarioInicio">
                     </div>
                     <div class="mb-4">
-                        <label for="exampleInputPassword1" class="form-label font-weight-bold">Contraseña</label>
-                        <input type="password" class="form-control bg-dark-x border-0 mb-2 text-light"
-                            placeholder="Ingresa tu contraseña" id="exampleInputPassword1">
-                        <a href="" id="emailHelp" class="font-weight-bold text-decoration-none"
-                            style="color: black;">¿Has olvidado tu contraseña?</a>
+                        <label for="examplePassword" class="form-label font-weight-bold">Contraseña</label>
+                        <input type="password" class="form-control border-0 mb-2 text-light"
+                            placeholder="Ingresa una contraseña" id="passwordUsuarioInicio" name="passwordUsuarioInicio">
                     </div>
-                    <button type="submit" class="btn btn-custom w-100 bg-dark-y">Iniciar sesión</button>
+                    <button  class="btn btn-custom w-100 bg-dark-y">Iniciar sesión</button>
                 </form>
+                <div>
+                    {% if mensaje %}
+                        {% if estado %}
+                            <script>
+                                Swal.fire('Cuenta', '{{mensaje}}', 'success')
+                            </script>
+                    {% else %}
+                            <script>
+                                Swal.fire('Cuenta', '{{mensaje}}', 'error')
+                            </script>
+                        {% endif %}
+                    {% endif %}
+                </div>
 
                 <p class="font-weight-bold text-center text-muted">O inicia sesión con</p>
                 <div class="d-flex justify-content-around">
                     <button type="button" class="btn btn-outline-danger flex-grow-1 mr-2"><i
                             class="fab fa-google lead mr-2"></i> Google</button>
-                    <button type="button" class="btn btn-outline-primary flex-grow-1 ml-2"><i
+                    <button id="login" type="button" class="btn btn-outline-primary flex-grow-1 ml-2"><i
                             class="fab fa-facebook-f lead mr-2"></i> Facebook</button>
                 </div>
             </div>
@@ -83,13 +95,23 @@
                 <img src="../static/img/Logo Empresa1.png" class="img-fluid logo1">
             </div>
             <div class="text-center px-lg-5 pt-lg-3 pb-lg-4 p-4 mt-auto w-100">
-                <p class="d-inline-block mb-0">¿Todavia no tienes una cuenta?</p> <a href="/registrarCuenta/"
-                    class="font-weight-bold text-decoration-none" style="color: black;" >Crea una ahora</a>
+                <p class="d-inline-block mb-0">¿Todavia no tienes una cuenta?</p> <a href="/vistaRegistrarCuenta/"
+                    class="font-weight-bold text-decoration-none" style="color: black;">Crea una ahora</a>
             </div>
         </div>
     </div>
 </section>
-<br>
+<!-- <script>
+    // Load the SDK asynchronously
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<br> -->
 {% endblock %}
 {% block pie_pagina %}
 {% include "pie_pagina.html" %}

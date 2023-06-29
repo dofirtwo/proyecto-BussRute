@@ -51,6 +51,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+
 ROOT_URLCONF = 'BussRute.urls'
 
 TEMPLATES = [
@@ -127,3 +132,9 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+FACEBOOK_APP_ID = '784661986686095'
+FACEBOOK_APP_SECRET = 'dbeff57584b6b1cdb3c588172e5fa81a'
+
+APPEND_SLASH = False

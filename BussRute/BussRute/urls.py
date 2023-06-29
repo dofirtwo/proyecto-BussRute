@@ -19,14 +19,19 @@ from django.urls import path
 from appBussRute import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('inicio/',views.inicio),
+    path('', RedirectView.as_view(url='/inicio/')),
     path('visualizarRutas/',views.visualizarRutas),
     path('comentarios/', views.comentarios),
     path('agregarComentario/', views.agregarComentario),
     path('inicioSesion/',views.inicioSesion),
     path('vistaRegistrarRuta/',views.vistaRegistrarRuta),
-    path('registrarCuenta/', views.crearCuenta)
+    path('vistaRegistrarCuenta/', views.crearCuenta),
+    path('registrarCuenta/',views.registrarseUsuario),
+    path('iniciarSesion/', views.iniciarSesion),
+    path('cerrarSesion/', views.cerrarSesion),
 ]

@@ -6,35 +6,56 @@
 {% include "menu.html" %}
 {% endblock %}
 {% block contenido %}
-<section>
-    <div class="row g-0 justify-content-center">
-        <div class="col-lg-5 bg-dark d-flex flex-column align-items-end min-vh-100">
-            <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 mb-auto w-100 col-2 text-center">
-                <img src="../static/img/Logo Aplicacion1.png" class="img-fluid logo"/>          
+<div class="row g-0 justify-content-center">
+    <div class="col-lg-5 bg-dark d-flex flex-column align-items-end min-vh-100">
+        <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 mb-auto w-100 col-2 text-center">
+            <img src="../static/img/Logo Aplicacion1.png" class="img-fluid logo" />
+        </div>
+        <div class="align-self-center w-100 px-lg-5 py-lg-4 p-4">
+            <h1 class="text-center font-weight-bold mb-4">Registrar cuenta</h1>
+            <form action="/registrarCuenta/" class="mb-5" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="exampleNombre" class="form-label font-weight-bold">Nombre Usuario</label>
+                    <input type="text" class="form-control border-0 text-light" id="nombreUsuario"
+                        placeholder="Ingresa un nombre usuario" name="nombreUsuario">
+                </div>
+                <div class="mb-4">
+                    <label for="exampleEmail" class="form-label font-weight-bold">Correo</label>
+                    <input type="email" class="form-control border-0 text-light" id="correoUsuario"
+                        placeholder="Ingresa un email" name="correoUsuario">
+                </div>
+                <div class="mb-4">
+                    <label for="examplePassword" class="form-label font-weight-bold">Contraseña</label>
+                    <input type="password" class="form-control border-0 mb-2 text-light"
+                        placeholder="Ingresa una contraseña" id="passwordUsuario" name="passwordUsuario">
+                </div>
+                <button class="btn btn-custom w-100 bg-dark-y">Crear cuenta</button>
+            </form>
+            <div>
+                {% if mensaje %}
+                    {% if estado %}
+                        <script>
+                            Swal.fire('Cuenta', '{{mensaje}}', 'success').then(function() {
+                                setTimeout(function() {
+                                    window.location.href = '/inicio/';
+                                }, 1000);
+                            });
+                        </script>
+                    {% else %}
+                        <script>
+                            Swal.fire('Cuenta', '{{mensaje}}', 'error');
+                        </script>
+                    {% endif %}
+                {% endif %}
             </div>
-            <div class="align-self-center w-100 px-lg-5 py-lg-4 p-4">
-                <h1 class="text-center font-weight-bold mb-4">Registrar cuenta</h1>
-                <form class="mb-5">
-                    <div class="mb-4">
-                        <label for="exampleInputEmail1" class="form-label font-weight-bold">Email</label>
-                        <input type="email" class="form-control bg-dark-x border-0 text-light" id="exampleInputEmail1"
-                            placeholder="Ingresa tu email" aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-4">
-                        <label for="exampleInputPassword1" class="form-label font-weight-bold">Contraseña</label>
-                        <input type="password" class="form-control bg-dark-x border-0 mb-2 text-light"
-                            placeholder="Ingresa tu contraseña" id="exampleInputPassword1">
-                    </div>
-                    <button type="submit" class="btn btn-custom w-100 bg-dark-y">Crear cuenta</button>
-                </form>
-            </div>
-            <div class="text-center">
-                <img src="../static/img/Logo Empresa1.png" class="img-fluid logo1">
-            </div>
+            
+        </div>
+        <div class="text-center">
+            <img src="../static/img/Logo Empresa1.png" class="img-fluid logo1">
         </div>
     </div>
-</section>
-<br>
+</div>
 {% endblock %}
 {% block pie_pagina %}
 {% include "pie_pagina.html" %}
