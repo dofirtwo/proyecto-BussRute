@@ -372,14 +372,32 @@ body {
     display: none;
     float: left;
     min-width: 10rem;
-    padding: 0.5rem 0;
+    padding: 1rem;
     margin: 0.125rem 0 0;
     font-size: 1rem;
-    color: #212529;
+    color: #333;
     text-align: left;
     list-style: none;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, .15);
-    border-radius: .25rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+    margin-bottom: 10px;
+}
+
+.user-info span {
+    font-weight: bold;
+}
+
+.dropdown-item {
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
 }

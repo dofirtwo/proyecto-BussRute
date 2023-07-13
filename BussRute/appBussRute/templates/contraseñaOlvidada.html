@@ -12,25 +12,15 @@
             <img src="../static/img/Logo Aplicacion1.png" class="img-fluid logo" />
         </div>
         <div class="align-self-center w-100 px-lg-5 py-lg-4 p-4">
-            <h1 class="text-center font-weight-bold mb-4">Registrar cuenta</h1>
-            <form action="/registrarCuenta/" class="mb-5" method="POST" enctype="multipart/form-data">
+            <h1 class="text-center font-weight-bold mb-4">Cambiar Contraseña</h1>
+            <form action="/enviarCambioContraseña/" class="mb-5" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="mb-4">
-                    <label for="exampleNombre" class="form-label font-weight-bold">Nombre Usuario</label>
-                    <input type="text" class="form-control border-0 text-light" id="nombreUsuario"
-                        placeholder="Ingresa un nombre usuario" name="nombreUsuario">
-                </div>
-                <div class="mb-4">
                     <label for="exampleEmail" class="form-label font-weight-bold">Correo</label>
-                    <input type="email" class="form-control border-0 text-light" id="correoUsuario"
-                        placeholder="Ingresa un email" name="correoUsuario">
+                    <input type="email" class="form-control border-0 text-light" id="recuCorreo"
+                        placeholder="Ingresa el email" name="recuCorreo">
                 </div>
-                <div class="mb-4">
-                    <label for="examplePassword" class="form-label font-weight-bold">Contraseña</label>
-                    <input type="password" class="form-control border-0 mb-2 text-light"
-                        placeholder="Ingresa una contraseña" id="passwordUsuario" name="passwordUsuario">
-                </div>
-                <button class="btn btn-custom w-100 bg-dark-y">Crear cuenta</button>
+                <button class="btn btn-primary w-100 bg-dark-y">Enviar Correo</button>
             </form>
             <div>
                 {% if mensaje %}
@@ -38,7 +28,7 @@
                         <script>
                             Swal.fire('Cuenta', '{{mensaje}}', 'success').then(function() {
                                 setTimeout(function() {
-                                    window.location.href = '/inicio/';
+                                    window.location.href = '/inicioSesion/';
                                 }, 1000);
                             });
                         </script>
@@ -49,6 +39,7 @@
                     {% endif %}
                 {% endif %}
             </div>
+            
         </div>
     </div>
 </div>

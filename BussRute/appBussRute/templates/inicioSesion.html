@@ -63,23 +63,31 @@
                             placeholder="Ingresa un email" name="correoUsuarioInicio">
                     </div>
                     <div class="mb-4">
-                        <label for="examplePassword" class="form-label font-weight-bold">Contraseña</label>
-                        <input type="password" class="form-control border-0 mb-2 text-light"
-                            placeholder="Ingresa una contraseña" id="passwordUsuarioInicio" name="passwordUsuarioInicio">
+                        <label for="passwordUsuarioInicio" class="form-label font-weight-bold">Contraseña</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control border-0 mb-2 text-light"
+                                placeholder="Ingresa una contraseña" id="passwordUsuario" name="passwordUsuarioInicio">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="mostrarContraseña"><i
+                                        class="fas fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <a href="/vistaEnvioCorreo/" id="emailHelp"
+                            class="form-text text-muted text-decoration-none">¿Has olvidado tu contraseña?</a>
                     </div>
-                    <button  class="btn btn-custom w-100 bg-dark-y">Iniciar sesión</button>
+                    <button class="btn btn-primary w-100 bg-dark-y">Iniciar sesión</button>
                 </form>
                 <div>
                     {% if mensaje %}
-                        {% if estado %}
-                            <script>
-                                Swal.fire('Cuenta', '{{mensaje}}', 'success')
-                            </script>
+                    {% if estado %}
+                    <script>
+                        Swal.fire('Cuenta', '{{mensaje}}', 'success')
+                    </script>
                     {% else %}
-                            <script>
-                                Swal.fire('Cuenta', '{{mensaje}}', 'error')
-                            </script>
-                        {% endif %}
+                    <script>
+                        Swal.fire('Cuenta', '{{mensaje}}', 'error')
+                    </script>
+                    {% endif %}
                     {% endif %}
                 </div>
 
@@ -91,9 +99,6 @@
                             class="fab fa-facebook-f lead mr-2"></i> Facebook</button>
                 </div>
             </div>
-            <div class="text-center">
-                <img src="../static/img/Logo Empresa1.png" class="img-fluid logo1">
-            </div>
             <div class="text-center px-lg-5 pt-lg-3 pb-lg-4 p-4 mt-auto w-100">
                 <p class="d-inline-block mb-0">¿Todavia no tienes una cuenta?</p> <a href="/vistaRegistrarCuenta/"
                     class="font-weight-bold text-decoration-none" style="color: black;">Crea una ahora</a>
@@ -101,17 +106,17 @@
         </div>
     </div>
 </section>
-<!-- <script>
-    // Load the SDK asynchronously
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+<script>
+        // Load the SDK asynchronously
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
 </script>
-<br> -->
+<br>
 {% endblock %}
 {% block pie_pagina %}
 {% include "pie_pagina.html" %}

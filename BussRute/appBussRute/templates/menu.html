@@ -16,28 +16,22 @@
         <li class="nav-item">
           <a class="nav-link">Contacto</a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="/inicioSesion/"><i class="fa-regular fa-user" style="color: #00a99d;"></i></a>
-        </li> -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="/inicioSesion/" id="navbarDropdown" role="button"
             data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-regular fa-user" style="color: #00a99d;"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <!-- Agregar información del usuario y botón para cerrar sesión -->
             {% if usuario %}
-            <span>Usuario: {{ usuario.usuNombre }}</span>
+            <div class="user-info">
+              <span>Usuario: {{ usuario.usuNombre }}</span>
+            </div>
             <a class="dropdown-item" href="/cerrarSesion/">Cerrar sesión</a>
             {% else %}
             <a class="dropdown-item" href="/inicioSesion/">Iniciar sesión</a>
             {% endif %}
           </div>
         </li>
-
-
-
-
       </ul>
     </div>
   </div>

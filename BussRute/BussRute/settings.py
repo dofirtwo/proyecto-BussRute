@@ -134,7 +134,12 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-FACEBOOK_APP_ID = '784661986686095'
-FACEBOOK_APP_SECRET = 'dbeff57584b6b1cdb3c588172e5fa81a'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "bussrutebitcode@gmail.com"
+EMAIL_HOST_PASSWORD = "acxeoaxkbnekylmt"
+EMAIL_USE_TLS = True
+# FACEBOOK_APP_ID = '784661986686095'
+# FACEBOOK_APP_SECRET = 'dbeff57584b6b1cdb3c588172e5fa81a'
 
 APPEND_SLASH = False

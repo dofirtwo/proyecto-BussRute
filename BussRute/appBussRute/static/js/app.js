@@ -104,3 +104,18 @@ $(document).ready(function() {
       $('.dropdown-menu').toggle();
   });
 });
+
+function visualizarContraseña(inputId) {
+  const mostrarContraseña = document.querySelector('#mostrarContraseña');
+  const passwordInput = document.querySelector(`#${inputId}`);
+
+  mostrarContraseña.addEventListener('click', function (e) {
+      // Cambiar el tipo de entrada del campo de contraseña
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      // Cambiar el icono del botón
+      this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+  });
+}
+visualizarContraseña('passwordUsuario');
+visualizarContraseña('pasNuevaContraseña');

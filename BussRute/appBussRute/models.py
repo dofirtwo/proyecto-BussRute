@@ -14,6 +14,7 @@ class Usuario(models.Model):
     usuNombre = models.CharField(max_length=21)
     usuCorreo = models.CharField(max_length=50)
     usuPassword = models.CharField(max_length=128)  # Almacenar la contraseña en un campo de longitud suficiente
+    usuTokenCambioContraseña = models.CharField(max_length=50, null=True, blank=True)
     usuRol = models.ForeignKey(Rol, on_delete=models.PROTECT, null=True)
     fechaHoraCreacion = models.DateTimeField(auto_now_add=True)
     fechaHoraActualizacion = models.DateTimeField(auto_now=True)
