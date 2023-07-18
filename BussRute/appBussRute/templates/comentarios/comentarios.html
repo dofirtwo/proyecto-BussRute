@@ -21,7 +21,7 @@
         <div class="perfil">
           <!-- Nombre y Usuario -->
           <div class="name-user">
-            <strong>{{ comentario.nombre }}</strong>
+            <strong>{{ comentario.comUsuario.usuNombre}}</strong>
           </div>
         </div>
         <!-- Reseñas -->
@@ -35,7 +35,7 @@
       </div>
       <!-- Comentarios -->
       <div class="comentarios_clientes">
-        <p>{{ comentario.comentario }}</p>
+        <p>{{ comentario.comDescripcion }}</p>
       </div>
     </div>
     {% endfor %}

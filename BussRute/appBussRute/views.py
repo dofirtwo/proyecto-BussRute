@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from .models import Comentario
+from django import forms
 from django.db import Error, transaction
 from appBussRute.models import *
 from django.contrib.auth.models import *
@@ -9,9 +11,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from smtplib import SMTPException
 from datetime import datetime, timedelta, timezone
-from google.oauth2 import id_token  
+from google.oauth2 import id_token
 import secrets
-
 
 
 # Create your views here.
@@ -22,8 +23,10 @@ def inicio(request):
         usuario = Usuario.objects.get(id=usuario_id)
     return render(request, 'inicio.html', {'usuario': usuario})
 
+
 def crearCuenta(request):
-    return render(request,"crearCuenta.html")
+    return render(request, "crearCuenta.html")
+
 
 def visualizarRutas(request):
     usuario_id = request.session.get('usuario_id')
@@ -34,104 +37,136 @@ def visualizarRutas(request):
 
     return render(request, "usuario/inicio.html", {'usuario': usuario})
 
+
 def comentarios(request):
     usuario_id = request.session.get('usuario_id')
     usuario = None
 
     if usuario_id:
         usuario = Usuario.objects.get(id=usuario_id)
+
     comentarios = Comentario.objects.all()
-    return render(request, 'comentarios/comentarios.html', {'comentarios': comentarios}, {'usuario': usuario})
+
+    context = {
+        'comentarios': comentarios,
+        'usuario': usuario
+    }
+    return render(request, 'comentarios/comentarios.html', context)
+
+
+class ComentarioForm(forms.Form):
+    txtNombre = forms.CharField(max_length=100)
+    txtComentario = forms.CharField(widget=forms.Textarea)
+    nombre_usuario = forms.CharField(widget=forms.HiddenInput)
+
 
 def agregarComentario(request):
-    usuario_id = request.session.get('usuario_id')
-    usuario = None
-
-    if usuario_id:
-        usuario = Usuario.objects.get(id=usuario_id)
-    if request.method == 'POST':
-        if 'regresar' in request.POST:
-            return redirect('/comentarios/')
+        usuario_id = request.session.get('usuario_id')
+        usuario = None
+        if usuario_id:
+            usuario = Usuario.objects.get(id=usuario_id)
+            
+        if request.method == 'POST':
+            if 'regresar' in request.POST:
+                return redirect('/comentarios/')
+            else:
+                form = ComentarioForm(request.POST)
+                if form.is_valid():
+                    comentario = request.POST.get['txtComentario']
+                     
+                 # Creamos un objeto de tipo comentario
+                nombre = request.POST.get("txtNombre")
+                comentario = request.POST.get("txtComentario")
+                
+                try:
+                    with transaction.atomic():
+                        contenidoComentario = Comentario(comDescripcion=comentario, comUsuario_id=usuario_id)
+                        contenidoComentario.save()
+                        mensaje = "Comentario registrado correctamente"
+                        retorno = {"mensaje": mensaje}
+                        return redirect("/comentarios/", retorno)
+                except Error as error:
+                    transaction.rollback()
+                    mensaje = f"{error}"
+                    retorno = {"mensaje": mensaje,
+                                "comentario": contenidoComentario}
+                    return render(request, 'comentarios/agregarComentario.html', retorno)
         else:
-            # Creamos un objeto de tipo comentario
-            nombre = request.POST.get("txtNombre")
-            comentario = request.POST.get("txtComentario")
-            try:
+            # initial_data = {'txtNombre': request.user.username}
+            # Obtener el nombre de usuario actual
+            nombre_usuario = usuario.usuNombre if usuario else ''
+            form = ComentarioForm(initial={'txtNombre': nombre_usuario})
+            context = {'form': form, 'usuario': usuario}
+            return render(request, 'comentarios/agregarComentario.html', context)
 
-                with transaction.atomic():
-                    contenidoComentario = Comentario(nombre=nombre,
-                                             comDescripcion=comentario)
-                    contenidoComentario.save()
-                    mensaje = "Comentario registrado correctamente"
-                    retorno = {"mensaje": mensaje}
-                    return redirect("/comentarios/", retorno)
-            except Error as error:
-                transaction.rollback()
-                mensaje = f"{error}"
-                retorno = {"mensaje": mensaje, "comentario": contenidoComentario}
-                return render(request, 'comentarios/agregarComentario.html')
-    else:
-        return render(request,'comentarios/agregarComentario.html', {'usuario': usuario})
-    
+
+
+
 def inicioSesion(request):
     mensajeError = request.session.pop('mensajeError', None)
     return render(request, 'inicioSesion.html', {'mensaje': mensajeError})
 
+
 def vistaRegistrarRuta(request):
-    return render(request,"admin/frmRegistrarRuta.html")
+    return render(request, "admin/frmRegistrarRuta.html")
+
 
 def registrarseUsuario(request):
     try:
         nombreUsu = request.POST["nombreUsuario"]
         email = request.POST["correoUsuario"].lower()
         contraseña = request.POST["passwordUsuario"]
-        
+
         # Verificar si el correo electrónico ya está registrado
         if Usuario.objects.filter(usuCorreo=email).exists():
             mensaje = "Este correo ya se encuentra registrado."
             retorno = {"mensaje": mensaje, "estado": False}
             return render(request, "crearCuenta.html", retorno)
-            
+
         with transaction.atomic():
             # Buscar el rol "Usuario"
             rolUsuario = Rol.objects.get(id=2)
-            
-            user = Usuario(usuNombre=nombreUsu, usuCorreo=email, usuRol=rolUsuario)
-            user.set_password(contraseña)  # Almacenar la contraseña de forma segura
+
+            user = Usuario(usuNombre=nombreUsu,
+                           usuCorreo=email, usuRol=rolUsuario)
+            # Almacenar la contraseña de forma segura
+            user.set_password(contraseña)
             user.save()
             request.session['usuario_id'] = user.id
             mensaje = "Registrado correctamente"
             retorno = {"mensaje": mensaje, "estado": True}
             return render(request, "crearCuenta.html", retorno)
-            
+
     except Error as error:
         transaction.rollback()
         mensaje = f"{error}"
         retorno = {"mensaje": mensaje, "estado": False}
-    
+
     return render(request, "crearCuenta.html", retorno)
+
 
 def iniciarSesion(request):
     estado = False
     if request.method == 'POST':
         correo = request.POST['correoUsuarioInicio'].lower()
         contraseña = request.POST['passwordUsuarioInicio']
-        
+
         try:
             usuario = Usuario.objects.get(usuCorreo=correo)
             if usuario.check_password(contraseña):
                 # Las credenciales son válidas
                 request.session['usuario_id'] = usuario.id
                 estado = True
-                return redirect('/inicio/') 
+                return redirect('/inicio/')
             else:
                 mensaje = "La contraseña proporcionada es incorrecta."
         except ObjectDoesNotExist:
             mensaje = "No hay una cuenta vinculada con el correo proporcionado."
 
         return render(request, 'inicioSesion.html', {'mensaje': mensaje, 'estado': estado})
-    
+
     return render(request, 'inicioSesion.html', {'estado': estado})
+
 
 def cerrarSesion(request):
     try:
@@ -140,8 +175,10 @@ def cerrarSesion(request):
         pass
     return redirect('/inicioSesion/')
 
+
 def vistaEnvioCorreo(request):
-    return render(request,"contraseñaOlvidada.html")
+    return render(request, "contraseñaOlvidada.html")
+
 
 def enviarCorreo(asunto=None, mensaje=None, destinatario=None, request=None):
     remitente = settings.EMAIL_HOST_USER
@@ -153,12 +190,14 @@ def enviarCorreo(asunto=None, mensaje=None, destinatario=None, request=None):
         'remitente': remitente
     })
     try:
-        correo = EmailMultiAlternatives(asunto, mensaje, remitente, destinatario)
+        correo = EmailMultiAlternatives(
+            asunto, mensaje, remitente, destinatario)
         request.session['correo'] = destinatario[0]
         correo.attach_alternative(contenido, 'text/html')
         correo.send(fail_silently=True)
     except SMTPException as error:
         print(error)
+
 
 def enviarCambioContraseña(request):
     try:
@@ -167,8 +206,9 @@ def enviarCambioContraseña(request):
             if Usuario.objects.filter(usuCorreo=correo).exists():
                 usuario = Usuario.objects.get(usuCorreo=correo)
                 # Generar token único
-                token = secrets.token_hex(16)  # Genera un token hexadecimal de 16 bytes
-                
+                # Genera un token hexadecimal de 16 bytes
+                token = secrets.token_hex(16)
+
                 # Asignar el token al usuario
                 usuario.usuTokenCambioContraseña = token
                 usuario.save()
@@ -269,21 +309,22 @@ def enviarCambioContraseña(request):
                         </div>\
                     </div>\
                 </div>'
-                
+
                 thread = threading.Thread(target=enviarCorreo,
                                           args=(asunto, mensaje, [usuario.usuCorreo], request))
                 thread.start()
                 print(mensaje)
                 mensaje = f'Correo enviado correctamente'
-                retorno = {'mensaje':mensaje, 'estado':True}
+                retorno = {'mensaje': mensaje, 'estado': True}
                 return render(request, "contraseñaOlvidada.html", retorno)
             else:
                 mensaje = f'Correo no se encuentra registrado'
     except Error as error:
         transaction.rollback()
         mensaje = f"{error}"
-    retorno = {'mensaje':mensaje, 'estado':False}
+    retorno = {'mensaje': mensaje, 'estado': False}
     return render(request, "contraseñaOlvidada.html", retorno)
+
 
 def vistaCambioContraseña(request):
     if request.method == 'GET':
@@ -300,6 +341,7 @@ def vistaCambioContraseña(request):
     # Manejar el caso si se realiza una solicitud POST para cambiar la contraseña
     elif request.method == 'POST':
         return cambiarContraseña(request)
+
 
 def tokenValido(token):
     try:
@@ -324,6 +366,7 @@ def tokenValido(token):
     except Usuario.DoesNotExist:
         return False
 
+
 def cambiarContraseña(request):
     estado = False
     try:
@@ -331,12 +374,13 @@ def cambiarContraseña(request):
         correo = request.session.get('correo')
         usuario = Usuario.objects.get(usuCorreo=correo)
         usuario.set_password(contraNueva)
-        usuario.usuTokenCambioContraseña = None  # Limpiar el token después de cambiar la contraseña
+        # Limpiar el token después de cambiar la contraseña
+        usuario.usuTokenCambioContraseña = None
         usuario.save()
         estado = True
         mensaje = "Contraseña cambiada con éxito"
     except Error as error:
         mensaje = f"{error}"
-    
-    retorno = {"mensaje": mensaje, "estado": estado }
+
+    retorno = {"mensaje": mensaje, "estado": estado}
     return render(request, "cambiarContraseña.html", retorno)
