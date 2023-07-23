@@ -44,7 +44,7 @@
   <form action="/agregarComentario/" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button class="btn btn-custom" type="submit">Agregar Comentario</button>
+    <button type="button" id="btnComentar" onclick="redirigir()" class="btn btn-custom">Agregar Comentario</button>
   </form>
 </section>
 

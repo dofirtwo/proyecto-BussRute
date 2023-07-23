@@ -1,5 +1,6 @@
 function redirigir() {
   location.href = "/agregarComentario/"
+  
 }
 
 $(function () {
