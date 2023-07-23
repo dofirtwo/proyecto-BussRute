@@ -95,7 +95,7 @@
                     <button class="btn btn-custom">Guardar Ruta</button>
                 </div>
                 <div class="col-lg-2">
-                    <button type="button" id="btnComentar" onclick="redirigir()" class="btn btn-custom">Comentar<button>
+                    <button type="button" id="btnComentar" onclick="verificarSesion()" class="btn btn-custom">Comentar<button>
                 </div>
                 <div class=" col-lg-2">
                     <button type="button"  class="btn btn-custom" data-toggle="modal" data-target="#exampleModal">Añadir a Favoritos</button>
@@ -164,6 +164,23 @@
             </div>
         </div>
     </form>
+    <div>
+        {% if mensaje %}
+          {% if estado %}
+            <script>
+              Swal.fire('Cuenta', '{{mensaje}}', 'success').then(function () {
+                setTimeout(function () {
+                window.location.href = '/inicioSesion/';
+                }, 1000);
+              });
+            </script>
+        {% else %}
+            <script>
+                Swal.fire('Cuenta', '{{mensaje}}', 'error');
+            </script>
+          {% endif %}
+        {% endif %}
+      </div>
     <br>
     {% load static %}
     <script src="{%static '../static/js/mapa.js'%}"></script>

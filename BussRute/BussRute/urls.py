@@ -38,4 +38,5 @@ urlpatterns = [
     path('enviarCambioContraseña/',views.enviarCambioContraseña),
     path('vistaCambioContraseña/',views.vistaCambioContraseña),
     path('cambioContraseña/', views.cambiarContraseña),
+    path('verificarSesion/', views.verificarSesion, name='verificarSesion'),
 ]

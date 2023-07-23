@@ -12,8 +12,16 @@ from django.template.loader import get_template
 from smtplib import SMTPException
 from datetime import datetime, timedelta, timezone
 from google.oauth2 import id_token
+from django.http import JsonResponse
 import secrets
 
+
+def verificarSesion(request):
+    usuario_id = request.session.get('usuario_id')
+    if usuario_id:
+        return JsonResponse({'logueado': True})
+    else:
+        return JsonResponse({'logueado': False})
 
 # Create your views here.
 def inicio(request):
@@ -98,8 +106,6 @@ def agregarComentario(request):
             form = ComentarioForm(initial={'txtNombre': nombre_usuario})
             context = {'form': form, 'usuario': usuario}
             return render(request, 'comentarios/agregarComentario.html', context)
-
-
 
 
 def inicioSesion(request):

@@ -1,6 +1,28 @@
+function verificarSesion() {
+  $.ajax({
+    url: '/verificarSesion/',
+    method: 'GET',
+    success: function (data) {
+      console.log(data)
+      if (data.logueado) {
+        // Si el usuario está logueado, lo redirigimos al formulario de comentarios.
+        redirigir();
+      } else {
+        // Si el usuario no ha iniciado sesión, mostramos un mensaje de error.
+        Swal.fire('Cuenta', 'No se puede comentar. Debes iniciar sesión primero.', 'error').then(function () {
+          setTimeout(function () {
+            window.location.href = '/inicioSesion/';
+          }, 1000);
+        });;
+      }
+    }
+  });
+}
+
+
 function redirigir() {
   location.href = "/agregarComentario/"
-  
+
 }
 
 $(function () {
@@ -99,10 +121,10 @@ $(function () {
 
 })
 
-$(document).ready(function() {
-  $('#navbarDropdown').on('click', function(event) {
-      event.preventDefault();
-      $('.dropdown-menu').toggle();
+$(document).ready(function () {
+  $('#navbarDropdown').on('click', function (event) {
+    event.preventDefault();
+    $('.dropdown-menu').toggle();
   });
 });
 
@@ -111,11 +133,11 @@ function visualizarContraseña(inputId) {
   const passwordInput = document.querySelector(`#${inputId}`);
 
   mostrarContraseña.addEventListener('click', function (e) {
-      // Cambiar el tipo de entrada del campo de contraseña
-      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordInput.setAttribute('type', type);
-      // Cambiar el icono del botón
-      this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+    // Cambiar el tipo de entrada del campo de contraseña
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    // Cambiar el icono del botón
+    this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
   });
 }
 visualizarContraseña('passwordUsuario');
