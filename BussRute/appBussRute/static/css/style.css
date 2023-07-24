@@ -1,46 +1,13 @@
 /* CSS DE VARGAS */
-<<<<<<< HEAD
-#map {
-    height: 500px;
-}
-
-.btn-opuesto {
-    background-color: #EBA487;
-    color: #151515;
-}
-
-.btn-custom {
-    background-color: #87CEEB;
-    /* Color rojo personalizado */
-    /* Otras propiedades de estilo opcionales */
-    color: #151515;
-    /* Color de texto */
-    /* ... */
-}
-
-label {
-    color: #151515;
-}
-
-input {
-    color: #151515;
-}
-
-/* CSS DE CASTAÑEDA */
-
-* {
-=======
+/* CSS DE VARGAS */
 #map { 
     height: 500px;
 }
 
-<<<<<<< Updated upstream
-=======
 .custom-line [stroke] {
     stroke: green !important;
   }
 
->>>>>>> Stashed changes
 .btn-opuesto{
     background-color: #EBA487;
     color : #151515;
@@ -64,8 +31,7 @@ input{
 
 /* CSS DE CASTAÑEDA */
 
-*{
->>>>>>> ramaSantiago
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -79,11 +45,7 @@ input{
     width: 100%;
 }
 
-<<<<<<< HEAD
 * {
-=======
-*{
->>>>>>> ramaSantiago
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -107,11 +69,7 @@ input{
 }
 
 .testimonios_header h2 {
-<<<<<<< HEAD
     font-size: 2, 9rem;
-=======
-    font-size: 2,9rem;
->>>>>>> ramaSantiago
     font-weight: 500;
     background-color: #87CEEB;
     color: #151515;
@@ -144,11 +102,7 @@ input{
     margin-right: 30px;
 }
 
-<<<<<<< HEAD
 .perfil-img img {
-=======
-.perfil-img img{
->>>>>>> ramaSantiago
     width: 100%;
     height: 100%;
     object-fit: center;
@@ -204,11 +158,7 @@ input{
 }
 
 .agregarComentarioHeader h1 {
-<<<<<<< HEAD
     font-size: 2, 9rem;
-=======
-    font-size: 2,9rem;
->>>>>>> ramaSantiago
     font-weight: 500;
     background-color: #87CEEB;
     color: #151515;
@@ -242,18 +192,12 @@ Logo Dell: https://worldvectorlogo.com/logo/dell-1
 
 :root {
     --dark: #ECEFF1;
-<<<<<<< HEAD
     --dark-x: #F5F5E8;
     --light: #151515;
 
     ::placeholder {
         color: black;
     }
-=======
-    --dark-x: #F5F5E8; 
-    --light: #151515;
-    ::placeholder { color: black; }
->>>>>>> ramaSantiago
 }
 
 body {
@@ -263,7 +207,6 @@ body {
     color: var(--light);
 }
 
-<<<<<<< HEAD
 .text-light {
     color: var(--light) !important
 }
@@ -275,11 +218,6 @@ body {
 .bg-dark-x {
     background-color: var(--dark-x);
 }
-=======
-.text-light { color: var(--light) }
-.bg-dark { background-color: var(--dark) !important; }
-.bg-dark-x { background-color: var(--dark-x); }
->>>>>>> ramaSantiago
 
 .btn {
     min-height: 3.125rem;
@@ -290,10 +228,7 @@ body {
     min-height: 3.125rem;
     line-height: initial;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> ramaSantiago
 .form-control:focus {
     background-color: var(--dark-x);
     outline: none;
@@ -316,10 +251,7 @@ body {
     background-size: cover;
     background-position: center;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> ramaSantiago
 .img-4 {
     background-image: url('../img/Cootranshuila.jpg');
     background-size: cover;
@@ -332,7 +264,6 @@ body {
     background-position: center;
 }
 
-<<<<<<< HEAD
 .logoMenu {
     width: 25%;
 }
@@ -342,36 +273,19 @@ body {
 }
 
 .logo1 {
-=======
-.logoMenu{
-    width: 25%;
-}
-.logo{
-    width: 50%;
-}
-.logo1{
->>>>>>> ramaSantiago
     width: 20%;
 }
 
 /* CSS DE ARIADNA */
 
-<<<<<<< HEAD
 .imagen {
-=======
-.imagen{
->>>>>>> ramaSantiago
     background-color: #B0C4DE;
     width: 80%;
     height: 300px;
 }
 
 
-<<<<<<< HEAD
 .circulo {
-=======
-.circulo{
->>>>>>> ramaSantiago
     background-color: #00A99D;
     border-radius: 50%;
     width: 70%;
@@ -379,11 +293,7 @@ body {
     max-height: 300px;
     margin: auto;
 }
-<<<<<<< HEAD
 
-=======
- 
->>>>>>> ramaSantiago
 @media (max-width: 767px) {
     .clasexd {
         margin-left: 0;
@@ -404,11 +314,7 @@ body {
     width: 100%;
     margin: 0 auto;
 }
-<<<<<<< HEAD
 
-=======
-  
->>>>>>> ramaSantiago
 @media (min-width: 768px) {
     .carousel-img {
         width: 50%;
@@ -416,11 +322,7 @@ body {
 }
 
 
-<<<<<<< HEAD
 .tituloCarousel {
-=======
-.tituloCarousel{
->>>>>>> ramaSantiago
     font-size: 50px;
     margin-bottom: 50px;
     margin-top: 60px;
@@ -428,15 +330,9 @@ body {
 
 @media only screen and (max-width: 767px) {
     .tituloCarousel {
-<<<<<<< HEAD
         font-size: 25px;
     }
 }
-=======
-      font-size: 25px;
-    }
-  }
->>>>>>> ramaSantiago
 
 
 
@@ -445,21 +341,14 @@ body {
     border: 1px solid black;
     text-align: center;
     margin-top: 30px;
-<<<<<<< HEAD
 }
 
 .UsuarioLog {
-=======
-  }
-  
-  .UsuarioLog {
->>>>>>> ramaSantiago
     background-color: #EBA487;
     border: 1px solid black;
     width: 40%;
     height: 100px;
     margin: 30px;
-<<<<<<< HEAD
 }
 
 @media (min-width: 768px) {
@@ -516,23 +405,3 @@ body {
 .dropdown-item:hover {
     background-color: #f0f0f0;
 }
-=======
-  }
-  
-  @media (min-width: 768px) {
-    .BackTesti {
-      margin-top: 50px;
-    }
-  }
-  
-.bordesito{
-    border: solid 1px black;
-    margin-top: 50px;
-}
-  
-
-.contenido{
-    margin: 30px;
-    
-}
->>>>>>> ramaSantiago

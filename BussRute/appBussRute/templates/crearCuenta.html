@@ -27,8 +27,14 @@
                 </div>
                 <div class="mb-4">
                     <label for="examplePassword" class="form-label font-weight-bold">Contraseña</label>
-                    <input type="password" class="form-control border-0 mb-2 text-light"
-                        placeholder="Ingresa una contraseña" id="passwordUsuario" name="passwordUsuario" required> 
+                    <div class="input-group">
+                        <input type="password" class="form-control border-0 mb-2 text-light"
+                            placeholder="Ingresa una contraseña" id="passwordUsuario" name="passwordUsuario" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="mostrarContraseña"><i
+                                    class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
                 </div>
                 <button class="btn btn-custom w-100 bg-dark-y">Crear cuenta</button>
             </form>

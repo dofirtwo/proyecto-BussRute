@@ -43,13 +43,12 @@ def visualizarRutas(request):
 
     if usuario_id:
         usuario = Usuario.objects.get(id=usuario_id)
-        rutas = Ruta.objects.all()
-        coordenadas = DetalleRuta.objects.all()
-        retorno = {"rutas":rutas,"coordenadas":coordenadas}
-        return render(request, "usuario/inicio.html", retorno)
+        
+    rutas = Ruta.objects.all()
+    coordenadas = DetalleRuta.objects.all()
+    retorno = {"rutas":rutas,"coordenadas":coordenadas,"usuario": usuario}
 
-
-    return render(request, "usuario/inicio.html", {'usuario': usuario})
+    return render(request, "usuario/inicio.html", retorno)
 
 
 def comentarios(request):

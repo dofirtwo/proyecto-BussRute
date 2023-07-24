@@ -9,10 +9,10 @@ function verificarSesion() {
         redirigir();
       } else {
         // Si el usuario no ha iniciado sesión, mostramos un mensaje de error.
-        Swal.fire('Cuenta', 'No se puede comentar. Debes iniciar sesión primero.', 'error').then(function () {
+        Swal.fire('Cuenta', 'Debes iniciar sesión primero.', 'error').then(function () {
           setTimeout(function () {
             window.location.href = '/inicioSesion/';
-          }, 1000);
+          }, 500);
         });;
       }
     }
@@ -121,12 +121,14 @@ $(function () {
 
 })
 
-$(document).ready(function () {
-  $('#navbarDropdown').on('click', function (event) {
-    event.preventDefault();
-    $('.dropdown-menu').toggle();
+function a(){
+  $(document).ready(function () {
+      event.preventDefault();
+      $('.dropdown-menu').toggle();
   });
-});
+  
+}
+
 
 function visualizarContraseña(inputId) {
   const mostrarContraseña = document.querySelector('#mostrarContraseña');

@@ -91,9 +91,6 @@ function trazarRuta() {
         routingControl = L.Routing.control({
           waypoints: coordinates,
           routeWhileDragging: true,
-<<<<<<< Updated upstream
-          show: false
-=======
           show: false,
           addWaypoints: false,
           createMarker: function() { return null; },
@@ -105,19 +102,12 @@ function trazarRuta() {
               styles: [{ color: '#00A99D' }]
             });
           }
->>>>>>> Stashed changes
         }).addTo(map);
 
         // Muestra la línea de ruta en el mapa
         routingControl.on('routesfound', (e) => {
           const routes = e.routes;
           const route = routes[0];
-<<<<<<< Updated upstream
-          L.Routing.line(route, {
-            styles: [{ color: 'blue', opacity: 0.6, weight: 4 }]
-          }).addTo(map);
-=======
->>>>>>> Stashed changes
         });
       }
     });
