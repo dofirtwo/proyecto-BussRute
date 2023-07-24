@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'BussRute.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'basepruebaproyecto',
+        'NAME': 'bussrute',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',

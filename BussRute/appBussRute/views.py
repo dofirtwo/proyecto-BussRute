@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect
 from .models import Comentario
 from django import forms
@@ -42,6 +43,11 @@ def visualizarRutas(request):
 
     if usuario_id:
         usuario = Usuario.objects.get(id=usuario_id)
+        rutas = Ruta.objects.all()
+        coordenadas = DetalleRuta.objects.all()
+        retorno = {"rutas":rutas,"coordenadas":coordenadas}
+        return render(request, "usuario/inicio.html", retorno)
+
 
     return render(request, "usuario/inicio.html", {'usuario': usuario})
 
@@ -115,6 +121,29 @@ def inicioSesion(request):
 
 def vistaRegistrarRuta(request):
     return render(request, "admin/frmRegistrarRuta.html")
+
+def registroRuta(request):
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                numeroRuta = int(request.POST["numeroRuta"])
+                horario = request.POST["horario"]
+                empresa = request.POST["empresa"]
+                ruta = Ruta(rutNumero=numeroRuta,rutHorario=horario,rutEmpresa=empresa)
+                ruta.save()
+                detalleRutas = json.loads(request.POST["detalle"])
+                for detalle in detalleRutas:
+                    latitud = detalle['latitud']               
+                    longitud = detalle['longitud']
+                    detalleRuta = DetalleRuta(detRuta=ruta,detLatitud=latitud,detLongitud=longitud)
+                    detalleRuta.save()
+                estado = True
+                mensaje = "Se ha registrado la Solicitud Correctamete"
+        except Error as error:
+            transaction.rollback()
+            mensaje = f"{error}"
+        retorno = {"mensaje":mensaje,"estado":estado}
+        return JsonResponse(retorno)
 
 
 def registrarseUsuario(request):
@@ -390,3 +419,4 @@ def cambiarContraseña(request):
 
     retorno = {"mensaje": mensaje, "estado": estado}
     return render(request, "cambiarContraseña.html", retorno)
+
