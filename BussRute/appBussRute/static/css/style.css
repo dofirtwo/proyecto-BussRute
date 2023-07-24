@@ -3,6 +3,13 @@
     height: 500px;
 }
 
+<<<<<<< Updated upstream
+=======
+.custom-line [stroke] {
+    stroke: green !important;
+  }
+
+>>>>>>> Stashed changes
 .btn-opuesto{
     background-color: #EBA487;
     color : #151515;

@@ -25,7 +25,16 @@ def crearCuenta(request):
     return render(request,"crearCuenta.html")
 
 def visualizarRutas(request):
+<<<<<<< Updated upstream
     return render(request, "usuario/inicio.html")
+=======
+    rutas = Ruta.objects.all()
+    coordenadas = DetalleRuta.objects.all()
+    retorno = {"rutas":rutas,"coordenadas":coordenadas}
+    return render(request, "usuario/inicio.html", retorno)
+
+
+>>>>>>> Stashed changes
 def comentarios(request):
     comentarios = Comentario.objects.all()
     return render(request, 'comentarios/comentarios.html', {'comentarios': comentarios})
