@@ -16,15 +16,12 @@ from google.oauth2 import id_token
 from django.http import JsonResponse
 import secrets
 
+# BLOQUE DE SOLO VISTAS -------------------------------------------------------------------------------------------
 
-def verificarSesion(request):
-    usuario_id = request.session.get('usuario_id')
-    if usuario_id:
-        return JsonResponse({'logueado': True})
-    else:
-        return JsonResponse({'logueado': False})
+def inicioSesion(request):
+    mensajeError = request.session.pop('mensajeError', None)
+    return render(request, 'inicioSesion.html', {'mensaje': mensajeError})
 
-# Create your views here.
 def inicio(request):
     usuario = None
     if 'usuario_id' in request.session:
@@ -32,10 +29,8 @@ def inicio(request):
         usuario = Usuario.objects.get(id=usuario_id)
     return render(request, 'inicio.html', {'usuario': usuario})
 
-
 def crearCuenta(request):
     return render(request, "crearCuenta.html")
-
 
 def visualizarRutas(request):
     usuario_id = request.session.get('usuario_id')
@@ -50,6 +45,11 @@ def visualizarRutas(request):
 
     return render(request, "usuario/inicio.html", retorno)
 
+def vistaRegistrarRuta(request):
+    return render(request, "admin/frmRegistrarRuta.html")
+
+def vistaEnvioCorreo(request):
+    return render(request, "contraseñaOlvidada.html")
 
 def comentarios(request):
     usuario_id = request.session.get('usuario_id')
@@ -66,12 +66,37 @@ def comentarios(request):
     }
     return render(request, 'comentarios/comentarios.html', context)
 
+# BLOQUE DE SOLO FUNCIONES -------------------------------------------------------------------------------------------
 
-class ComentarioForm(forms.Form):
-    txtNombre = forms.CharField(max_length=100)
-    txtComentario = forms.CharField(widget=forms.Textarea)
-    nombre_usuario = forms.CharField(widget=forms.HiddenInput)
+def registroRuta(request):
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                numeroRuta = int(request.POST["numeroRuta"])
+                horario = request.POST["horario"]
+                empresa = request.POST["empresa"]
+                ruta = Ruta(rutNumero=numeroRuta,rutHorario=horario,rutEmpresa=empresa)
+                ruta.save()
+                detalleRutas = json.loads(request.POST["detalle"])
+                for detalle in detalleRutas:
+                    latitud = detalle['latitud']               
+                    longitud = detalle['longitud']
+                    detalleRuta = DetalleRuta(detRuta=ruta,detLatitud=latitud,detLongitud=longitud)
+                    detalleRuta.save()
+                estado = True
+                mensaje = "Se ha registrado la Solicitud Correctamete"
+        except Error as error:
+            transaction.rollback()
+            mensaje = f"{error}"
+        retorno = {"mensaje":mensaje,"estado":estado}
+        return JsonResponse(retorno)
 
+def verificarSesion(request):
+    usuario_id = request.session.get('usuario_id')
+    if usuario_id:
+        return JsonResponse({'logueado': True})
+    else:
+        return JsonResponse({'logueado': False})
 
 def agregarComentario(request):
         usuario_id = request.session.get('usuario_id')
@@ -112,39 +137,6 @@ def agregarComentario(request):
             context = {'form': form, 'usuario': usuario}
             return render(request, 'comentarios/agregarComentario.html', context)
 
-
-def inicioSesion(request):
-    mensajeError = request.session.pop('mensajeError', None)
-    return render(request, 'inicioSesion.html', {'mensaje': mensajeError})
-
-
-def vistaRegistrarRuta(request):
-    return render(request, "admin/frmRegistrarRuta.html")
-
-def registroRuta(request):
-    if request.method == "POST":
-        try:
-            with transaction.atomic():
-                numeroRuta = int(request.POST["numeroRuta"])
-                horario = request.POST["horario"]
-                empresa = request.POST["empresa"]
-                ruta = Ruta(rutNumero=numeroRuta,rutHorario=horario,rutEmpresa=empresa)
-                ruta.save()
-                detalleRutas = json.loads(request.POST["detalle"])
-                for detalle in detalleRutas:
-                    latitud = detalle['latitud']               
-                    longitud = detalle['longitud']
-                    detalleRuta = DetalleRuta(detRuta=ruta,detLatitud=latitud,detLongitud=longitud)
-                    detalleRuta.save()
-                estado = True
-                mensaje = "Se ha registrado la Solicitud Correctamete"
-        except Error as error:
-            transaction.rollback()
-            mensaje = f"{error}"
-        retorno = {"mensaje":mensaje,"estado":estado}
-        return JsonResponse(retorno)
-
-
 def registrarseUsuario(request):
     try:
         nombreUsu = request.POST["nombreUsuario"]
@@ -178,7 +170,6 @@ def registrarseUsuario(request):
 
     return render(request, "crearCuenta.html", retorno)
 
-
 def iniciarSesion(request):
     estado = False
     if request.method == 'POST':
@@ -201,18 +192,12 @@ def iniciarSesion(request):
 
     return render(request, 'inicioSesion.html', {'estado': estado})
 
-
 def cerrarSesion(request):
     try:
         del request.session['usuario_id']
     except KeyError:
         pass
     return redirect('/inicioSesion/')
-
-
-def vistaEnvioCorreo(request):
-    return render(request, "contraseñaOlvidada.html")
-
 
 def enviarCorreo(asunto=None, mensaje=None, destinatario=None, request=None):
     remitente = settings.EMAIL_HOST_USER
@@ -231,7 +216,6 @@ def enviarCorreo(asunto=None, mensaje=None, destinatario=None, request=None):
         correo.send(fail_silently=True)
     except SMTPException as error:
         print(error)
-
 
 def enviarCambioContraseña(request):
     try:
@@ -359,7 +343,6 @@ def enviarCambioContraseña(request):
     retorno = {'mensaje': mensaje, 'estado': False}
     return render(request, "contraseñaOlvidada.html", retorno)
 
-
 def vistaCambioContraseña(request):
     if request.method == 'GET':
         token = request.GET.get('token')
@@ -376,7 +359,6 @@ def vistaCambioContraseña(request):
     elif request.method == 'POST':
         return cambiarContraseña(request)
 
-
 def tokenValido(token):
     try:
         # Buscar el token en los usuarios
@@ -392,14 +374,13 @@ def tokenValido(token):
         print(f"Token: {token}")
         print(f"Now: {now}")
         print(f"tiempoExpirar: {tiempoExpirar}")
-        if now < tiempoExpirar:
+        if now <= tiempoExpirar:
             return True
         else:
             return False
 
     except Usuario.DoesNotExist:
         return False
-
 
 def cambiarContraseña(request):
     estado = False
@@ -419,3 +400,9 @@ def cambiarContraseña(request):
     retorno = {"mensaje": mensaje, "estado": estado}
     return render(request, "cambiarContraseña.html", retorno)
 
+# BLOQUE DE EN CASO DE CLASES -------------------------------------------------------------------------------------------
+
+class ComentarioForm(forms.Form):
+    txtNombre = forms.CharField(max_length=100)
+    txtComentario = forms.CharField(widget=forms.Textarea)
+    nombre_usuario = forms.CharField(widget=forms.HiddenInput)

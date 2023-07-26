@@ -14,7 +14,7 @@
           <a class="nav-link" href="/visualizarRutas/">Rutas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">Contacto</a>
+          <a href="#contacto" class="nav-link">Contacto</a>
         </li>
         <li class="nav-item dropdown">
           <a onclick="a()" class="nav-link dropdown-toggle" href="/inicioSesion/" id="navbarDropdown" role="button"
@@ -23,8 +23,8 @@
           </a>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             {% if usuario %}
-            <div class="user-info">
-              <span>Usuario: {{ usuario.usuNombre }}</span>
+            <div class="user-info text-center">
+              <span>{{ usuario.usuNombre }}</span>
             </div>
             <a class="dropdown-item" href="/cerrarSesion/">Cerrar sesión</a>
             {% else %}
