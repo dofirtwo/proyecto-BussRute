@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">BussRute</a>
@@ -20,5 +21,45 @@
           </li>
         </ul>
       </div>
+=======
+<nav class="navbar navbar-expand-sm" style="background-color: #87CEEB;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><img src="../static/img/Logo Aplicacion1.png" class="img-fluid logoMenu" /></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/inicio1/">Inicio1</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/inicio/">Inicio2</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/visualizarRutas/">Rutas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Contacto</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a onclick="a()" class="nav-link dropdown-toggle" href="/inicioSesion/" id="navbarDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-regular fa-user" style="color: #00a99d;"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            {% if usuario %}
+            <div class="user-info">
+              <span>Usuario: {{ usuario.usuNombre }}</span>
+            </div>
+            <a class="dropdown-item" href="/cerrarSesion/">Cerrar sesión</a>
+            {% else %}
+            <a class="dropdown-item" href="/inicioSesion/">Iniciar sesión</a>
+            {% endif %}
+          </div>
+        </li>
+      </ul>
+>>>>>>> Stashed changes
     </div>
   </nav>
