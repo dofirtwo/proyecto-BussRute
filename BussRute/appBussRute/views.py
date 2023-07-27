@@ -1,10 +1,3 @@
-<<<<<<< Updated upstream
-from django.shortcuts import render
-
-# Create your views here.
-def inicio(request):
-    return render(request,"inicio.html")
-=======
 import json
 from django.shortcuts import render, redirect
 from .models import Comentario
@@ -432,4 +425,3 @@ def cambiarContraseña(request):
     retorno = {"mensaje": mensaje, "estado": estado}
     return render(request, "cambiarContraseña.html", retorno)
 
->>>>>>> Stashed changes
