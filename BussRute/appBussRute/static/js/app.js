@@ -144,3 +144,11 @@ function visualizarContraseña(inputId) {
 }
 visualizarContraseña('passwordUsuario');
 visualizarContraseña('pasNuevaContraseña');
+
+function resaltar(element) {
+  element.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+}
+
+function quitarResalte(element) {
+  element.style.boxShadow = "none";
+}

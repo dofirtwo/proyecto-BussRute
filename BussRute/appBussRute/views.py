@@ -17,7 +17,6 @@ from django.http import JsonResponse
 import secrets
 
 # BLOQUE DE SOLO VISTAS -------------------------------------------------------------------------------------------
-
 def inicioSesion(request):
     mensajeError = request.session.pop('mensajeError', None)
     return render(request, 'inicioSesion.html', {'mensaje': mensajeError})
