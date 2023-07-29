@@ -233,7 +233,10 @@ def enviarCambioContrasena(request):
                 usuario.save()
 
                 asunto = 'Solicitud para restablecer contraseña de BussRute'
-                url = f"https://mauriciokta.pythonanywhere.com/vistaCambioContrasena/?token={token}"
+                #Url para la pagina web 
+                # url = f"https://mauriciokta.pythonanywhere.com/vistaCambioContrasena/?token={token}"
+                #Url para local
+                url = f"http://127.0.0.1:8000/vistaCambioContraseña/?token={token}"
                 mensaje = f'<div style="background:#f9f9f9">\
                     <div style="background-color:#f9f9f9">\
                         <div style="max-width:640px;margin:0 auto;border-radius:4px;overflow:hidden">\
