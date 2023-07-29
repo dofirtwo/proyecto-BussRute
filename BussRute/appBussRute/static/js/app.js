@@ -25,7 +25,7 @@ function redirigir() {
 
 }
 
-function verificarSesion1() {
+function verFavoritos() {
   $.ajax({
     url: '/verificarSesion/',
     method: 'GET',
@@ -42,6 +42,20 @@ function verificarSesion1() {
   });
 }
 
+function guardarRuta() {
+  $.ajax({
+    url: '/verificarSesion/',
+    method: 'GET',
+    success: function (data) {
+      console.log(data)
+      if (data.logueado) {
+          Swal.fire('Cuenta', 'Ruta Agregada Correctamente', 'success');
+      } else {
+          Swal.fire('Cuenta', 'Debes iniciar sesión primero.', 'error');
+      }
+    }
+  });
+}
 
 $(function () {
 

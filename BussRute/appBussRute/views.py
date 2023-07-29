@@ -19,6 +19,17 @@ from django.core.validators import validate_email
 
 
 # BLOQUE DE SOLO VISTAS -------------------------------------------------------------------------------------------
+def loginRequired(function):
+    def wrapper(request, *args, **kwargs):
+        if 'usuario_id' in request.session:
+            # El usuario ya ha iniciado sesión, redirigirlo a otra página
+            return redirect('/inicio/')
+        else:
+            # El usuario no ha iniciado sesión, permitirle acceder a la vista
+            return function(request, *args, **kwargs)
+    return wrapper
+
+@loginRequired
 def inicioSesion(request):
     mensajeError = request.session.pop('mensajeError', None)
     return render(request, 'inicioSesion.html', {'mensaje': mensajeError})
