@@ -15,6 +15,8 @@ from datetime import datetime, timedelta, timezone
 from google.oauth2 import id_token
 from django.http import JsonResponse
 import secrets
+from django.core.validators import validate_email
+
 
 # BLOQUE DE SOLO VISTAS -------------------------------------------------------------------------------------------
 def inicioSesion(request):
@@ -37,7 +39,7 @@ def visualizarRutas(request):
 
     if usuario_id:
         usuario = Usuario.objects.get(id=usuario_id)
-        
+
     rutas = Ruta.objects.all()
     coordenadas = DetalleRuta.objects.all()
     retorno = {"rutas":rutas,"coordenadas":coordenadas,"usuario": usuario}
@@ -48,7 +50,7 @@ def vistaRegistrarRuta(request):
     return render(request, "admin/frmRegistrarRuta.html")
 
 def vistaEnvioCorreo(request):
-    return render(request, "contraseñaOlvidada.html")
+    return render(request, "contrasenaOlvidada.html")
 
 def comentarios(request):
     usuario_id = request.session.get('usuario_id')
@@ -78,7 +80,7 @@ def registroRuta(request):
                 ruta.save()
                 detalleRutas = json.loads(request.POST["detalle"])
                 for detalle in detalleRutas:
-                    latitud = detalle['latitud']               
+                    latitud = detalle['latitud']
                     longitud = detalle['longitud']
                     detalleRuta = DetalleRuta(detRuta=ruta,detLatitud=latitud,detLongitud=longitud)
                     detalleRuta.save()
@@ -102,7 +104,7 @@ def agregarComentario(request):
         usuario = None
         if usuario_id:
             usuario = Usuario.objects.get(id=usuario_id)
-            
+
         if request.method == 'POST':
             if 'regresar' in request.POST:
                 return redirect('/comentarios/')
@@ -110,11 +112,11 @@ def agregarComentario(request):
                 form = ComentarioForm(request.POST)
                 if form.is_valid():
                     comentario = request.POST.get['txtComentario']
-                     
+
                  # Creamos un objeto de tipo comentario
                 nombre = request.POST.get("txtNombre")
                 comentario = request.POST.get("txtComentario")
-                
+
                 try:
                     with transaction.atomic():
                         contenidoComentario = Comentario(comDescripcion=comentario, comUsuario_id=usuario_id)
@@ -140,7 +142,7 @@ def registrarseUsuario(request):
     try:
         nombreUsu = request.POST["nombreUsuario"]
         email = request.POST["correoUsuario"].lower()
-        contraseña = request.POST["passwordUsuario"]
+        contrasena = request.POST["passwordUsuario"]
 
         # Verificar si el correo electrónico ya está registrado
         if Usuario.objects.filter(usuCorreo=email).exists():
@@ -155,7 +157,7 @@ def registrarseUsuario(request):
             user = Usuario(usuNombre=nombreUsu,
                            usuCorreo=email, usuRol=rolUsuario)
             # Almacenar la contraseña de forma segura
-            user.set_password(contraseña)
+            user.set_password(contrasena)
             user.save()
             request.session['usuario_id'] = user.id
             mensaje = "Registrado correctamente"
@@ -173,11 +175,11 @@ def iniciarSesion(request):
     estado = False
     if request.method == 'POST':
         correo = request.POST['correoUsuarioInicio'].lower()
-        contraseña = request.POST['passwordUsuarioInicio']
+        contrasena = request.POST['passwordUsuarioInicio']
 
         try:
             usuario = Usuario.objects.get(usuCorreo=correo)
-            if usuario.check_password(contraseña):
+            if usuario.check_password(contrasena):
                 # Las credenciales son válidas
                 request.session['usuario_id'] = usuario.id
                 estado = True
@@ -212,11 +214,11 @@ def enviarCorreo(asunto=None, mensaje=None, destinatario=None, request=None):
             asunto, mensaje, remitente, destinatario)
         request.session['correo'] = destinatario[0]
         correo.attach_alternative(contenido, 'text/html')
-        correo.send(fail_silently=True)
+        correo.send(fail_silently=False)
     except SMTPException as error:
         print(error)
 
-def enviarCambioContraseña(request):
+def enviarCambioContrasena(request):
     try:
         correo = request.POST['recuCorreo']
         with transaction.atomic():
@@ -227,11 +229,11 @@ def enviarCambioContraseña(request):
                 token = secrets.token_hex(16)
 
                 # Asignar el token al usuario
-                usuario.usuTokenCambioContraseña = token
+                usuario.usuTokenCambioContrasena = token
                 usuario.save()
 
                 asunto = 'Solicitud para restablecer contraseña de BussRute'
-                url = f"http://127.0.0.1:8000/vistaCambioContraseña/?token={token}"
+                url = f"https://mauriciokta.pythonanywhere.com/vistaCambioContrasena/?token={token}"
                 mensaje = f'<div style="background:#f9f9f9">\
                     <div style="background-color:#f9f9f9">\
                         <div style="max-width:640px;margin:0 auto;border-radius:4px;overflow:hidden">\
@@ -326,28 +328,34 @@ def enviarCambioContraseña(request):
                         </div>\
                     </div>\
                 </div>'
-
-                thread = threading.Thread(target=enviarCorreo,
-                                          args=(asunto, mensaje, [usuario.usuCorreo], request))
-                thread.start()
-                print(mensaje)
-                mensaje = f'Correo enviado correctamente'
-                retorno = {'mensaje': mensaje, 'estado': True}
-                return render(request, "contraseñaOlvidada.html", retorno)
+                # Verificar si la dirección de correo electrónico es válida
+                try:
+                    validate_email(correo)
+                    # Iniciar el hilo para enviar el correo electrónico
+                    thread = threading.Thread(target=enviarCorreo,
+                                              args=(asunto, mensaje, [usuario.usuCorreo], request))
+                    thread.start()
+                    print(mensaje)
+                    mensaje = f'Correo enviado correctamente'
+                    retorno = {'mensaje': mensaje, 'estado': True}
+                    return render(request, "contrasenaOlvidada.html", retorno)
+                except ValidationError:
+                    # Mostrar un mensaje de error si la dirección de correo electrónico no es válida
+                    mensaje = f'Dirección de correo electrónico no válida'
             else:
                 mensaje = f'Correo no se encuentra registrado'
     except Error as error:
         transaction.rollback()
         mensaje = f"{error}"
     retorno = {'mensaje': mensaje, 'estado': False}
-    return render(request, "contraseñaOlvidada.html", retorno)
+    return render(request, "contrasenaOlvidada.html", retorno)
 
-def vistaCambioContraseña(request):
+def vistaCambioContrasena(request):
     if request.method == 'GET':
         token = request.GET.get('token')
         if token is not None and tokenValido(token):
             # Token válido, permitir el cambio de contraseña
-            return render(request, "cambiarContraseña.html")
+            return render(request, "cambiarContrasena.html")
         else:
             # Token inválido, mostrar un mensaje de error utilizando SweetAlert en la página "inicioSesion.html"
             mensaje = "No se ha solicitado un cambio de contraseña"
@@ -356,12 +364,12 @@ def vistaCambioContraseña(request):
 
     # Manejar el caso si se realiza una solicitud POST para cambiar la contraseña
     elif request.method == 'POST':
-        return cambiarContraseña(request)
+        return cambiarContrasena(request)
 
 def tokenValido(token):
     try:
         # Buscar el token en los usuarios
-        usuario = Usuario.objects.get(usuTokenCambioContraseña=token)
+        usuario = Usuario.objects.get(usuTokenCambioContrasena=token)
 
         # Obtener la fecha y hora actual
         now = datetime.now(timezone.utc)
@@ -381,7 +389,7 @@ def tokenValido(token):
     except Usuario.DoesNotExist:
         return False
 
-def cambiarContraseña(request):
+def cambiarContrasena(request):
     estado = False
     try:
         contraNueva = request.POST["pasNuevaContraseña"]
@@ -389,7 +397,7 @@ def cambiarContraseña(request):
         usuario = Usuario.objects.get(usuCorreo=correo)
         usuario.set_password(contraNueva)
         # Limpiar el token después de cambiar la contraseña
-        usuario.usuTokenCambioContraseña = None
+        usuario.usuTokenCambioContrasena = None
         usuario.save()
         estado = True
         mensaje = "Contraseña cambiada con éxito"
@@ -397,7 +405,7 @@ def cambiarContraseña(request):
         mensaje = f"{error}"
 
     retorno = {"mensaje": mensaje, "estado": estado}
-    return render(request, "cambiarContraseña.html", retorno)
+    return render(request, "cambiarContrasena.html", retorno)
 
 # BLOQUE DE EN CASO DE CLASES -------------------------------------------------------------------------------------------
 

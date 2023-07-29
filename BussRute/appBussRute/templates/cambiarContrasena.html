@@ -1,0 +1,55 @@
+{% extends "index.html" %}
+{% block encabezado %}
+{% include "encabezado.html" %}
+{% endblock %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock %}
+{% block contenido %}
+<div class="row g-0 justify-content-center">
+    <div class="col-lg-5 bg-dark d-flex flex-column align-items-end min-vh-50">
+        <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 mb-auto w-100 col-2 text-center">
+            <img src="../static/img/Logo Aplicacion1.png" class="img-fluid logo" />
+        </div>
+        <div class="align-self-center w-100 px-lg-5 py-lg-4 p-4">
+            <h1 class="text-center font-weight-bold mb-4">Cambiar Contraseña</h1>
+            <form action="/cambioContrasena/" class="mb-5" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="passwordCambioContraseña" class="form-label font-weight-bold">Nueva Contraseña:</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control border-0 mb-2 text-light"
+                            placeholder="Nueva Contraseña" id="pasNuevaContraseña" name="pasNuevaContraseña" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="mostrarContraseña"><i
+                                    class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-100 bg-dark-y">Cambiar Contraseña</button>
+            </form>
+            <div>
+                {% if mensaje %}
+                    {% if estado %}
+                        <script>
+                            Swal.fire('Cuenta', '{{mensaje}}', 'success').then(function () {
+                                setTimeout(function () {
+                                    window.location.href = '/inicioSesion/';
+                                }, 1000);
+                            });
+                        </script>
+                {% else %}
+                        <script>
+                            Swal.fire('Cuenta', '{{mensaje}}', 'error');
+                        </script>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block pie_pagina %}
+{% include "pie_pagina.html" %}
+{% endblock %}

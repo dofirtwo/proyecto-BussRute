@@ -60,13 +60,13 @@
                     <div class="mb-4">
                         <label for="exampleEmail" class="form-label font-weight-bold">Correo</label>
                         <input type="email" class="form-control border-0 text-light" id="correoUsuarioInicio"
-                            placeholder="Ingresa un email" name="correoUsuarioInicio">
+                            placeholder="Ingresa un email" name="correoUsuarioInicio" required>
                     </div>
                     <div class="mb-4">
                         <label for="passwordUsuarioInicio" class="form-label font-weight-bold">Contraseña</label>
                         <div class="input-group">
                             <input type="password" class="form-control border-0 mb-2 text-light"
-                                placeholder="Ingresa una contraseña" id="passwordUsuario" name="passwordUsuarioInicio">
+                                placeholder="Ingresa una contraseña" id="passwordUsuario" name="passwordUsuarioInicio" required>
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" id="mostrarContraseña"><i
                                         class="fas fa-eye"></i></button>
@@ -95,9 +95,8 @@
                 <div class="d-flex justify-content-around">
                     <button type="button" class="btn btn-outline-danger flex-grow-1 mr-2"><i
                             class="fab fa-google lead mr-2"></i> Google</button>
-                    <button id="login" type="button" class="btn btn-outline-primary flex-grow-1 ml-2"><i
-                            class="fab fa-facebook-f lead mr-2"></i> Facebook</button>
-                </div>
+                    <button type="submit" id="login" type="button" class="btn btn-outline-primary flex-grow-1 ml-2"><i
+                    class="fab fa-facebook-f lead mr-2"></i> Facebook</button>
             </div>
             <div class="text-center px-lg-5 pt-lg-3 pb-lg-4 p-4 mt-auto w-100">
                 <p class="d-inline-block mb-0">¿Todavia no tienes una cuenta?</p> <a href="/vistaRegistrarCuenta/"
@@ -112,7 +111,7 @@
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
+            js.src = "//connect.facebook.net/en_LA/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 </script>

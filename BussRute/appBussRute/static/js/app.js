@@ -25,12 +25,30 @@ function redirigir() {
 
 }
 
+function verificarSesion1() {
+  $.ajax({
+    url: '/verificarSesion/',
+    method: 'GET',
+    success: function (data) {
+      console.log(data)
+      if (data.logueado) {
+        // Si el usuario ha iniciado sesión, muestra el modal.
+        $('#exampleModal').modal('show');
+      } else {
+        // Si el usuario no ha iniciado sesión, muestra un mensaje de error.
+        Swal.fire('Cuenta', 'Debes iniciar sesión primero.', 'error');
+      }
+    }
+  });
+}
+
+
 $(function () {
 
   var app_id = '784661986686095';
-  var scopes = 'email, user_friends, user_online_presence';
+  var scopes = 'email, public_profile';
 
-  var btn_login = '<button id="login" type="button" class="btn btn-outline-primary flex-grow-1 ml-2"><i class="fab fa-facebook-f lead mr-2"></i> Facebook</button>';
+  var btn_login = '<button type="submit" id="login" type="button" class="btn btn-outline-primary flex-grow-1 ml-2"><i class="fab fa-facebook-f lead mr-2"></i> Facebook</button>';
 
   var div_session = "<div id='facebook-session'>" +
     "<strong></strong>" +
@@ -45,7 +63,7 @@ $(function () {
       status: true,
       cookie: true,
       xfbml: true,
-      version: 'v2.1'
+      version: 'v17.0'
     });
 
 
@@ -126,7 +144,7 @@ function a(){
       event.preventDefault();
       $('.dropdown-menu').toggle();
   });
-  
+
 }
 
 
