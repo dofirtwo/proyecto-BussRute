@@ -39,5 +39,7 @@ urlpatterns = [
     path('vistaCambioContrasena/',views.vistaCambioContrasena),
     path('cambioContrasena/', views.cambiarContrasena),
     path('verificarSesion/', views.verificarSesion, name='verificarSesion'),
-    path('registroRuta/', views.registroRuta)
+    path('registroRuta/', views.registroRuta),
+    path('google-login/', views.google_login, name='google-login'),
+    path('google-auth/', views.google_auth, name='google-auth'),
 ]
