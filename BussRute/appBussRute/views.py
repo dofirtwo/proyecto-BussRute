@@ -223,7 +223,6 @@ def enviarCorreo(asunto=None, mensaje=None, destinatario=None, request=None):
     try:
         correo = EmailMultiAlternatives(
             asunto, mensaje, remitente, destinatario)
-        request.session['correo'] = destinatario[0]
         correo.attach_alternative(contenido, 'text/html')
         correo.send(fail_silently=False)
     except SMTPException as error:
@@ -245,9 +244,9 @@ def enviarCambioContrasena(request):
 
                 asunto = 'Solicitud para restablecer contraseña de BussRute'
                 #Url para la pagina web 
-                # url = f"https://mauriciokta.pythonanywhere.com/vistaCambioContrasena/?token={token}"
+                # url = f"https://mauriciokta.pythonanywhere.com/vistaCambioContrasena/?token={token}&correo={correo}"
                 #Url para local
-                url = f"http://127.0.0.1:8000/vistaCambioContraseña/?token={token}"
+                url = f"http://127.0.0.1:8000/vistaCambioContrasena/?token={token}&correo={correo}"
                 mensaje = f'<div style="background:#f9f9f9">\
                     <div style="background-color:#f9f9f9">\
                         <div style="max-width:640px;margin:0 auto;border-radius:4px;overflow:hidden">\
@@ -349,8 +348,7 @@ def enviarCambioContrasena(request):
                     thread = threading.Thread(target=enviarCorreo,
                                               args=(asunto, mensaje, [usuario.usuCorreo], request))
                     thread.start()
-                    print(mensaje)
-                    mensaje = f'Correo enviado correctamente'
+                    mensaje = f'Correo de recuperación enviado. Puede demorar unos minutos en llegar. Si no lo recibes, intenta enviarlo nuevamente.'
                     retorno = {'mensaje': mensaje, 'estado': True}
                     return render(request, "contrasenaOlvidada.html", retorno)
                 except ValidationError:
@@ -367,9 +365,10 @@ def enviarCambioContrasena(request):
 def vistaCambioContrasena(request):
     if request.method == 'GET':
         token = request.GET.get('token')
-        if token is not None and tokenValido(token):
+        correo = request.GET.get('correo')
+        if token is not None and tokenValido(token, correo):
             # Token válido, permitir el cambio de contraseña
-            return render(request, "cambiarContrasena.html")
+            return render(request, "cambiarContrasena.html", {"correo": correo})
         else:
             # Token inválido, mostrar un mensaje de error utilizando SweetAlert en la página "inicioSesion.html"
             mensaje = "No se ha solicitado un cambio de contraseña"
@@ -378,12 +377,12 @@ def vistaCambioContrasena(request):
 
     # Manejar el caso si se realiza una solicitud POST para cambiar la contraseña
     elif request.method == 'POST':
-        return cambiarContrasena(request)
+        return cambiarContrasena(request, {"correo": correo})
 
-def tokenValido(token):
+def tokenValido(token, correo):
     try:
         # Buscar el token en los usuarios
-        usuario = Usuario.objects.get(usuTokenCambioContrasena=token)
+        usuario = Usuario.objects.get(usuTokenCambioContrasena=token, usuCorreo = correo)
 
         # Obtener la fecha y hora actual
         now = datetime.now(timezone.utc)
@@ -407,7 +406,7 @@ def cambiarContrasena(request):
     estado = False
     try:
         contraNueva = request.POST["pasNuevaContraseña"]
-        correo = request.session.get('correo')
+        correo = request.POST.get('correo')
         usuario = Usuario.objects.get(usuCorreo=correo)
         usuario.set_password(contraNueva)
         # Limpiar el token después de cambiar la contraseña
