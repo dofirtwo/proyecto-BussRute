@@ -1,38 +1,45 @@
-<nav class="navbar navbar-expand-sm" style="background-color: #87CEEB;">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#"><img src="../static/img/Logo Aplicacion1.png" class="img-fluid logoMenu" /></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/inicio/">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/visualizarRutas/">Rutas</a>
-        </li>
-        <li class="nav-item">
-          <a href="#contacto" class="nav-link">Contacto</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a onclick="a()" class="nav-link dropdown-toggle" href="/inicioSesion/" id="navbarDropdown" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa-regular fa-user" style="color: #00a99d;"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            {% if usuario %}
-            <div class="user-info text-center">
-              <span>{{ usuario.usuNombre }}</span>
+<div class="d-flex justify-content-between" style="background-color: #87CEEB;">
+  <!-- Imagen -->
+  <a class="navbar-brand" href="/visualizarRutas/">
+    <img src="../static/img/Logo Aplicacion1.png" class="img-fluid logoMenu" />
+  </a>
+
+  <!-- Menú -->
+  <nav class="navbar navbar-expand-sm">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/inicio/">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/visualizarRutas/">Rutas</a>
+          </li>
+          <li class="nav-item">
+            <a href="#contacto" class="nav-link">Contacto</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a onclick="a()" class="nav-link dropdown-toggle" href="/inicioSesion/" id="navbarDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-regular fa-user" style="color: #00a99d;"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              {% if usuario %}
+              <div class="user-info text-center">
+                <span>Hola! {{ usuario.usuNombre }}</span>
+              </div>
+              <a class="dropdown-item" href="/cerrarSesion/">Cerrar sesión</a>
+              {% else %}
+              <a class="dropdown-item" href="/inicioSesion/">Iniciar sesión</a>
+              {% endif %}
             </div>
-            <a class="dropdown-item" href="/cerrarSesion/">Cerrar sesión</a>
-            {% else %}
-            <a class="dropdown-item" href="/inicioSesion/">Iniciar sesión</a>
-            {% endif %}
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>

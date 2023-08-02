@@ -280,6 +280,86 @@ body{
     width: 20%;
 }
 
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: -130px;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: 1rem;
+    margin: 0.125rem 0 0;
+    font-size: 1rem;
+    color: #333;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+    margin-bottom: 10px;
+}
+
+.user-info span {
+    font-weight: bold;
+}
+
+.dropdown-item {
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-brand {
+      margin-left: 20px;
+    }
+  
+    .navbar-toggler {
+      margin-right: 20px;
+    }
+  
+    .navbar-collapse {
+      position: absolute;
+      top: 56px;
+      right: 0;
+      background-color: #87CEEB;
+      width: 100%;
+      transform: translateX(100%);
+      transition: transform .5s ease-in-out;
+    }
+  
+    .navbar-collapse.show {
+      transform: translateX(0);
+    }
+  
+    .navbar-nav {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+  
+    .nav-item {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  
+
 /* CSS DE ARIADNA */
 
 .imagen {
@@ -371,44 +451,6 @@ body{
 .contenido {
     margin: 30px;
 
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: -130px;
-    z-index: 1000;
-    display: none;
-    float: left;
-    min-width: 10rem;
-    padding: 1rem;
-    margin: 0.125rem 0 0;
-    font-size: 1rem;
-    color: #333;
-    text-align: left;
-    list-style: none;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.user-info {
-    margin-bottom: 10px;
-}
-
-.user-info span {
-    font-weight: bold;
-}
-
-.dropdown-item {
-    padding: 0.5rem 1rem;
-    transition: background-color 0.3s;
-}
-
-.dropdown-item:hover {
-    background-color: #f0f0f0;
 }
 
 .titulo2{
