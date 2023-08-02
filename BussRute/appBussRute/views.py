@@ -16,7 +16,51 @@ from google.oauth2 import id_token
 from django.http import JsonResponse
 import secrets
 from django.core.validators import validate_email
+from google.auth.transport import requests
 
+clientID = '279970518458-chlpaq00krnoahgvdqdftdcfsu3gp8b9.apps.googleusercontent.com'
+redirectUri = 'https://mauriciokta.pythonanywhere.com'
+
+def google_login(request):
+    auth_url = f"https://accounts.google.com/o/oauth2/auth?response_type=code&client_id={clientID}&redirect_uri={redirectUri}&scope=email%20profile&access_type=offline"
+    return redirect(auth_url)
+
+def google_auth(request):
+    if 'code' in request.GET:
+        code = request.GET['code']
+        print("codigo: ", code)
+        data = {
+            'code': code,
+            'client_id': clientID,
+            'client_secret': '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',
+            'redirect_uri': redirectUri,
+            'grant_type': 'authorization_code',
+        }
+
+        # Obtener el token de acceso con el código de autorización
+        response = requests.post('https://accounts.google.com/o/oauth2/token', data=data)
+        token_data = response.json()
+        print("token de acceso:", token_data)
+
+        if 'access_token' in token_data:
+            idinfo = id_token.verify_oauth2_token(token_data['id_token'], requests.Request(), clientID)
+            name = idinfo.get('name', None)
+
+            try:
+                usuario, created = Usuario.objects.get_or_create(usuNombre=name)
+                # Si el usuario existe, actualizar el nombre si es necesario
+                if usuario.usuNombre != name:
+                    usuario.usuNombre = name
+                    usuario.save()
+
+                # Guardar el ID del usuario en la sesión
+                request.session['usuario_id'] = usuario.id
+
+            except Exception as e:
+                # Manejo de errores en caso de que algo falle en la creación o actualización del usuario
+                print("Error:", e)
+
+    return redirect('/inicio/')
 
 # BLOQUE DE SOLO VISTAS -------------------------------------------------------------------------------------------
 def loginRequired(function):
