@@ -13,6 +13,25 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
+          {% if usuario.usuRol_id == 1 %}
+          <!-- Menú para administradores -->
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/inicio/">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/vistaRegistrarRuta/">Registrar Ruta</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/visualizarRutas/">Rutas</a>
+          </li>
+          <li class="nav-item">
+            <a href="#contacto" class="nav-link">Contacto</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/vistaGraficas/">Graficas</a>
+          </li>
+          {% else %}
+          <!-- Menú para usuarios regulares -->
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/inicio/">Inicio</a>
           </li>
@@ -22,6 +41,7 @@
           <li class="nav-item">
             <a href="#contacto" class="nav-link">Contacto</a>
           </li>
+          {% endif %}
           <li class="nav-item dropdown">
             <a onclick="a()" class="nav-link dropdown-toggle" href="/inicioSesion/" id="navbarDropdown" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">
