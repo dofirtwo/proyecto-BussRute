@@ -291,20 +291,21 @@ def registrarUsuarioIniciadoGoogle(request):
             retorno = {"mensaje": mensaje, "estado": False}
             return render(request, "nombreUsuario.html", retorno)
 
-        if len(nombreUsu) < 6:
+        elif len(nombreUsu) < 6:
             # Mostrar un mensaje de error al usuario
             mensaje = 'El nombre de usuario debe tener al menos 6 caracteres'
             retorno = {"mensaje": mensaje, "estado": False}
             return render(request, "nombreUsuario.html", retorno)
 
-        if Usuario.objects.filter(usuCorreo=email).exists():
+        elif Usuario.objects.filter(usuCorreo=email).exists():
             # Mostrar un mensaje de error al usuario
             mensaje = 'Ya existe una cuenta con este correo electrónico'
             retorno = {"mensaje": mensaje, "estado": False}
             return render(request, "nombreUsuario.html", retorno)
-
-        with transaction.atomic():
-            rolUsuario = Rol.objects.get(id=2)
+        
+        else:
+            with transaction.atomic():
+                rolUsuario = Rol.objects.get(id=2)
 
             usuario = Usuario(
                 usuNombre=nombreUsu,
