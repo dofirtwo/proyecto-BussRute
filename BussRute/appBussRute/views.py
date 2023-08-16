@@ -2,7 +2,6 @@ import requests
 import json
 from google.auth.transport import requests as google_requests
 from django.shortcuts import render, redirect
-from .models import Comentario
 from django import forms
 from django.db import Error, transaction
 from appBussRute.models import *
@@ -64,9 +63,17 @@ def visualizarRutas(request):
     if usuario_id:
         usuario = Usuario.objects.get(id=usuario_id)
 
+    rutasFavoritas = FavoritoRuta.objects.filter(favUsuario=usuario_id)
+    barriosNeiva = barrios
+    comunasNeiva = comunas
+    sitiosNeiva = sitiosDeInteres
+    lista_ordenada_barrios = sorted(barriosNeiva)
+    lista_ordenada_sitios = sorted(sitiosNeiva)
     rutas = Ruta.objects.all()
+    ubicaciones = UbicacionRuta.objects.all()
     coordenadas = DetalleRuta.objects.all()
-    retorno = {"rutas":rutas,"coordenadas":coordenadas,"usuario": usuario}
+    retorno = {"rutas":rutas,"coordenadas":coordenadas,"usuario": usuario,"barriosNeiva":lista_ordenada_barrios,
+               "comunasNeiva":comunasNeiva,"sitiosNeiva":lista_ordenada_sitios,"ubicaciones":ubicaciones,"rutasFavoritas":rutasFavoritas}
 
     return render(request, "usuario/inicio.html", retorno)
 
@@ -78,6 +85,12 @@ def vistaRegistrarRuta(request):
 
     # Obtener el objeto Usuario del usuario autenticado
     usuario = Usuario.objects.get(id=request.session['usuario_id'])
+    barriosNeiva = barrios
+    comunasNeiva = comunas
+    sitiosNeiva = sitiosDeInteres
+    lista_ordenada_barrios = sorted(barriosNeiva)
+    lista_ordenada_sitios = sorted(sitiosNeiva)
+    retorno = {"barriosNeiva":lista_ordenada_barrios,"comunasNeiva":comunasNeiva,"sitiosNeiva":lista_ordenada_sitios,"usuario": usuario}
 
     # Verificar si el usuario tiene el rol de administrador
     if usuario.usuRol_id != 1:
@@ -85,8 +98,30 @@ def vistaRegistrarRuta(request):
         return redirect('/inicio/')
 
     # Código para mostrar la vista para usuarios con rol de administrador
-    return render(request, "admin/frmRegistrarRuta.html", {'usuario': usuario})
+    return render(request, "admin/frmRegistrarRuta.html",retorno)
 
+def registroFavorito(request):
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                numeroRuta = request.POST["ruta"]
+                usuario_id = request.session.get('usuario_id')
+                usuario = None
+                ruta = None
+                if usuario_id:
+                    ruta = Ruta.objects.get(rutNumero=numeroRuta)
+                    usuario = Usuario.objects.get(id=usuario_id)
+                    rutFavorita = FavoritoRuta(favRuta=ruta,favUsuario=usuario)
+                    rutFavorita.save()
+                    mensaje="Ruta Añadida a Favorito Correctamente"
+                else:
+                    mensaje="Debe Iniciar Sesion Primero"
+                estado = True
+        except Error as error:
+            transaction.rollback()
+            mensaje = f"{error}"
+        retorno = {"mensaje":mensaje,"estado":estado}
+        return JsonResponse(retorno)
 
 def vistaEnvioCorreo(request):
     return render(request, "contrasenaOlvidada.html")
@@ -182,8 +217,15 @@ def registroRuta(request):
                     longitud = detalle['longitud']
                     detalleRuta = DetalleRuta(detRuta=ruta,detLatitud=latitud,detLongitud=longitud)
                     detalleRuta.save()
+                ubicacionRutas = json.loads(request.POST["ubicacion"])
+                for ubicacion in ubicacionRutas:
+                    barrio = ubicacion['barrio']
+                    comuna = ubicacion['comuna']
+                    sitioDeInteres = ubicacion['sitioDeInteres']
+                    ubicacionRuta = UbicacionRuta(ubiRuta=ruta,ubiBarrio=barrio,ubiComuna=comuna,ubiSitioDeInteres=sitioDeInteres)
+                    ubicacionRuta.save()
                 estado = True
-                mensaje = "Se ha registrado la Solicitud Correctamete"
+                mensaje = "Se ha registrado la Ruta Correctamete"
         except Error as error:
             transaction.rollback()
             mensaje = f"{error}"
@@ -281,26 +323,29 @@ def registrarseUsuario(request):
     return render(request, "crearCuenta.html", retorno)
 
 def registrarUsuarioIniciadoGoogle(request):
+    if request.method != 'POST':
+        # Redirigir al usuario a otra página o mostrar un mensaje de error
+        return redirect('/inicio/')
     try:
-        nombreUsu = request.POST.get("nombreUsuarioGoogle", "")
-        email = request.POST.get("correoUsuarioGoogle", "").lower()
+        nombreUsu = request.POST.get("nombreUsuarioGoogle","")
+        email = request.POST.get("correoUsuarioGoogle","").lower()
 
-        if not nombreUsu:
+        if not nombreUsu or not email:
             # Mostrar un mensaje de error al usuario
             mensaje = 'Por favor, complete todos los campos'
-            retorno = {"mensaje": mensaje, "estado": False}
+            retorno = {"mensaje": mensaje, "estado": False, "email": email}
             return render(request, "nombreUsuario.html", retorno)
 
         elif len(nombreUsu) < 6:
             # Mostrar un mensaje de error al usuario
             mensaje = 'El nombre de usuario debe tener al menos 6 caracteres'
-            retorno = {"mensaje": mensaje, "estado": False}
+            retorno = {"mensaje": mensaje, "estado": False, "email": email}
             return render(request, "nombreUsuario.html", retorno)
 
         elif Usuario.objects.filter(usuCorreo=email).exists():
             # Mostrar un mensaje de error al usuario
             mensaje = 'Ya existe una cuenta con este correo electrónico'
-            retorno = {"mensaje": mensaje, "estado": False}
+            retorno = {"mensaje": mensaje, "estado": False, "email": email}
             return render(request, "nombreUsuario.html", retorno)
         
         else:
@@ -399,7 +444,7 @@ def enviarCambioContrasena(request):
                     usuario.save()
 
                     asunto = 'Solicitud para restablecer contraseña de BussRute'
-                    # url = f"https://mauriciokta.pythonanywhere.com/vistaCambioContrasena/?token={token}&correo={correo}"
+                    # url = f"https://bussrute.pythonanywhere.com/vistaCambioContrasena/?token={token}&correo={correo}"
                     url = f"http://127.0.0.1:8000/vistaCambioContrasena/?token={token}&correo={correo}"
                     mensaje = f'<div style="background:#f9f9f9">\
                         <div style="background-color:#f9f9f9">\

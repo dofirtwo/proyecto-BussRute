@@ -1,194 +1,171 @@
 {% extends "index.html" %}
 {% block encabezado %}
-    {% include "encabezado.html" %}
+{% include "encabezado.html" %}
 {% endblock %}
 {% block menu %}
-    {% include "menu.html" %}
+{% include "menu.html" %}
 {% endblock %}
 {% block contenido %}
 
 <br>
-    <form action="">
-        <div class="principal mx-3">
-            <div class="form-group row mt-2">
-                <div class="mb-3 col-lg-6">
-                    <div id="map">
-                    </div>
-                </div>
-                <div class="mb-3 col-lg-6">
-                    <div class="form-group row mt-2">
-                        <div class="mb-3 col-lg-2">
-                            <label class="fw-bold">Filtro:</label>
-                        </div>
-                        <div class="mb-3 col-lg-2">
-                            <div class="dropdown dropend">
-                                <a style="color: #00A99D; text-decoration: none;" class="dropdown-toggle" data-bs-toggle="dropdown">Barrio</a>
-                                <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Diego de Ospina</a></li>
-                                <li><a class="dropdown-item" href="#">Puertas del Sol</a></li>
-                                <li><a class="dropdown-item" href="#">Altico</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="mb-3 col-lg-2">
-                            <div class="dropdown dropend">
-                                <a style="color: #00A99D;  text-decoration: none;" class="dropdown-toggle" data-bs-toggle="dropdown">Comuna</a>
-                                <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Comuna 4</a></li>
-                                <li><a class="dropdown-item" href="#">Comuna 5</a></li>
-                                <li><a class="dropdown-item" href="#">Comuna 10</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="mb-3 col-lg-2">
-                            <div class="dropdown dropend">
-                                <a style="color: #00A99D;  text-decoration: none;" class="dropdown-toggle" data-bs-toggle="dropdown">Sitios Reconocibles</a>
-                                <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Comuneros</a></li>
-                                <li><a class="dropdown-item" href="#">San Pedro Plaza</a></li>
-                                <li><a class="dropdown-item" href="#">Santa Lucia Plaza</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-group rounded">
-                        <select id="ruta" class="form-select" style="background-color: #F5F5E8">
-                            <option value="0" disabled selected>Seleccione</option>
-                            {% for ruta in rutas %}
-                                <option value="{{ruta.rutNumero}}">Ruta {{ruta.rutNumero}}</option>
-                            {% endfor %}
-                        </select>
-                        <span class="input-group-text border-0" id="search-addon">
-                            <i class="fas fa-search"></i>
-                        </span>
-                        </div>
-                        <hr>
-                        <div class="form-group row mt-2">
-                            <div class="mb-3 col-lg-6">
-                                <label for="txtColor" class="fw-bold">Color de la Ruta</label>
-                                <input type="text" name="txtColor" id="txtColor" class="form-control" disabled style="background-color: #F5F5E8">
-                            </div>
-                            <div class="mb-3 col-lg-6">
-                               <label for="txtNumero" class="fw-bold">Numero de la Ruta</label>
-                                <input type="number" name="txtNumero" id="txtNumero" class="form-control" disabled style="background-color: #F5F5E8">
-                            </div>
-                        </div>
-                        <div class="form-group row mt-2">
-                            <div class="mb-3 col-lg-6">
-                                <label for="txtEmpresa" class="fw-bold">Empresa de la Ruta</label>
-                                <input type="text" name="txtEmpresa" id="txtEmpresa" class="form-control" disabled style="background-color: #F5F5E8">
-                            </div>
-                            <div class="mb-3 col-lg-6">
-                                <label for="txtHora" class="fw-bold">Hora de Funcionamiento</label>
-                                 <input type="text" name="txtHora" id="txtHora" class="form-control" disabled style="background-color: #F5F5E8">
-                             </div>
-                        </div>
-                        <div class="form-group row mt-2 text-center">
-                            <div class="mb-3 col-lg-12">
-                                <label for="" class="fw-bold">Imagen de la Ruta</label>
-                                <br>
-                                <img height="225" id="txtImagen" name="txtImagen" src="" alt="">
-                            </div>
-                        </div>
+<form action="">
+    <div class="principal mx-3">
+        <div class="form-group row mt-2">
+            <div class="mb-3 col-lg-6">
+                <div id="map">
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col-lg-2 col-sm-12 text-center  mb-3">
-                    <button type="button" id="btnGuardar" onclick="guardarRuta()" class="btn btn-custom">Guardar Ruta</button>
+            <div class="mb-3 col-lg-6">
+                <div class="form-group row mt-2">
+                    <div class="mb-3 col-lg-1 mt-2">
+                        <label class="fw-bold">Filtro:</label>
+                    </div>
+                    <div class="mb-3 col-lg-4">
+                        <div class="dropdown dropend">
+                            <select name="cbBarrio" id="cbBarrio" class="form-select"
+                                style="background-color: #F5F5E8;color: #00a99d;">
+                                <option value="0" selected>Barrio</option>
+                                {% for barrios in barriosNeiva %}
+                                <option value="{{barrios.0}}">{{barrios.1}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3 col-lg-3">
+                        <div class="dropdown dropend">
+                            <select name="cbComuna" id="cbComuna" class="form-select"
+                                style="background-color: #F5F5E8;color: #00a99d;">
+                                <option value="0" selected>Comuna</option>
+                                {% for comunas in comunasNeiva %}
+                                <option value="{{comunas.0}}">{{comunas.1}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3 col-lg-4">
+                        <div class="dropdown dropend">
+                            <select name="cbSitioDeInteres" id="cbSitioDeInteres" class="form-select"
+                                style="background-color: #F5F5E8;color: #00a99d;">
+                                <option value="0" selected>Sitio de Interes</option>
+                                {% for sitios in sitiosNeiva %}
+                                <option value="{{sitios.0}}">{{sitios.1}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-2 col-sm-12 text-center mb-3 ">
-                    <button type="button" id="btnComentar" onclick="verificarSesion()" class="btn btn-custom">Comentar</button>
+                <div class="input-group rounded">
+                    <select id="ruta" class="form-select" style="background-color: #F5F5E8">
+                        <option value="0" disabled selected>Seleccione</option>
+                        {% for ruta in rutas %}
+                        <option value="{{ruta.rutNumero}}">Ruta {{ruta.rutNumero}}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="input-group-text border-0" id="search-addon">
+                        <i class="fas fa-search"></i>
+                    </span>
                 </div>
-                <div class="col-lg-2 col-sm-12 text-center mb-3">
-                    {% if usuario %}
-                        <button type="button" onclick="verFavoritos()" class="btn btn-custom" data-toggle="modal" data-target="#exampleModal">Favoritos</button>
-                    {% else %}
-                        <button type="button" onclick="verFavoritos()" class="btn btn-custom">Favoritos</button>
-                    {% endif %}
+                <hr>
+                <div class="form-group row mt-2">
+                    <div class="mb-3 col-lg-6">
+                        <label for="txtColor" class="fw-bold">Color de la Ruta</label>
+                        <input type="text" name="txtColor" id="txtColor" class="form-control" disabled
+                            style="background-color: #F5F5E8">
+                    </div>
+                    <div class="mb-3 col-lg-6">
+                        <label for="txtNumero" class="fw-bold">Numero de la Ruta</label>
+                        <input type="number" name="txtNumero" id="txtNumero" class="form-control" disabled
+                            style="background-color: #F5F5E8">
+                    </div>
+                </div>
+                <div class="form-group row mt-2">
+                    <div class="mb-3 col-lg-6">
+                        <label for="txtEmpresa" class="fw-bold">Empresa de la Ruta</label>
+                        <input type="text" name="txtEmpresa" id="txtEmpresa" class="form-control" disabled
+                            style="background-color: #F5F5E8">
+                    </div>
+                    <div class="mb-3 col-lg-6">
+                        <label for="txtHora" class="fw-bold">Hora de Funcionamiento</label>
+                        <input type="text" name="txtHora" id="txtHora" class="form-control" disabled
+                            style="background-color: #F5F5E8">
+                    </div>
+                </div>
+                <div class="form-group row mt-2 text-center">
+                    <div class="mb-3 col-lg-12">
+                        <label for="" class="fw-bold">Imagen de la Ruta</label>
+                        <br>
+                        <img height="225" id="txtImagen" name="txtImagen" src="" alt="">
+                    </div>
                 </div>
             </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header" style="background-color: #87CEEB;">
-                                    <h5 class="modal-title" id="exampleModalLabel">Rutas Favoritas <i class="fa-solid fa-star" style="color: #d2cd37;"></i></h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </div>
+        <div class="form-group row ">
+            <div class=" col-lg-2">
+                <button type="button" id="btnGuardar" class="btn btn-custom">Guardar Ruta</button>
+            </div>
+            <div class=" col-lg-2">
+                <button type="button" id="btnComentar" onclick="verificarSesion()"
+                    class="btn btn-custom">Comentar</button>
+            </div>
+            <div class=" col-lg-2">
+                {% if usuario %}
+                <button type="button" id="btnFavorito" class="btn btn-custom" data-toggle="modal"
+                    data-target="#exampleModal">Favoritos</button>
+                {% else %}
+                <button type="button" id="btnFavorito" class="btn btn-custom">Favoritos</button>
+                {% endif %}
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: #87CEEB;">
+                                <h5 class="modal-title" id="exampleModalLabel">Rutas Favoritas <i
+                                        class="fa-solid fa-star" style="color: #d2cd37;"></i></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <section  class="testimonios">
-                                        <div class="form-group row testimonios_contenedor">
-                                            <div class="mb-1 col-lg-6 comentarios_clientes">
-                                                Ruta: 7
-                                                <br>
-                                                Empresa: Coomotor
-                                            </div>
-                                            <div class="mb-1 col-lg-3 justify-content-end">
-                                                <button class="btn btn-custom">Visualizar</button>
-                                            </div>
-                                            <div class="mb-1 col-lg-3 justify-content-end">
-                                                <button class="btn btn-opuesto">Eliminar</button>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="form-group row testimonios_contenedor">
-                                            <div class="mb-1 col-lg-6 comentarios_clientes">
-                                                Rutas 19
-                                                <br>
-                                                Empresa: FlotaHuila
-                                            </div>
-                                            <div class="mb-1 col-lg-3 justify-content-end">
-                                                <button class="btn btn-custom">Visualizar</button>
-                                            </div>
-                                            <div class="mb-1 col-lg-3 justify-content-end">
-                                                <button class="btn btn-opuesto">Eliminar</button>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="form-group row testimonios_contenedor">
-                                            <div class="mb-1 col-lg-6 comentarios_clientes">
-                                                Ruta: 19
-                                                <br>
-                                                Empresa: FlotaHuila
-                                            </div>
-                                            <div class="mb-1 col-lg-3 justify-content-end">
-                                                <button class="btn btn-custom">Visualizar</button>
-                                            </div>
-                                            <div class="mb-1 col-lg-3 justify-content-end">
-                                                <button class="btn btn-opuesto">Eliminar</button>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-opuesto" data-dismiss="modal">Close</button>
-                                </div>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <section id="RutasFavoritas" class="testimonios">
+
+                                </section>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-opuesto" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </form>
-    <script>
-        $('#exampleModal').on('hidden.bs.modal', function () {
-            $('.modal-backdrop').remove();
-        });
-    </script>
+    </div>
+</form>
+<script>
+    $('#exampleModal').on('hidden.bs.modal', function () {
+        $('.modal-backdrop').remove();
+    });
+</script>
 
-    <br>
+<br>
 {% load static %}
-    <script src="{%static '../static/js/mapa.js'%}"></script>
-    {% for ruta in rutas %}
-        <script>cargarRutas("{{ruta.id}}","{{ruta.rutNumero}}","{{ruta.rutEmpresa}}","{{ruta.rutHorario}}")</script>
-    {% endfor %}
-    {% for coordenada in coordenadas %}
-        <script>cargasCoodernadas("{{coordenada.detRuta}}","{{coordenada.detLatitud}}",
-            "{{coordenada.detLongitud}}")</script>
-    {% endfor %}
+<script src="{%static '../static/js/mapa.js'%}"></script>
+{% for ruta in rutas %}
+<script>cargarRutas("{{ruta.id}}", "{{ruta.rutNumero}}", "{{ruta.rutEmpresa}}", "{{ruta.rutHorario}}")</script>
+{% endfor %}
+{% for coordenada in coordenadas %}
+<script>cargasCoodernadas("{{coordenada.detRuta}}", "{{coordenada.detLatitud}}",
+        "{{coordenada.detLongitud}}")</script>
+{% endfor %}
+{% for ubicacion in ubicaciones %}
+<script>cargarUbicaciones("{{ubicacion.id}}", "{{ubicacion.ubiBarrio}}",
+        "{{ubicacion.ubiComuna}}", "{{ubicacion.ubiSitioDeInteres}}", "{{ubicacion.ubiRuta}}")</script>
+{% endfor %}
+{% for favoritos in rutasFavoritas %}
+<script>cargarFavorito("{{favoritos.favRuta}}", "{{favoritos.favUsuario}}")</script>
+{% endfor %}
+
 {% endblock %}
 {% block pie_pagina %}
-    {% include "pie_pagina.html" %}
+{% include "pie_pagina.html" %}
 {% endblock %}
