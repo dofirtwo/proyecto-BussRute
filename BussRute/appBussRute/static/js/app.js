@@ -124,8 +124,10 @@ $(function () {
 
   var facebookLogout = function () {
     checkLoginState(function (data) {
+        console.log(data)
       if (data.status === 'connected') {
         FB.logout(function (response) {
+            console.log(response)
           $('#facebook-session').before(btn_login);
           $('#facebook-session').remove();
         })

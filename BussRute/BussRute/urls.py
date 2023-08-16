@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from appBussRute import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -39,5 +39,10 @@ urlpatterns = [
     path('vistaCambioContrasena/',views.vistaCambioContrasena),
     path('cambioContrasena/', views.cambiarContrasena),
     path('verificarSesion/', views.verificarSesion, name='verificarSesion'),
-    path('registroRuta/', views.registroRuta)
+    path('registroRuta/', views.registroRuta),
+    path('vistaNombre/', views.vistaNombreUsuario),
+    path('enviarNombreUsuario/', views.registrarUsuarioIniciadoGoogle),
+    path('google-login/', views.google_login, name='google-login'),
+    path('google-auth/', views.google_auth, name='google-auth'),
+    path('', include('appBussRute.urls'))
 ]
