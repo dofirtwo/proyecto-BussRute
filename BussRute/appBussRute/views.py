@@ -151,7 +151,7 @@ def vistaNombreUsuario(request):
 # BLOQUE DE SOLO FUNCIONES -------------------------------------------------------------------------------------------
 
 clientID = '279970518458-chlpaq00krnoahgvdqdftdcfsu3gp8b9.apps.googleusercontent.com'
-redirectUri = 'https://mauriciokta.pythonanywhere.com/google-auth/'
+redirectUri = 'https://bussrute.pythonanywhere.com/google-auth/'
 
 def google_login(request):
     auth_url = f"https://accounts.google.com/o/oauth2/auth?response_type=code&client_id={clientID}&redirect_uri={redirectUri}&scope=email%20profile%20https://www.googleapis.com/auth/userinfo.profile%20openid&access_type=offline"
