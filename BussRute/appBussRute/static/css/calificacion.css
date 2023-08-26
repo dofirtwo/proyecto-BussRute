@@ -1,0 +1,21 @@
+.heart {
+    font-size: 32px;
+    margin-top: 15px;
+    color: #bbb;
+    transition: color 0.3s;
+    cursor: pointer;
+  }
+
+.hearti {
+  font-size: 25px;
+  color:#bbb; 
+}  
+  .hearto{
+    font-size: 25px;
+    color: pink;
+  }
+  .heart.selected,
+  .heart:hover {
+    color: pink; /* Cambia el color cuando está seleccionado */
+  }
+  

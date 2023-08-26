@@ -256,10 +256,11 @@ def agregarComentario(request):
                  # Creamos un objeto de tipo comentario
                 nombre = request.POST.get("txtNombre")
                 comentario = request.POST.get("txtComentario")
+                valoracion = request.POST.get("txtValoracion")
 
                 try:
                     with transaction.atomic():
-                        contenidoComentario = Comentario(comDescripcion=comentario, comUsuario_id=usuario_id)
+                        contenidoComentario = Comentario(comDescripcion=comentario, comUsuario_id=usuario_id, comValoracion=valoracion)
                         contenidoComentario.save()
                         mensaje = "Comentario registrado correctamente"
                         retorno = {"mensaje": mensaje}

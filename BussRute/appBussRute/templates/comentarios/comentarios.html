@@ -9,28 +9,24 @@
 
 <section class="testimonios">
   <div class="testimonios_header">
-    <h2>Comentarios existentes </h2>
+    <h2>Comentarios existentes</h2>
     <br>
   </div>
   <!-- Testimonios contenedor -->
   <div class="testimonios_contenedor">
     <!-- CAJA 1 -->
     {% for comentario in comentarios %}
-    <div class="testimonios_caja">
+    <div class="testimonios_caja" data-valoracion="{{ comentario.comValoracion }}">
       <div class="caja-top">
         <div class="perfil">
           <!-- Nombre y Usuario -->
           <div class="name-user">
-            <strong>{{ comentario.comUsuario.usuNombre}}</strong>
+            <strong>{{ comentario.comUsuario.usuNombre }}</strong>
           </div>
         </div>
         <!-- Reseñas -->
         <div class="reseñas">
-          <i class="fa fa-heart"></i>
-          <i class="fa fa-heart"></i>
-          <i class="fa fa-heart"></i>
-          <i class="fa fa-heart"></i>
-          <i class="fa fa-heart"></i>
+          <!-- Corazones se agregarán dinámicamente con jQuery -->
         </div>
       </div>
       <!-- Comentarios -->
@@ -47,6 +43,26 @@
     <button type="button" id="btnComentar" onclick="redirigir()" class="btn btn-custom">Agregar Comentario</button>
   </form>
 </section>
+<script>
+  $(document).ready(function() {
+    $('.testimonios_caja').each(function() {
+      const valoracion = $(this).data('valoracion');
+      const reseñasContainer = $(this).find('.reseñas');
+
+      for (let i = 1; i <= 5; i++) {
+        if (i <= valoracion) {
+          reseñasContainer.append('<i class="fa fa-heart hearto"></i>');
+        } else {
+          reseñasContainer.append('<i class="fa fa-heart hearti"></i>');
+        }
+      }
+    });
+
+    // Resto de tu código
+    // ...
+  });
+</script>
+
 <br>
 {% endblock %}
 {% block pie_pagina %}

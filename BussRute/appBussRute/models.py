@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 # Create your models here.
 
 barrios = [('Calamari', 'Calamari'),('Villa Marcela', 'Villa Marcela'),
@@ -98,13 +100,17 @@ class Usuario(models.Model):
 
 class Comentario(models.Model):
     comDescripcion = models.CharField(max_length=100)
-    comValoracion = models.CharField(max_length=30, null=True)
-    comUsuario = models.ForeignKey(Usuario,on_delete=models.PROTECT, null=True)
-    fechaHoraCreacion  = models.DateTimeField(auto_now_add=True)
+    comValoracion = models.PositiveIntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )  # Valor de valoración entre 1 y 5
+    comUsuario = models.ForeignKey(Usuario, on_delete=models.PROTECT, null=True)
+    fechaHoraCreacion = models.DateTimeField(auto_now_add=True)
     fechaHoraActualizacion = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.comDescripcion} + {self.comValoracion}"
+        return f"{self.comDescripcion} - Valoración: {self.comValoracion}"
+
+
 
 class Ruta(models.Model):
     rutNumero = models.IntegerField(db_comment="Numero de la ruta del bus")

@@ -19,11 +19,46 @@ function verificarSesion() {
   });
 }
 
-
+//CODIGO COMENTARIOS Y CALIFICACION COMENTARIOS
 function redirigir() {
   location.href = "/agregarComentario/"
 
 }
+
+$(document).ready(function() {
+  const txtValoracion = $('#txtValoracion');
+  let selectedCount = 0;
+
+  $(document).on('click', '.heart', function() {
+    const index = $('.heart').index(this);
+
+    // Deseleccionar todos los corazones
+    $('.heart').removeClass('selected');
+
+    // Seleccionar corazones hasta el índice actual
+    for (let i = 0; i <= index; i++) {
+      $('.heart').eq(i).addClass('selected');
+    }
+
+    selectedCount = index + 1;
+
+    // Actualizar la valoración basada en los corazones seleccionados
+    txtValoracion.val(selectedCount);
+
+    // Imprimir el valor en la consola
+    console.log(`Valor del corazón: ${selectedCount}`);
+  });
+
+  $('#btnEnviar').on('click', function(e) {
+    if (selectedCount === 0) {
+      // Mostrar mensaje de SweetAlert2 si no se ha seleccionado ningún corazón
+      e.preventDefault(); // Evita que el formulario se envíe
+      Swal.fire("Dejanos tu calificación", "Eso nos ayudará a mejorar tu experiencia", "info");
+    }
+  });
+});
+
+
 
 function verFavoritos() {
   $.ajax({
