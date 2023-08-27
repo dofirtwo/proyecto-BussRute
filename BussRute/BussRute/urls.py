@@ -25,6 +25,8 @@ urlpatterns = [
     path('inicio/',views.inicio),
     path('visualizarRutas/',views.visualizarRutas),
     path('comentarios/', views.comentarios),
+    path('registroFavorito/',views.registroFavorito),
+    path('eliminarFavorito/', views.eliminarFavorito),
     path('agregarComentario/', views.agregarComentario),
     path('inicioSesion/',views.inicioSesion),
     path('vistaRegistrarRuta/',views.vistaRegistrarRuta),

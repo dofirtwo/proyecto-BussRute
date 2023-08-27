@@ -94,6 +94,7 @@
 >>>>>>> Stashed changes
                             </div>
                         </div>
+<<<<<<< Updated upstream
                 </div>
             </div>
             <div class="form-group row ">
@@ -112,6 +113,78 @@
                                 <div class="modal-header" style="background-color: #87CEEB;">
                                     <h5 class="modal-title" id="exampleModalLabel">Rutas Favoritas <i class="fa-solid fa-star" style="color: #d2cd37;"></i></h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+=======
+                    </div>
+                </div>
+                <div class="input-group rounded">
+                    <select id="ruta" class="form-select" style="background-color: #F5F5E8">
+                        <option value="0" disabled selected>Seleccione</option>
+                        {% for ruta in rutas %}
+                        <option value="{{ruta.rutNumero}}">Ruta {{ruta.rutNumero}}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="input-group-text border-0" id="search-addon">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+                <hr>
+                <div class="form-group row mt-2">
+                    <div class="mb-3 col-lg-6">
+                        <label for="txtColor" class="fw-bold">Color de la Ruta</label>
+                        <input type="text" name="txtColor" id="txtColor" class="form-control" disabled
+                            style="background-color: #F5F5E8">
+                    </div>
+                    <div class="mb-3 col-lg-6">
+                        <label for="txtNumero" class="fw-bold">Numero de la Ruta</label>
+                        <input type="number" name="txtNumero" id="txtNumero" class="form-control" disabled
+                            style="background-color: #F5F5E8">
+                    </div>
+                </div>
+                <div class="form-group row mt-2">
+                    <div class="mb-3 col-lg-6">
+                        <label for="txtEmpresa" class="fw-bold">Empresa de la Ruta</label>
+                        <input type="text" name="txtEmpresa" id="txtEmpresa" class="form-control" disabled
+                            style="background-color: #F5F5E8">
+                    </div>
+                    <div class="mb-3 col-lg-6">
+                        <label for="txtHora" class="fw-bold">Hora de Funcionamiento</label>
+                        <input type="text" name="txtHora" id="txtHora" class="form-control" disabled
+                            style="background-color: #F5F5E8">
+                    </div>
+                </div>
+                <div class="form-group row mt-2 text-center">
+                    <div class="mb-3 col-lg-12 ">
+                        <label for="" class="fw-bold">Imagen de la Ruta</label>
+                        <br>
+                        <img height="225" id="txtImagen" name="txtImagen" src="" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row d-flex flex-wrap justify-content-end">
+            <div class="col-lg-2 col-md-4 col-5">
+                <button type="button" id="btnGuardar" class="btn btn-custom">Guardar Ruta</button>
+            </div>
+            <div class="col-lg-2 col-md-4 col-4">
+                <button type="button" id="btnComentar" onclick="verificarSesion()"
+                    class="btn btn-custom">Comentar</button>
+            </div>
+            <div class="col-lg-2 col-md-4 col-3">
+                {% if usuario %}
+                <button type="button" id="btnFavorito" class="btn btn-custom" data-toggle="modal" data-target="#exampleModal">Favoritos</button>
+                {% else %}
+                  <button type="button" id="btnFavorito" class="btn btn-custom">Favoritos</button>
+                {% endif %}
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: #87CEEB;">
+                                <h5 class="modal-title" id="exampleModalLabel">Rutas Favoritas <i
+                                        class="fa-solid fa-star" style="color: #d2cd37;"></i></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+>>>>>>> Stashed changes
                                     <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>

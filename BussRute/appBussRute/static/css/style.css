@@ -1,6 +1,16 @@
 /* CSS DE VARGAS */
+<<<<<<< Updated upstream
 #map { 
     height: 500px;
+=======
+/* CSS DE VARGAS */
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,600&display=swap');
+
+#map {
+    height: 600px;
+>>>>>>> Stashed changes
 }
 
 <<<<<<< Updated upstream
