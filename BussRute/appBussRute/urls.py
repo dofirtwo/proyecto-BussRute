@@ -6,4 +6,6 @@ urlpatterns = [
     path('ruta/<int:pk>', views.RutaDetail.as_view()),
     path('detalleRuta', views.DetalleRutaList.as_view()),
     path('detalleRuta/<int:pk>', views.DetalleRutaDetail.as_view()),
+    path('comentario', views.ComentarioList.as_view()),
+    path('comentario/<int:pk>', views.ComentarioDetail.as_view()),
 ]

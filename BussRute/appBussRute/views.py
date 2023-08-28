@@ -19,7 +19,7 @@ import secrets
 from django.core.validators import validate_email
 from rest_framework import generics
 from django.utils.crypto import get_random_string
-from appBussRute.serializers import RutaSerializers,DetalleRutaSerializers
+from appBussRute.serializers import RutaSerializers,DetalleRutaSerializers,ComentarioSerializer
 from cryptography.fernet import Fernet
 import os
 
@@ -254,7 +254,7 @@ def agregarComentario(request):
                     comentario = request.POST.get['txtComentario']
 
                  # Creamos un objeto de tipo comentario
-                nombre = request.POST.get("txtNombre")
+                #nombre = request.POST.get("txtNombre")
                 comentario = request.POST.get("txtComentario")
                 valoracion = request.POST.get("txtValoracion")
 
@@ -642,3 +642,11 @@ class DetalleRutaList(generics.ListCreateAPIView):
 class DetalleRutaDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = DetalleRuta.objects.all()
     serializer_class = DetalleRutaSerializers
+
+class ComentarioList(generics.ListCreateAPIView):
+    queryset = Comentario.objects.all()
+    serializer_class = ComentarioSerializer
+    
+class ComentarioDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comentario.objects.all()
+    serializer_class = ComentarioSerializer

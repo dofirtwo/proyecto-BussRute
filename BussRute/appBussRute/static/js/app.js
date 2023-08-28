@@ -58,8 +58,6 @@ $(document).ready(function() {
   });
 });
 
-
-
 function verFavoritos() {
   $.ajax({
     url: '/verificarSesion/',
