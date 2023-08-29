@@ -26,7 +26,7 @@ urlpatterns = [
     path('inicio/',views.inicio),
     path('', RedirectView.as_view(url='/inicio/')),
     path('visualizarRutas/',views.visualizarRutas),
-    path('comentarios/', views.comentarios),
+    # path('comentarios/', views.comentarios),
     path('agregarComentario/', views.agregarComentario),
     path('inicioSesion/',views.inicioSesion),
     path('vistaRegistrarRuta/',views.vistaRegistrarRuta),

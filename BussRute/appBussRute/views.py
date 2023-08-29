@@ -47,11 +47,23 @@ def inicioSesion(request):
     return render(request, 'inicioSesion.html', {'mensaje': mensajeError})
 
 def inicio(request):
+    
+    usuario_id = request.session.get('usuario_id')
     usuario = None
+    
     if 'usuario_id' in request.session:
         usuario_id = request.session['usuario_id']
         usuario = Usuario.objects.get(id=usuario_id)
-    return render(request, 'inicio.html', {'usuario': usuario})
+        comentarios = Comentario.objects.all()
+        context = {
+            'comentarios': comentarios,
+            'usuario': usuario
+        }
+    else:
+        #Se usa esta variable para definir un contexto vacío si el usuario no está presente
+        context = {}
+    return render(request, 'inicio.html',context)
+
 
 def crearCuenta(request):
     return render(request, "crearCuenta.html")
@@ -126,18 +138,19 @@ def registroFavorito(request):
 def vistaEnvioCorreo(request):
     return render(request, "contrasenaOlvidada.html")
 
-def comentarios(request):
-    usuario_id = request.session.get('usuario_id')
-    usuario = None
+# def comentarios(request):
+#     usuario_id = request.session.get('usuario_id')
+#     usuario = None
 
-    if usuario_id:
-        usuario = Usuario.objects.get(id=usuario_id)
-        comentarios = Comentario.objects.all()
-        context = {
-            'comentarios': comentarios,
-            'usuario': usuario
-        }
-    return render(request, 'comentarios/comentarios.html', context)
+#     if usuario_id:
+#         usuario = Usuario.objects.get(id=usuario_id)
+#         comentarios = Comentario.objects.all()
+#         context = {
+#             'comentarios': comentarios,
+#             'usuario': usuario
+#         }
+#         print(context)
+#     return render(request,'inicio.html', context)
 
 def vistaNombreUsuario(request):
     # Leer la clave de cifrado de una variable de entorno y convertirla en un objeto de bytes
@@ -247,12 +260,11 @@ def agregarComentario(request):
 
         if request.method == 'POST':
             if 'regresar' in request.POST:
-                return redirect('/comentarios/')
+                return redirect('/inicio/')
             else:
                 form = ComentarioForm(request.POST)
                 if form.is_valid():
                     comentario = request.POST.get['txtComentario']
-
                  # Creamos un objeto de tipo comentario
                 #nombre = request.POST.get("txtNombre")
                 comentario = request.POST.get("txtComentario")
@@ -264,7 +276,7 @@ def agregarComentario(request):
                         contenidoComentario.save()
                         mensaje = "Comentario registrado correctamente"
                         retorno = {"mensaje": mensaje}
-                        return redirect("/comentarios/", retorno)
+                        return redirect("/inicio/", retorno)
                 except Error as error:
                     transaction.rollback()
                     mensaje = f"{error}"

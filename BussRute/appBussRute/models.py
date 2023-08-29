@@ -101,7 +101,7 @@ class Usuario(models.Model):
 class Comentario(models.Model):
     comDescripcion = models.CharField(max_length=100)
     comValoracion = models.PositiveIntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(5)]
+        validators=[MinValueValidator(1), MaxValueValidator(5)],null=True
     )  # Valor de valoración entre 1 y 5
     comUsuario = models.ForeignKey(Usuario, on_delete=models.PROTECT, null=True)
     fechaHoraCreacion = models.DateTimeField(auto_now_add=True)

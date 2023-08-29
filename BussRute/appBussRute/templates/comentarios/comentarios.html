@@ -7,7 +7,7 @@
 {% endblock %}
 {% block contenido %}
 
-<section class="testimonios">
+{% comment %} <section class="testimonios">
   <div class="testimonios_header">
     <h2>Comentarios existentes</h2>
     <br>
@@ -57,13 +57,10 @@
         }
       }
     });
-
-    // Resto de tu código
-    // ...
   });
 </script>
 
-<br>
+<br> {% endcomment %}
 {% endblock %}
 {% block pie_pagina %}
 {% include "pie_pagina.html" %}

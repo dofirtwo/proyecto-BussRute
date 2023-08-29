@@ -1,10 +1,15 @@
 
 /* CSS DE VARGAS */
 /* CSS DE VARGAS */
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,600&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+* {
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
 #map { 
     height: 500px;
 }
@@ -42,14 +47,6 @@ input{
     box-sizing: border-box;
 }
 
-.testimonios {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -66,7 +63,7 @@ input{
 
 .testimonios_header {
     margin: 50px 0px;
-    padding: 10px 20px;
+    padding: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -78,7 +75,7 @@ input{
     font-weight: 500;
     background-color: #87CEEB;
     color: #151515;
-    padding: 10px 20px;
+    padding: 10px 10px;
     border-radius: 100px;
 }
 
@@ -99,36 +96,6 @@ input{
     cursor: pointer;
 }
 
-.perfil-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-right: 30px;
-}
-
-.perfil-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: center;
-}
-
-.perfil {
-    display: flex;
-    align-items: center;
-}
-
-.name-user {
-    display: flex;
-    flex-direction: column;
-}
-
-.name-user strong {
-    color: #3d3d3d;
-    font-size: 1.3rem;
-
-}
-
 .reseñas {
     color: #00A99D;
 
@@ -143,6 +110,104 @@ input{
 
 .comentarios_clientes p {
     color: #4b4b4b;
+}
+
+.swiper{
+    width: 950px;
+}
+
+.card {
+    position: relative;
+    background: #fff ;
+    border-radius: 20px;
+    margin: 20px  0;
+    
+}
+
+.card::before{
+    content: "";
+    position: absolute;
+    height: 50%;
+    width: 100%;
+    background: #7d2ae8;
+    border-radius: 20px 20px 0 0 ;
+
+}
+
+.card .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    position: relative;
+    z-index: 100;
+}
+
+.card .reseñas {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+
+}
+
+.card .name-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px ;
+    color: #333;
+}
+
+.name-user .name {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.card .comentarios_clientes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px ;
+    color: #333;
+}
+
+.comentarios_clientes .descripcion{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.card .button button {
+    background: #7d2ae8;
+    outline: none;
+    border: none;
+    color: #fff;
+    padding: 8px 22px;
+    border-radius: 20px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.button button::hover {
+    background: #6616d0;
+}
+
+.swiper-pagination-bullet {
+    height: 7px;
+    width: 26px;
+    border-radius: 25px;
+    background: #7d2ae8;
+}
+
+.swiper-button-next, .swiper-button-prev {
+    opacity: 0.7;
+    color: #7d2ae8;
+    transition: all 0.3s ease;
+}
+
+.swiper-button-next:hover, .swiper-button-prev:hover {
+    opacity: 1;
+    color: black;
 }
 
 .agregarComentarios {
@@ -553,3 +618,4 @@ body{
     font-size: 14px;
     margin-top: 10px;
 }
+
