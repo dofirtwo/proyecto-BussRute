@@ -1,65 +1,32 @@
-<div class="d-flex justify-content-between" style="background-color: #87CEEB;">
-  <!-- Imagen -->
-  <a class="navbar-brand" href="/visualizarRutas/">
-    <img src="../static/img/Logo Aplicacion1.png" class="img-fluid logoMenu" />
-  </a>
-
-  <!-- Menú -->
-  <nav class="navbar navbar-expand-sm">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<div class="nav-bar">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a href="#" class="navbar-brand">MENU</a>
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
+
+      <div class="collapse navbar-collapse justify-content-between align-items-center" id="navbarCollapse">
+        <div class="navbar-nav">
+          <a href="/inicio/" class="nav-item nav-link active">Inicio</a>
+          <a href="/visualizarRutas/" class="nav-link">Rutas</a>
+          <a href="#contacto" class="nav-item nav-link">Contacto</a>
+          {% if usuario %}
           {% if usuario.usuRol_id == 1 %}
-          <!-- Menú para administradores -->
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/inicio/">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/vistaRegistrarRuta/">Registrar Ruta</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/visualizarRutas/">Rutas</a>
-          </li>
-          <li class="nav-item">
-            <a href="#contacto" class="nav-link">Contacto</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/vistaGraficas/">Graficas</a>
-          </li>
-          {% else %}
-          <!-- Menú para usuarios regulares -->
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/inicio/">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/visualizarRutas/">Rutas</a>
-          </li>
-          <li class="nav-item">
-            <a href="#contacto" class="nav-link">Contacto</a>
-          </li>
+          <a href="/vistaRegistrarRuta/" class="nav-link">Registrar Ruta</a>
+          <a href="/vistaGraficas/" class="nav-link">Graficas</a>
           {% endif %}
-          <li class="nav-item dropdown">
-            <a onclick="a()" class="nav-link dropdown-toggle" href="/inicioSesion/" id="navbarDropdown" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa-regular fa-user" style="color: #00a99d;"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              {% if usuario %}
-              <div class="user-info text-center">
-                <span>Hola! {{ usuario.usuNombre }}</span>
-              </div>
-              <a class="dropdown-item" href="/cerrarSesion/">Cerrar sesión</a>
-              {% else %}
-              <a class="dropdown-item" href="/inicioSesion/">Iniciar sesión</a>
-              {% endif %}
-            </div>
-          </li>
-        </ul>
+          {% endif %}
+        </div>
+        <div class="navbar-nav user">
+          {% if usuario %}
+          <span class="nav-item nav-link">Hola! {{ usuario.usuNombre }}</span>
+          <a class="nav-item nav-link" href="/cerrarSesion/">Cerrar sesión</a>
+          {% else %}
+          <a href="/inicioSesion/" class="nav-item nav-link">Iniciar Sesion</a>
+          {% endif %}
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
 </div>

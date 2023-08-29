@@ -1,43 +1,205 @@
+/*******************************/
+/******* Page Header CSS *******/
+/*******************************/
+
+/* header {
+    display: flex;
+    position: fixed;
+    width: 100%;
+}
+
+.page-header {
+    position: relative;
+    margin-bottom: 45px;
+    padding: 90px 0;
+    text-align: center;
+    background: #202C45;
+    border-top: 1px dotted #ffffff;
+}
+
+.page-header h2 {
+    position: relative;
+    color: #ffffff;
+    font-size: 60px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+}
+
+.page-header h2::after {
+    position: absolute;
+    content: "";
+    width: 100px;
+    height: 2px;
+    left: calc(50% - 50px);
+    bottom: 0;
+    background: #ffffff;
+}
+
+.page-header a {
+    position: relative;
+    padding: 0 12px;
+    font-size: 22px;
+    color: #ffffff;
+}
+
+.page-header a:hover {
+    color: #E81C2E;
+}
+
+.page-header a::after {
+    position: absolute;
+    content: "/";
+    width: 8px;
+    height: 8px;
+    top: -2px;
+    right: -7px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.page-header a:last-child::after {
+    display: none;
+}
+
+@media (max-width: 991.98px) {
+    .page-header {
+        padding: 60px 0;
+    }
+
+    .page-header h2 {
+        font-size: 45px;
+    }
+
+    .page-header a {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .page-header {
+        padding: 45px 0;
+    }
+
+    .page-header h2 {
+        font-size: 35px;
+    }
+
+    .page-header a {
+        font-size: 18px;
+    }
+} */
+
+
+/*******************************/
+/******* Section Header ********/
+/*******************************/
+/* .section-header {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto 45px auto;
+}
+
+.section-header p {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    position: relative;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #E81C2E;
+}
+
+.section-header p::after {
+    position: absolute;
+    content: "";
+    width: 50%;
+    height: 2px;
+    left: 25%;
+    bottom: 0;
+    background: #E81C2E;
+}
+
+.section-header.text-left p::after {
+    left: 0;
+}
+
+.section-header.text-right p::after {
+    left: 50%;
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: 45px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+@media (max-width: 991.98px) {
+    .section-header h2 {
+        font-size: 45px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .section-header h2 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .section-header h2 {
+        font-size: 35px;
+    }
+} */
+
+
 
 /* CSS DE VARGAS */
-/* CSS DE VARGAS */
-/* @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,600&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-* {
+/* * {
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
-}
+} */
 #map { 
     height: 500px;
 }
 
 .custom-line [stroke] {
     stroke: green !important;
-  }
+}
 
-.btn-opuesto{
+.btn-opuesto {
     background-color: #EBA487;
-    color : #151515;
+    color: #151515;
 }
 
 .btn-custom {
-    background-color: #87CEEB; /* Color rojo personalizado */
-    /* Otras propiedades de estilo opcionales */
-    color : #151515;/* Color de texto */
-    /* ... */
-  }
-label{
-   color: #151515;
+    background-color: #87CEEB;
+    /* Color rojo personalizado  */
+    /* Otras propiedades de estilo opcionales  */
+    color: #151515;
+    /* Color de texto  */
 }
-input{
+
+label {
     color: #151515;
 }
+
+input {
+    color: #151515;
+}
+
 #map {
     cursor: crosshair;
-  }
+}
 
 /* CSS DE CASTAÑEDA */
 
@@ -270,7 +432,7 @@ Logo Dell: https://worldvectorlogo.com/logo/dell-1
     }
 }
 
-body{
+body {
     background-color: #ECEFF1;
     font-family: 'Spartan', sans-serif;
     font-weight: 300;
@@ -299,10 +461,10 @@ body{
     line-height: initial;
 }
 
-.form-control:focus {
+/* .form-control:focus {
     background-color: var(--dark-x);
     outline: none;
-}
+} */
 
 .img-2 {
     background-image: url('../img/AutobuseseKool.jpg');
@@ -335,18 +497,15 @@ body{
 }
 
 .logoMenu {
-    width: 25%;
+    width: 115%;
 }
 
-.logo {
+
+.logo1 {
     width: 50%;
 }
 
-.logo1 {
-    width: 20%;
-}
-
-.dropdown-menu {
+/* .dropdown-menu {
     position: absolute;
     top: 100%;
     left: -130px;
@@ -360,12 +519,12 @@ body{
     color: #333;
     text-align: left;
     list-style: none;
-    background-color: #fff;
+    background-color: #ff0202;
     background-clip: padding-box;
     border: 1px solid #ccc;
     border-radius: 0.25rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+} */
 
 .user-info {
     margin-bottom: 10px;
@@ -384,47 +543,47 @@ body{
     background-color: #f0f0f0;
 }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
     .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .navbar-brand {
-      margin-left: 20px;
+        margin-left: 20px;
     }
-  
+
     .navbar-toggler {
-      margin-right: 20px;
+        margin-right: 20px;
     }
-  
+
     .navbar-collapse {
-      position: absolute;
-      top: 56px;
-      right: 0;
-      background-color: #87CEEB;
-      width: 100%;
-      transform: translateX(100%);
-      transition: transform .5s ease-in-out;
+        position: absolute;
+        top: 56px;
+        right: 0;
+        background-color: #87CEEB;
+        width: 100%;
+        transform: translateX(100%);
+        transition: transform .5s ease-in-out;
     }
-  
+
     .navbar-collapse.show {
-      transform: translateX(0);
+        transform: translateX(0);
     }
-  
+
     .navbar-nav {
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
     }
-  
+
     .nav-item {
-      width: 100%;
-      text-align: center;
+        width: 100%;
+        text-align: center;
     }
-  }
-  
+} */
+
 
 /* CSS DE ARIADNA */
 
@@ -443,8 +602,9 @@ body{
 }
 
 .clasexd {
-    max-width: 800px; /* Ajusta este valor según tus preferencias */
-    
+    max-width: 800px;
+
+
 }
 
 @media (max-width: 767px) {
@@ -459,9 +619,10 @@ body{
     .clasexd {
         margin-left: 60px;
         max-width: 70%;
-       
+
     }
 }
+
 /*CAROUSEL*/
 .carousel-img {
     width: 50%;
@@ -519,42 +680,51 @@ body{
 
 }
 
-.titulo2{
+.titulo2 {
     font-family: 'Edu SA Beginner', cursive;
 }
-.parrafo3{
+
+.parrafo3 {
     font-family: 'Roboto', sans-serif;
     font-size: 27px;
 }
-.titulo1{
+
+.titulo1 {
     font-family: 'Montserrat', sans-serif;
 
 }
-.parrafo1{
+
+.parrafo1 {
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
     margin-top: 20px;
 }
+
 .fondo-ciudad {
-    background-color: #ffcc00; /* Cambia el color de fondo a tu preferencia usando un valor hexadecimal o nombre de color */
-    padding: 5px; /* Opcional: agrega relleno alrededor del texto para que el fondo se vea más destacado */
-    color: #ffffff; /* Opcional: cambia el color del texto para que sea legible sobre el fondo */
+    background-color: #ffcc00;
+
+    padding: 5px;
+
+    color: #ffffff;
+
 }
-.parrafo2{
+
+.parrafo2 {
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
     margin-top: 20px;
     margin-bottom: 50px;
 }
 
-.fondo{
-    background-color:#00A99D;
+.fondo {
+    background-color: #00A99D;
     border: 1px solid black;
     margin-top: 30px;
     display: flex;
     justify-content: space-between;
 }
-.cuadroComent{
+
+.cuadroComent {
     width: 30%;
     display: flex;
     flex-direction: column;
@@ -562,60 +732,310 @@ body{
     text-align: center;
 
 }
-.parrafoComent{
+
+.parrafoComent {
     width: 70%;
 }
 
+/* CSS DEL MENU */
 
-/*Inicio de seison1.html*/
-.fondoPaisaje{
-    background-image: url(../img/76.jpeg);
-    background-repeat: no-repeat;
-    background-size: cover;
+/**********************************/
+/*********** Nav Bar CSS **********/
+/**********************************/
+.nav-bar {
+    position: relative;
+    background: #202C45;
+}
+
+.nav-bar.nav-sticky {
+    position: fixed;
     width: 100%;
-}
-.imagen1{
-    border-radius: 70%;
-    height: 200px;
-    width: 200px;
-    object-fit: cover;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-.bg-white{
-    width: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.Inicio1{
-    width: 100%;
-    text-align: center;
+    top: 0;
+    left: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+    z-index: 999;
 }
 
-.superpuesta{
-    position: absolute;
-    top: 46%;
-    left: 47%;
-    transform: translate(-18%, -125%);
-    width: 10%;
+.nav-bar .navbar {
+    padding: 20px 0;
+    background: #202C45 !important;
+    transition: .3s;
+}
+
+.nav-bar.nav-sticky .navbar {
+    padding: 5px 0;
+}
+
+.navbar-dark .navbar-nav .nav-link,
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link.active {
+    color: #ffffff;
+    padding: 15px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link.active {
+    color: #E81C2E;
+}
+
+.nav-bar .dropdown-menu {
+    margin-top: 0;
+    border: 0;
+    border-radius: 0;
+    background: #f8f9fa;
+}
+
+.nav-bar .btn.btn-custom {
+    color: #202C45;
+    background: #ffffff;
+    box-shadow: inset 0 0 0 0 #E81C2E;
+}
+
+.nav-bar .btn:hover {
+    color: #ffffff;
+    background: #E81C2E;
+    box-shadow: inset 200px 0 0 0 #E81C2E;
+}
+
+@media (min-width: 992px) {
+    .nav-bar .navbar-brand {
+        display: none;
+    }
+}
+
+@media (max-width: 991.98px) {
+
+    .navbar-dark .navbar-nav .nav-link,
+    .navbar-dark .navbar-nav .nav-link:focus,
+    .navbar-dark .navbar-nav .nav-link:hover,
+    .navbar-dark .navbar-nav .nav-link.active {
+        padding: 5px 0;
+    }
+
+    .nav-bar .dropdown-menu {
+        box-shadow: none;
+    }
+
+    .nav-bar .btn {
+        display: none;
+    }
+}
+
+
+
+/*******************************/
+/********* Footer CSS **********/
+/*******************************/
+.footer {
+    position: relative;
+    margin-top: 45px;
+    padding-top: 90px;
+    background: #202C45;
+}
+
+.footer .footer-contact,
+.footer .footer-link,
+.footer .footer-newsletter {
+    position: relative;
+    margin-bottom: 45px;
+    color: #ffffff;
 
 }
 
-.contenedor{
-    width: 40%;
-    margin: 20px auto;
-    background-color: white;
-    padding: 10px;
-
+.footer .footer-contact h2,
+.footer .footer-link h2,
+.footer .footer-newsletter h2 {
+    margin-bottom: 30px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #E81C2E;
 
 }
 
-.forget-password{
+.footer .footer-link a {
+    display: block;
+    margin-bottom: 10px;
+    color: #ffffff;
+    transition: .3s;
     text-decoration: none;
-    color: #6c757d;
-    font-size: 14px;
-    margin-top: 10px;
 }
 
+.footer .footer-link a::before {
+    position: relative;
+    content: "\f105";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+.footer .footer-link a:hover {
+    color: #E81C2E;
+    letter-spacing: 1px;
+}
+
+.footer .footer-contact p i {
+    width: 25px;
+}
+
+.footer .footer-social {
+    position: relative;
+    margin-top: 20px;
+    display: flex;
+}
+
+.footer .footer-social a {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #202C45;
+    background: #ffffff;
+    border-radius: 40px;
+    margin-right: 5px;
+    transition: .5s;
+}
+
+.footer .footer-social a:last-child {
+    margin: 0;
+}
+
+.footer .footer-social a:hover {
+    color: #ffffff;
+    background: #E81C2E;
+}
+
+.footer .footer-newsletter form {
+    position: relative;
+    width: 100%;
+}
+
+.footer .footer-newsletter input {
+    margin-bottom: 15px;
+    height: 45px;
+    background: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+}
+
+.footer .footer-newsletter label {
+    margin-top: 5px;
+    color: #777777;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.footer .footer-newsletter .btn.btn-custom {
+    width: 100%;
+    color: #202C45;
+    background: #ffffff;
+    box-shadow: inset 0 0 0 0 #E81C2E;
+}
+
+.footer .footer-newsletter .btn:hover {
+    color: #ffffff;
+    background: #E81C2E;
+    box-shadow: inset 200px 0 0 0 #E81C2E;
+}
+
+.footer .copyright {
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 45px;
+}
+
+.footer .copyright p {
+    margin: 0;
+    color: #ffffff;
+}
+
+.footer .copyright p a {
+    color: #E81C2E;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.footer .copyright p a:hover {
+    color: #ffffff;
+}
+
+
+.top-bar {
+    position: relative;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+}
+
+.top-bar .logo {
+    text-align: left;
+    overflow: hidden;
+}
+
+.top-bar .logo h1 {
+    margin: -4px 0 0 0;
+    color: #E81C2E;
+    font-size: 50px;
+    line-height: 50px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-style: italic;
+}
+
+.top-bar .logo h1 span {
+    color: #202C45;
+}
+
+.top-bar .logo img {
+    max-width: 100%;
+    max-height: 1000px;
+}
+
+.top-bar .top-bar-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.top-bar .top-bar-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #202C45;
+    border-radius: 40px;
+}
+
+.top-bar .top-bar-icon i {
+    margin: 0;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.top-bar .top-bar-text {
+    padding-left: 15px;
+}
+
+.top-bar .top-bar-text h3 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.top-bar .top-bar-text p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+@media (max-width: 991.98px) {
+    .top-bar .logo {
+        text-align: center;
+    }
+}
