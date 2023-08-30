@@ -1,6 +1,6 @@
 (function ($) {
     "use strict";
-    
+
     // loader
     var loader = function () {
         setTimeout(function () {
@@ -10,7 +10,7 @@
         }, 1);
     };
     loader();
-    
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
@@ -20,11 +20,11 @@
         }
     });
     $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+        $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
         return false;
     });
-    
-    
+
+
     // Sticky Navbar
     $(window).scroll(function () {
         if ($(this).scrollTop() > 90) {
@@ -35,8 +35,8 @@
             $('.carousel, .page-header').css("margin-top", "0");
         }
     });
-    
-    
+
+
     // Dropdown on mouse hover
     $(document).ready(function () {
         function toggleNavbarMethod() {
@@ -64,8 +64,8 @@
     //     smartSpeed: 300,
     //     dots: false,
     //     loop: true,
-    //     nav : true,
-    //     navText : [
+    //     nav: true,
+    //     navText: [
     //         '<i class="fa fa-angle-left" aria-hidden="true"></i>',
     //         '<i class="fa fa-angle-right" aria-hidden="true"></i>'
     //     ]
@@ -80,29 +80,15 @@
 
 
     // Testimonials carousel
-    // $(".testimonials-carousel").owlCarousel({
-    //     center: true,
-    //     autoplay: true,
-    //     smartSpeed: 2000,
-    //     dots: true,
-    //     loop: true,
-    //     responsive: {
-    //         0:{
-    //             items:1
-    //         },
-    //         576:{
-    //             items:1
-    //         },
-    //         768:{
-    //             items:2
-    //         },
-    //         992:{
-    //             items:3
-    //         }
-    //     }
-    // });
-    
-    
+    $(".testimonials-carousel").owlCarousel({
+        center: true,
+        autoplay: true,
+        smartSpeed: 2000,
+        dots: true,
+        loop: true,
+    });
+
+
     // Related post carousel
     // $(".related-slider").owlCarousel({
     //     autoplay: true,
@@ -125,6 +111,6 @@
     //         }
     //     }
     // });
-    
+
 })(jQuery);
 

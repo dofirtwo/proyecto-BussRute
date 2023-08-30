@@ -54,14 +54,11 @@ def inicio(request):
     if 'usuario_id' in request.session:
         usuario_id = request.session['usuario_id']
         usuario = Usuario.objects.get(id=usuario_id)
-        comentarios = Comentario.objects.all()
-        context = {
-            'comentarios': comentarios,
-            'usuario': usuario
-        }
-    else:
-        #Se usa esta variable para definir un contexto vacío si el usuario no está presente
-        context = {}
+    comentarios = Comentario.objects.all()
+    context = {
+        'comentarios': comentarios,
+        'usuario': usuario
+    }
     return render(request, 'inicio.html',context)
 
 def crearCuenta(request):

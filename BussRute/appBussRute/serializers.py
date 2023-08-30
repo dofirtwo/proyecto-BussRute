@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from appBussRute.models import Ruta,DetalleRuta
+from appBussRute.models import Ruta, DetalleRuta, Usuario, Rol
 from appBussRute.models import Comentario
 
 class RutaSerializers(serializers.ModelSerializer):
@@ -17,9 +17,17 @@ class DetalleRutaSerializers(serializers.ModelSerializer):
 #        model = Producto
 #        fields = ('id','proCodigo','proNombre','proPrecio','proCategoria','proFoto')
 
+class UsarioSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ('id', 'usuNombre','usuCorreo', 'usuPassword', 'usuCreadoConGoogle','usuTokenCambioContrasena','usuRol')
+
+class RolSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Rol
+        fields = ('id', 'rolNombre')
+#Comentario
 class ComentarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comentario
         fields = ('id', 'comDescripcion', 'comValoracion', 'comUsuario')
-        
-        
