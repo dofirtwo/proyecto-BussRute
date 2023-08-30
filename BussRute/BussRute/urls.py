@@ -27,6 +27,7 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/inicio/')),
     path('visualizarRutas/',views.visualizarRutas),
     #path('comentarios/', views.comentarios),
+    path('listaRutas/', views.listaRutas),
     path('registroFavorito/',views.registroFavorito),
     path('eliminarFavorito/', views.eliminarFavorito),
     path('agregarComentario/', views.agregarComentario),
@@ -46,5 +47,12 @@ urlpatterns = [
     path('enviarNombreUsuario/', views.registrarUsuarioIniciadoGoogle),
     path('google-login/', views.google_login, name='google-login'),
     path('google-auth/', views.google_auth, name='google-auth'),
+    path('eliminarRuta/',views.eliminarRuta),
     path('', include('appBussRute.urls'))
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root = settings.MEDIA_ROOT
+    )

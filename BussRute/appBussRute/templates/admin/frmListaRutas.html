@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+{% block encabezado %}
+{% include "encabezado.html" %}
+{% endblock %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock %}
+{% block contenido %}
+{% load static %}
+<script src="{%static '../static/js/trazarRuta.js'%}"></script>
+
+    <div class="w-50 mt-3" style="margin: 0 auto;">
+        <form>
+            {% csrf_token %}
+            <div>
+                <table class="table table-bordered" style="margin: 0 auto;">
+                    <thead class="bg-dark text-white text-center">   
+                        <tr>
+                            <td>Numero Ruta</td>
+                            <td>Empresa</td>
+                            <td>Precio</td>
+                            <td>Accion</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ruta in listaRutas %}
+                            <tr>
+                                <td>{{ruta.rutNumero}}</td>
+                                <td>{{ruta.rutEmpresa}}</td>
+                                <td>{{ruta.rutPrecio}}</td>
+                                <td class="text-center">
+                                    <i class="fa fa-trash text-danger" onclick="abrirModalEliminar('{{ruta.id}}')" ></i>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    <div>
+{% endblock %}
+{% block pie_pagina %}
+{% include "pie_pagina.html" %}
+{% endblock %}

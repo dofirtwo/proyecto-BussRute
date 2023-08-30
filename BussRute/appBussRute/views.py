@@ -228,14 +228,47 @@ def eliminarFavorito(request):
         retorno = {"mensaje":mensaje}
         return JsonResponse(retorno)
 
+def listaRutas(request):
+    try:
+        usuario_id = request.session.get('usuario_id')
+        usuario = None
+
+        if usuario_id:
+            usuario = Usuario.objects.get(id=usuario_id)
+        rutas = Ruta.objects.all()
+        mensaje=""
+    except Error as error:
+        mensaje = f"problemas al listar Productos {error}"
+    retorno = {"mensaje":mensaje,"listaRutas":rutas,"usuario":usuario}
+    return render (request, "admin/frmListaRutas.html",retorno)
+
+def eliminarRuta(request):
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                id = int(request.POST["id"])
+                ruta = Ruta.objects.get(id=id)
+                detalleRuta = DetalleRuta.objects.filter(detRuta=ruta)
+                ubicacion = UbicacionRuta.objects.get(ubiRuta=ruta)
+                ubicacion.delete()
+                detalleRuta.delete()
+                ruta.delete()
+                mensaje="Ruta Eliminada"
+        except Error as error:
+            mensaje = f"problemas al eliminar {error}"
+
+        retorno = {"mensaje":mensaje}
+        return JsonResponse(retorno)
+
 def registroRuta(request):
     if request.method == "POST":
         try:
             with transaction.atomic():
                 numeroRuta = int(request.POST["numeroRuta"])
-                horario = request.POST["horario"]
+                precio = request.POST["precio"]
                 empresa = request.POST["empresa"]
-                ruta = Ruta(rutNumero=numeroRuta,rutHorario=horario,rutEmpresa=empresa)
+                archivo = request.FILES["fileFoto"]
+                ruta = Ruta(rutNumero=numeroRuta,rutPrecio=precio,rutEmpresa=empresa,rutFoto=archivo)
                 ruta.save()
                 detalleRutas = json.loads(request.POST["detalle"])
                 for detalle in detalleRutas:
@@ -329,7 +362,7 @@ def registrarseUsuario(request):
 
         with transaction.atomic():
             # Buscar el rol "Usuario"
-            rolUsuario = Rol.objects.get(id=2)
+            rolUsuario = Rol.objects.get(id=1)
 
             user = Usuario(usuNombre=nombreUsu,
                            usuCorreo=email, usuRol=rolUsuario)

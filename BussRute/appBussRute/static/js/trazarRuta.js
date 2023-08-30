@@ -122,7 +122,7 @@ function trazarRuta() {
 function registroDatosRuta() {
   var datos = {
     "numeroRuta": $("#txtNumeroRuta").val(),
-    "horario": $("#txtHorario").val(),
+    "horario": $("#txtPrecio").val(),
     "empresa": $("#cbEmpresa").val(),
     "detalle": JSON.stringify(coordenadaRuta),
     "ubicacion": JSON.stringify(ubicacionRuta),
@@ -225,4 +225,39 @@ function mostrarDatosUnicacionTabla() {
     datos += "</tr>"
   });
   document.getElementById("datosUbicacionRutas").innerHTML = datos;
+}
+
+function abrirModalEliminar(id){
+  Swal.fire({
+      title: 'Eliminar Ruta',
+      text: "¿Estan seguros de eliminar?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'No',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        eliminarRuta(id) 
+      }
+    })
+}
+
+function eliminarRuta(id) {
+  var datos = {
+    "id": id,
+  }
+  $.ajax({
+    url: "/eliminarRuta/",
+    data: datos,
+    type: 'post',
+    dataType: 'json',
+    cache: false,
+    success: function (resultado) {
+      console.log(resultado);
+      window.location.reload();
+      Swal.fire("Registro de Solicitud", resultado.mensaje, "success")
+    }
+  })
 }

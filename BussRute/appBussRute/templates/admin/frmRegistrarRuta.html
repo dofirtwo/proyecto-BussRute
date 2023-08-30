@@ -9,7 +9,7 @@
 {% load static %}
 <script src="{%static '../static/js/trazarRuta.js'%}"></script>
 <br>
-<form id="frmRegistrarRuta" action="">
+<form id="frmRegistrarRuta" method="post" enctype="multipart/form-data">
     {%csrf_token%}
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -84,9 +84,9 @@
                     placeholder="Ingrese El Numero de la Ruta" class="form-control">
             </div>
             <div class="mb-3 col-lg-6">
-                <label for="txtHorario" class="fw-bold">Horario:</label>
-                <input style="background-color: #F5F5E8" type="text" name="txtHorario" id="txtHorario"
-                    placeholder="Horario Habitual de la Ruta" class="form-control">
+                <label for="txtPrecio" class="fw-bold">Precio Ruta:</label>
+                <input style="background-color: #F5F5E8" type="number" name="txtPrecio" id="txtPrecio"
+                    placeholder="Precio de la Ruta" class="form-control">
             </div>
         </div>
 

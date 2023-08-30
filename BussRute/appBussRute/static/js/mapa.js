@@ -188,12 +188,12 @@ function filtroSitio() {
 }
 
 
-function cargarRutas(idRuta, numRuta, empRuta, horRuta) {
+function cargarRutas(idRuta, numRuta, empRuta, preRuta) {
     const ruta = {
         "id": idRuta,
         "numRuta": numRuta,
         "empRuta": empRuta,
-        "horRuta": horRuta
+        "preRuta": preRuta
     }
     rutas.push(ruta);
 
@@ -308,7 +308,7 @@ function vizualizarRutaFavorita(numeroRuta) {
                 document.getElementById("txtImagen").src = '../../static/img/AutobuseseKool.jpg'
             }
             document.getElementById("txtEmpresa").value = rutas[posC].empRuta
-            document.getElementById("txtHora").value = rutas[posC].horRuta
+            document.getElementById("txtPrecio").value = rutas[posC].preRuta
             document.getElementById("txtNumero").value = rutas[posC].numRuta
             waypoints.push(L.latLng(entradaR.latitud, entradaR.longitud));
         }
