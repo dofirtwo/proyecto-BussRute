@@ -1,3 +1,31 @@
+$(function(){
+  //se utiliza para las peticiones ajax con query
+  $.ajaxSetup({
+      headers:{
+          'X-CSRFToken':getCookie('csrftoken')
+      }
+  })
+  $("#btnGuardar").click(function(){
+    guardarRuta();
+  })
+})
+
+function getCookie(name){
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== ''){
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0,name.length + 1) === (name + '=')){
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+
+      }
+  }
+  return cookieValue;
+}
+
 function verificarSesion() {
   $.ajax({
     url: '/verificarSesion/',
@@ -17,6 +45,22 @@ function verificarSesion() {
       }
     }
   });
+}
+
+function añadirFavorito(){
+  var datos = {
+    "ruta": $("#ruta").val(),
+  }
+  $.ajax({
+      url: "/registroFavorito/",
+      data: datos,
+      type: 'post',
+      dataType: 'json',
+      cache: false,
+      success: function(resultado){
+          console.log(resultado);
+      }
+  })
 }
 
 //CODIGO COMENTARIOS Y CALIFICACION COMENTARIOS
@@ -58,135 +102,21 @@ $(document).ready(function() {
   });
 });
 
-function verFavoritos() {
-  $.ajax({
-    url: '/verificarSesion/',
-    method: 'GET',
-    success: function (data) {
-      console.log(data)
-      if (data.logueado) {
-        // Si el usuario ha iniciado sesión, muestra el modal.
-        $('#exampleModal').modal('show');
-      } else {
-        // Si el usuario no ha iniciado sesión, muestra un mensaje de error.
-        Swal.fire('Cuenta', 'Debes iniciar sesión primero.', 'error');
-      }
-    }
-  });
-}
-
 function guardarRuta() {
   $.ajax({
     url: '/verificarSesion/',
     method: 'GET',
     success: function (data) {
-      console.log(data)
       if (data.logueado) {
+          añadirFavorito()
           Swal.fire('Cuenta', 'Ruta Agregada Correctamente', 'success');
+          window.location.reload();
       } else {
           Swal.fire('Cuenta', 'Debes iniciar sesión primero.', 'error');
       }
     }
   });
 }
-
-$(function () {
-
-  var app_id = '784661986686095';
-  var scopes = 'email, public_profile';
-
-  var btn_login = '<button type="submit" id="login" type="button" class="btn btn-outline-primary flex-grow-1 ml-2"><i class="fab fa-facebook-f lead mr-2"></i> Facebook</button>';
-
-  var div_session = "<div id='facebook-session'>" +
-    "<strong></strong>" +
-    "<img>" +
-    "<a href='#' id='logout' class='btn btn-danger'>Cerrar sesión</a>" +
-    "</div>";
-
-  window.fbAsyncInit = function () {
-
-    FB.init({
-      appId: app_id,
-      status: true,
-      cookie: true,
-      xfbml: true,
-      version: 'v17.0'
-    });
-
-
-    FB.getLoginStatus(function (response) {
-      statusChangeCallback(response, function () { });
-    });
-  };
-
-  var statusChangeCallback = function (response, callback) {
-    console.log(response);
-
-    if (response.status === 'connected') {
-      getFacebookData();
-    } else {
-      callback(false);
-    }
-  }
-
-  var checkLoginState = function (callback) {
-    FB.getLoginStatus(function (response) {
-      callback(response);
-    });
-  }
-
-  var getFacebookData = function () {
-    FB.api('/me', function (response) {
-      $('#login').after(div_session);
-      $('#login').remove();
-      $('#facebook-session strong').text("Bienvenido: " + response.name);
-      $('#facebook-session img').attr('src', 'http://graph.facebook.com/' + response.id + '/picture?type=large');
-    });
-  }
-
-  var facebookLogin = function () {
-    checkLoginState(function (data) {
-      if (data.status !== 'connected') {
-        FB.login(function (response) {
-          if (response.status === 'connected')
-            getFacebookData();
-        }, { scope: scopes });
-      }
-    })
-  }
-
-  var facebookLogout = function () {
-    checkLoginState(function (data) {
-        console.log(data)
-      if (data.status === 'connected') {
-        FB.logout(function (response) {
-            console.log(response)
-          $('#facebook-session').before(btn_login);
-          $('#facebook-session').remove();
-        })
-      }
-    })
-
-  }
-
-
-
-  $(document).on('click', '#login', function (e) {
-    e.preventDefault();
-
-    facebookLogin();
-  })
-
-  $(document).on('click', '#logout', function (e) {
-    e.preventDefault();
-
-    if (confirm("¿Está seguro?"))
-      facebookLogout();
-    else
-      return false;
-  })
-
-})
 
 function a(){
   $(document).ready(function () {
@@ -219,3 +149,5 @@ function resaltar(element) {
 function quitarResalte(element) {
   element.style.boxShadow = "none";
 }
+
+

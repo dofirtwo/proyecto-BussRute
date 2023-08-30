@@ -168,8 +168,9 @@
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 } */
+
 #map { 
-    height: 500px;
+    height: 600px;
 }
 
 .custom-line [stroke] {

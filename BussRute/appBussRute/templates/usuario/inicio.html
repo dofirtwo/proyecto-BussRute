@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <div class="form-group row mt-2 text-center">
-                    <div class="mb-3 col-lg-12">
+                    <div class="mb-3 col-lg-12 ">
                         <label for="" class="fw-bold">Imagen de la Ruta</label>
                         <br>
                         <img height="225" id="txtImagen" name="txtImagen" src="" alt="">
@@ -99,20 +99,19 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row ">
-            <div class=" col-lg-2">
+        <div class="form-group row d-flex flex-wrap justify-content-end">
+            <div class="col-lg-2 col-md-4 col-5">
                 <button type="button" id="btnGuardar" class="btn btn-custom">Guardar Ruta</button>
             </div>
-            <div class=" col-lg-2">
+            <div class="col-lg-2 col-md-4 col-4">
                 <button type="button" id="btnComentar" onclick="verificarSesion()"
                     class="btn btn-custom">Comentar</button>
             </div>
-            <div class=" col-lg-2">
+            <div class="col-lg-2 col-md-4 col-3">
                 {% if usuario %}
-                <button type="button" id="btnFavorito" class="btn btn-custom" data-toggle="modal"
-                    data-target="#exampleModal">Favoritos</button>
+                <button type="button" id="btnFavorito" class="btn btn-custom" data-toggle="modal" data-target="#exampleModal">Favoritos</button>
                 {% else %}
-                <button type="button" id="btnFavorito" class="btn btn-custom">Favoritos</button>
+                  <button type="button" id="btnFavorito" class="btn btn-custom">Favoritos</button>
                 {% endif %}
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"

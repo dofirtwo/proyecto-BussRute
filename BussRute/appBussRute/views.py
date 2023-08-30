@@ -19,7 +19,7 @@ import secrets
 from django.core.validators import validate_email
 from rest_framework import generics
 from django.utils.crypto import get_random_string
-from appBussRute.serializers import RutaSerializers,DetalleRutaSerializers,ComentarioSerializer
+from appBussRute.serializers import RutaSerializers,DetalleRutaSerializers, UsarioSerializers, RolSerializers, ComentarioSerializer
 from cryptography.fernet import Fernet
 import os
 
@@ -47,10 +47,10 @@ def inicioSesion(request):
     return render(request, 'inicioSesion.html', {'mensaje': mensajeError})
 
 def inicio(request):
-    
+
     usuario_id = request.session.get('usuario_id')
     usuario = None
-    
+
     if 'usuario_id' in request.session:
         usuario_id = request.session['usuario_id']
         usuario = Usuario.objects.get(id=usuario_id)
@@ -63,7 +63,6 @@ def inicio(request):
         #Se usa esta variable para definir un contexto vacío si el usuario no está presente
         context = {}
     return render(request, 'inicio.html',context)
-
 
 def crearCuenta(request):
     return render(request, "crearCuenta.html")
@@ -138,19 +137,21 @@ def registroFavorito(request):
 def vistaEnvioCorreo(request):
     return render(request, "contrasenaOlvidada.html")
 
-# def comentarios(request):
-#     usuario_id = request.session.get('usuario_id')
-#     usuario = None
+"""
+def comentarios(request):
+    usuario_id = request.session.get('usuario_id')
+    usuario = None
 
-#     if usuario_id:
-#         usuario = Usuario.objects.get(id=usuario_id)
-#         comentarios = Comentario.objects.all()
-#         context = {
-#             'comentarios': comentarios,
-#             'usuario': usuario
-#         }
-#         print(context)
-#     return render(request,'inicio.html', context)
+    if usuario_id:
+        usuario = Usuario.objects.get(id=usuario_id)
+        comentarios = Comentario.objects.all()
+        context = {
+            'comentarios': comentarios,
+            'usuario': usuario
+        }
+    return render(request, 'comentarios/comentarios.html', context)
+"""
+
 
 def vistaNombreUsuario(request):
     # Leer la clave de cifrado de una variable de entorno y convertirla en un objeto de bytes
@@ -215,6 +216,21 @@ def google_auth(request):
 
     return redirect('/inicio/')
 
+def eliminarFavorito(request):
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                numeroRuta = int(request.POST["numeroRuta"])
+                ruta = Ruta.objects.get(rutNumero=numeroRuta)
+                favorito = FavoritoRuta.objects.filter(favRuta=ruta)
+                favorito.delete()
+                mensaje="ProductoEliminado"
+        except Error as error:
+            mensaje = f"problemas al eliminar {error}"
+
+        retorno = {"mensaje":mensaje}
+        return JsonResponse(retorno)
+
 def registroRuta(request):
     if request.method == "POST":
         try:
@@ -266,7 +282,7 @@ def agregarComentario(request):
                 if form.is_valid():
                     comentario = request.POST.get['txtComentario']
                  # Creamos un objeto de tipo comentario
-                #nombre = request.POST.get("txtNombre")
+                nombre = request.POST.get("txtNombre")
                 comentario = request.POST.get("txtComentario")
                 valoracion = request.POST.get("txtValoracion")
 
@@ -360,7 +376,7 @@ def registrarUsuarioIniciadoGoogle(request):
             mensaje = 'Ya existe una cuenta con este correo electrónico'
             retorno = {"mensaje": mensaje, "estado": False, "email": email}
             return render(request, "nombreUsuario.html", retorno)
-        
+
         else:
             with transaction.atomic():
                 rolUsuario = Rol.objects.get(id=2)
@@ -457,8 +473,7 @@ def enviarCambioContrasena(request):
                     usuario.save()
 
                     asunto = 'Solicitud para restablecer contraseña de BussRute'
-                    # url = f"https://bussrute.pythonanywhere.com/vistaCambioContrasena/?token={token}&correo={correo}"
-                    url = f"http://127.0.0.1:8000/vistaCambioContrasena/?token={token}&correo={correo}"
+                    url = f"https://bussrute.pythonanywhere.com/vistaCambioContrasena/?token={token}&correo={correo}"
                     mensaje = f'<div style="background:#f9f9f9">\
                         <div style="background-color:#f9f9f9">\
                             <div style="max-width:640px;margin:0 auto;border-radius:4px;overflow:hidden">\
@@ -636,7 +651,7 @@ class ComentarioForm(forms.Form):
     txtNombre = forms.CharField(max_length=100)
     txtComentario = forms.CharField(widget=forms.Textarea)
     nombre_usuario = forms.CharField(widget=forms.HiddenInput)
-    
+
 # APIS ------------------------------------------------------------------------------------------------------------------
 
 class RutaList(generics.ListCreateAPIView):
@@ -646,6 +661,7 @@ class RutaList(generics.ListCreateAPIView):
 class RutaDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Ruta.objects.all()
     serializer_class = RutaSerializers
+    lookup_field = 'rutNumero'
 
 class DetalleRutaList(generics.ListCreateAPIView):
     queryset = DetalleRuta.objects.all()
@@ -654,11 +670,26 @@ class DetalleRutaList(generics.ListCreateAPIView):
 class DetalleRutaDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = DetalleRuta.objects.all()
     serializer_class = DetalleRutaSerializers
+    lookup_field = 'detRuta'
 
+#PARTE DE USUARIO
+class UsuarioList(generics.ListCreateAPIView):
+    queryset = Usuario.objects.all()
+    serializer_class = UsarioSerializers
+
+class UsuarioDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Usuario.objects.all()
+    serializer_class = UsarioSerializers
+
+class RolList(generics.ListCreateAPIView):
+    queryset = Rol.objects.all()
+    serializer_class = RolSerializers
+
+#parte de comentarios
 class ComentarioList(generics.ListCreateAPIView):
     queryset = Comentario.objects.all()
     serializer_class = ComentarioSerializer
-    
+
 class ComentarioDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comentario.objects.all()
     serializer_class = ComentarioSerializer
