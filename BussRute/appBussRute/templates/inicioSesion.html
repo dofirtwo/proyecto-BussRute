@@ -90,17 +90,17 @@
                 {% endif %}
                 {% endif %}
             </div>
-
             <p class="font-weight-bold text-center text-muted">O inicia sesión con</p>
             <div class="d-flex justify-content-around">
                 <a href="/google-login/"
                     class="btn btn-outline-danger flex-grow-1 mr-2 d-flex align-items-center justify-content-center">
                     <i class="fab fa-google lead mr-2"></i> Google
                 </a>
-
-                <button type="submit" id="login" type="button"
-                    class="btn btn-outline-primary flex-grow-1 mr-2 d-flex align-items-center justify-content-center"><i
-                        class="fab fa-facebook-f lead mr-2"></i> Facebook</button>
+                <a href="/github-login/"
+                    class="btn btn-outline-dark flex-grow-1 mr-2 d-flex align-items-center justify-content-center"
+                    id="login"><i class="fab fa-github lead mr-2"></i>
+                    Github
+                </a>
             </div>
             <div class="text-center px-lg-5 pt-lg-3 pb-lg-4 p-4 mt-auto w-100">
                 <p class="d-inline-block mb-0">¿Todavia no tienes una cuenta?</p> <a href="/vistaRegistrarCuenta/"
@@ -108,17 +108,7 @@
             </div>
         </div>
     </div>
-    <script>
-            // Load the SDK asynchronously
-            (function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id;
-                js.src = "//connect.facebook.net/en_LA/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-    </script>
-    <br>
+
     {% endblock %}
     {% block pie_pagina %}
     {% include "pie_pagina.html" %}

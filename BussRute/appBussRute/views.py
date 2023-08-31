@@ -3,6 +3,7 @@ import json
 from google.auth.transport import requests as google_requests
 from django.shortcuts import render, redirect
 from django import forms
+from urllib.parse import urlencode
 from django.db import Error, transaction
 from appBussRute.models import *
 from django.contrib.auth.models import *
@@ -212,6 +213,65 @@ def google_auth(request):
                 print("Error:", e)
 
     return redirect('/inicio/')
+
+def github_login(request):
+    auth_params = {
+        'client_id': settings.GITHUB_KEY,
+        'scope': 'user:email',
+    }
+    auth_url = f'https://github.com/login/oauth/authorize?{urlencode(auth_params)}'
+    return redirect(auth_url)
+
+def github_callback(request):
+    code = request.GET.get('code')
+    key = os.environ['ENCRYPTION_KEY'].encode()
+    # Crear una instancia de Fernet con la clave de cifrado
+    f = Fernet(key)
+
+    token_params = {
+        'client_id': settings.GITHUB_KEY,
+        'client_secret': settings.GITHUB_SECRET,
+        'code': code,
+    }
+
+    token_headers = {'Accept': 'application/json'}
+    token_response = requests.post('https://github.com/login/oauth/access_token', data=token_params, headers=token_headers)
+    token_data = token_response.json()
+
+    if 'access_token' in token_data:
+        access_token = token_data['access_token']
+        request.session['access_token'] = access_token
+
+        user_headers = {'Authorization': f'token {access_token}'}
+        user_response = requests.get('https://api.github.com/user', headers=user_headers)
+        user_data = user_response.json()
+
+        name = user_data['name']
+        email = user_data.get('email')
+
+        if email is None:
+            mensaje = 'No podemos acceder a su correo electrónico. Es posible que esté en privado.'
+            request.session['mensajeError'] = mensaje  # Almacenar el mensaje en la sesión
+            return redirect('/inicioSesion/')  # Redirigir a la página inicioSesion
+
+        try:
+            # Verificar si el correo electrónico ya está registrado
+            if Usuario.objects.filter(usuCorreo=email).exists():
+                # Si el correo electrónico ya está registrado, obtener el objeto Usuario
+                usuario = Usuario.objects.get(usuCorreo=email)
+                request.session['usuario_id'] = usuario.id
+                return redirect('/inicio/')
+            else:
+                # Si el correo electrónico no está registrado, redirigir al usuario a la vista vistaNombreUsuario
+                encrypted_email = f.encrypt(email.encode()).decode()
+                return redirect(f'/vistaNombre/?email={encrypted_email}')
+
+        except Exception as e:
+            # Manejo de errores en caso de que algo falle en la creación o actualización del usuario
+            print("Error:", e)
+
+    return redirect('/inicio/')
+
 
 def eliminarFavorito(request):
     if request.method == "POST":

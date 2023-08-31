@@ -47,6 +47,8 @@ urlpatterns = [
     path('enviarNombreUsuario/', views.registrarUsuarioIniciadoGoogle),
     path('google-login/', views.google_login, name='google-login'),
     path('google-auth/', views.google_auth, name='google-auth'),
+    path('github-login/', views.github_login, name='github-login'),
+    path('github-auth/', views.github_callback, name='github-auth'),
     path('eliminarRuta/',views.eliminarRuta),
     path('', include('appBussRute.urls'))
 ]
