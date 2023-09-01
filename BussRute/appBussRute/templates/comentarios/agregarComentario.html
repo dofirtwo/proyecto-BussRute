@@ -20,9 +20,10 @@
           <div class="">
             <label for="txtNombre" class="form-label">Nombre</label>
             <div class="input-group has-validation">
-              <span class="input-group-text" id="inputGroupPrepend">@</span>
+              
               <input type="text" class="form-control" id="txtNombre" name="txtNombre"
-                aria-describedby="inputGroupPrepend" required disabled value="{{ form.initial.txtNombre }}">
+                aria-describedby="inputGroupPrepend" required disabled value="@{{ form.initial.txtNombre }}">
+                
               <div class="invalid-feedback">
                 Porfavor ingrese un nombre.
               </div>
@@ -33,14 +34,14 @@
         <div class="col">
           <div class="col">
             <label for="txtComentario" class="form-label">Comentario: </label>
-            <input type="text" class="form-control" id="txtComentario" name="txtComentario" required>
+            <textarea type="text" class="form-control" id="txtComentario" name="txtComentario" cols="35" rows="10" required></textarea>
             <div class="invalid-feedback">
               Porfavor ingresar un comentario valido.
             </div>
           </div>
         </div>
         <br>
-        <div>
+        <div class="text-center">
           <label for="">¡Calificanos!</label>
         </div>
         <div class="reseñas text-center">
@@ -58,7 +59,7 @@
       <br>
       <div class="col-12">
         <button class="btn btn-custom" id="btnEnviar" type="submit">Enviar Comentario</button>
-        <a href="#"><button class="btn btn-opuesto" name="regresar" onclick="disableValidation()">Regresar</button></a>
+        <a href="#"><button class="btn btn-opuesto space-between" id="btnRegresar" name="regresar" onclick="disableValidation()">Regresar</button></a>
       </div>
     </form>
   </div>
@@ -72,6 +73,21 @@
     });
   }
 </script>
+
+<!-- <form action="">
+
+    <h2>Contacto</h2>
+
+    <div class="input-group">
+        <label for="name">Nombre: </label>
+        <input type="text" name="name" id="name" placeholder="Nombre">
+
+        <label for="message">Comentario: </label>
+    </div>
+
+
+
+</form> -->
 
 {% endblock %}
 {% block pie_pagina %}

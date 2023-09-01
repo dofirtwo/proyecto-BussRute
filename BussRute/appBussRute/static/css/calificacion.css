@@ -12,10 +12,10 @@
 }  
   .hearto{
     font-size: 25px;
-    color: pink;
+    color: red;
   }
   .heart.selected,
   .heart:hover {
-    color: pink; /* Cambia el color cuando está seleccionado */
+    color: red; /* Cambia el color cuando está seleccionado */
   }
   
