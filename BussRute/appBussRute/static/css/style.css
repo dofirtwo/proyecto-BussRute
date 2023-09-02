@@ -159,21 +159,129 @@
 
 
 /* CSS DE VARGAS */
+
+.location .location-form .form-control:-ms-input-placeholder,
+.location .location-form .form-control::-ms-input-placeholder {
+    color: #ffffff;
+}
+.contact .contact-form input {
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #202C45;
+}
+.single .comment-form input,
+.single .comment-form textarea {
+    border-radius: 5px;
+    border-color: #eeeeee;
+}
+
+.single .comment-form input:focus,
+.single .comment-form textarea:focus {
+    border-color: #E81C2E;
+}
+.sidebar .search-widget input {
+    height: 50px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+}
+
+.sidebar .search-widget input:focus {
+    box-shadow: none;
+    border-color: #E81C2E;
+}
+.footer .footer-newsletter input {
+    margin-bottom: 15px;
+    height: 45px;
+    background: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+}
+
+.btn:focus,
+.form-control:focus {
+    box-shadow: none;
+}
+.location .location-form .form-control {
+    height: 45px;
+    color: #ffffff;
+    padding: 0 15px;
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+    background: transparent;
+}
+
+.location .location-form textarea.form-control {
+    height: 120px;
+    padding: 15px;
+}
+
+.location .location-form .form-control::placeholder {
+    color: #ffffff;
+    opacity: 1;
+}
+
+.location .location-form .form-control:-ms-input-placeholder,
+.location .location-form .form-control::-ms-input-placeholder {
+    color: #ffffff;
+}
+
+.btn.btn-custom {
+    padding: 10px 30px 12px 30px;
+    text-align: center; 
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    background: #E81C2E;
+    border: none;
+    border-radius: 60px;
+    box-shadow: inset 0 0 0 0 #46668d;
+    transition: ease-out 0.5s;
+    -webkit-transition: ease-out 0.5s;
+    -moz-transition: ease-out 0.5s;
+}
+
+.btn.btn-custom:hover {
+    color: #fffbf4;
+    background: #46668d;
+    box-shadow: inset 200px 0 0 0 #46668d;
+}
+
+#menuFavoritos {
+    background-color: #46668d;
+}
+
+.colorFondoInput{
+    background-color: #fffbf4;
+}
+
+
+.btn.btn-inicio {
+    padding: 10px 30px 12px 30px;
+    text-align: center; 
+    font-size: 16px;
+    font-weight: 500;
+    color: #fffbf4;
+    background: #6f7fe2;
+    border: none;
+    border-radius: 60px;
+    box-shadow: inset 0 0 0 0 #b6aaf9;
+    transition: ease-out 0.5s;
+    -webkit-transition: ease-out 0.5s;
+    -moz-transition: ease-out 0.5s;
+}
+
+.btn.btn-inicio:hover {
+    color: #151515;
+    background: #b6aaf9;
+    box-shadow: inset 200px 0 0 0 #b6aaf9;
+}
+
+
+
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-#btnGuardar{
-    border-radius: 25px;
-}
-
-#btnComentar{
-    border-radius: 25px;
-}
-
-#btnFavorito{
-    border-radius: 25px;
-}
 
 /* * {
     font-family: 'Poppins', sans-serif;
@@ -184,22 +292,6 @@
     height: 600px;
 }
 
-.custom-line [stroke] {
-    stroke: green !important;
-}
-
-.btn-opuesto {
-    background-color: #EBA487;
-    color: #151515;
-}
-
-.btn-custom {
-    background-color: #87CEEB;
-    /* Color rojo personalizado  */
-    /* Otras propiedades de estilo opcionales  */
-    color: #151515;
-    /* Color de texto  */
-}
 
 label {
     color: #151515;
@@ -387,7 +479,7 @@ Logo Dell: https://worldvectorlogo.com/logo/dell-1
 }
 
 body {
-    background-color: #ECEFF1;
+    background-color: #f3f5f9 ;
     font-family: 'Spartan', sans-serif;
     font-weight: 300;
     color: var(--light);
@@ -410,10 +502,6 @@ body {
     font-weight: 600;
 }
 
-.form-control {
-    min-height: 3.125rem;
-    line-height: initial;
-}
 
 /* .form-control:focus {
     background-color: var(--dark-x);
@@ -698,7 +786,7 @@ body {
 /**********************************/
 .nav-bar {
     position: relative;
-    background: #202C45;
+    background: #46668d;
 }
 
 .nav-bar.nav-sticky {
@@ -712,7 +800,7 @@ body {
 
 .nav-bar .navbar {
     padding: 20px 0;
-    background: #202C45 !important;
+    background: #46668d !important;
     transition: .3s;
 }
 
@@ -724,7 +812,7 @@ body {
 .navbar-dark .navbar-nav .nav-link:focus,
 .navbar-dark .navbar-nav .nav-link:hover,
 .navbar-dark .navbar-nav .nav-link.active {
-    color: #ffffff;
+    color: #fffbf4;
     padding: 15px;
     font-weight: 500;
     letter-spacing: 1px;
@@ -732,26 +820,22 @@ body {
 
 .navbar-dark .navbar-nav .nav-link:hover,
 .navbar-dark .navbar-nav .nav-link.active {
-    color: #E81C2E;
+    color: #151515;
 }
 
 .nav-bar .dropdown-menu {
     margin-top: 0;
     border: 0;
     border-radius: 0;
-    background: #f8f9fa;
+    background: #fffbf4;
 }
 
-.nav-bar .btn.btn-custom {
-    color: #202C45;
-    background: #ffffff;
-    box-shadow: inset 0 0 0 0 #E81C2E;
-}
+
 
 .nav-bar .btn:hover {
-    color: #ffffff;
-    background: #E81C2E;
-    box-shadow: inset 200px 0 0 0 #E81C2E;
+    color: #fffbf4;
+    background: #151515;
+    box-shadow: inset 200px 0 0 0 #151515;
 }
 
 @media (min-width: 992px) {
@@ -787,7 +871,7 @@ body {
     position: relative;
     margin-top: 45px;
     padding-top: 90px;
-    background: #202C45;
+    background: #46668d;
 }
 
 .footer .footer-contact,
@@ -806,7 +890,7 @@ body {
     font-size: 20px;
     font-weight: 700;
     letter-spacing: 2px;
-    color: #E81C2E;
+    color: #151515;
 
 }
 
@@ -827,7 +911,7 @@ body {
 }
 
 .footer .footer-link a:hover {
-    color: #E81C2E;
+    color: #151515;
     letter-spacing: 1px;
 }
 
@@ -847,7 +931,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #202C45;
+    color: #46668d;
     background: #ffffff;
     border-radius: 40px;
     margin-right: 5px;
@@ -860,7 +944,7 @@ body {
 
 .footer .footer-social a:hover {
     color: #ffffff;
-    background: #E81C2E;
+    background: #151515;
 }
 
 .footer .footer-newsletter form {
@@ -883,17 +967,12 @@ body {
     letter-spacing: 1px;
 }
 
-.footer .footer-newsletter .btn.btn-custom {
-    width: 100%;
-    color: #202C45;
-    background: #ffffff;
-    box-shadow: inset 0 0 0 0 #E81C2E;
-}
+
 
 .footer .footer-newsletter .btn:hover {
     color: #ffffff;
-    background: #E81C2E;
-    box-shadow: inset 200px 0 0 0 #E81C2E;
+    background: #151515;
+    box-shadow: inset 200px 0 0 0 #151515;
 }
 
 .footer .copyright {
@@ -908,7 +987,7 @@ body {
 }
 
 .footer .copyright p a {
-    color: #E81C2E;
+    color: #151515;
     font-weight: 700;
     letter-spacing: 1px;
 }
@@ -933,7 +1012,7 @@ body {
 
 .top-bar .logo h1 {
     margin: -4px 0 0 0;
-    color: #E81C2E;
+    color: #151515;
     font-size: 50px;
     line-height: 50px;
     font-weight: 800;
@@ -942,7 +1021,7 @@ body {
 }
 
 .top-bar .logo h1 span {
-    color: #202C45;
+    color: #46668d;
 }
 
 .top-bar .logo img {
@@ -962,7 +1041,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #202C45;
+    background: #46668d;
     border-radius: 40px;
 }
 

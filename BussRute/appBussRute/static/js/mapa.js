@@ -68,7 +68,7 @@ function removeRoute() {
 function updateRoute(site) {
     var options = {
         lineOptions: {
-            styles: [{ color: '#00A99D' }]
+            styles: [{ color: '#46668d' }]
         },
         addWaypoints: false,
         createMarker: function () { return null; },
@@ -106,7 +106,7 @@ function updateRoute(site) {
                 document.getElementById("txtImagen").src = '../../static/img/AutobuseseKool.jpg'
             }
             document.getElementById("txtEmpresa").value = rutas[posC].empRuta
-            document.getElementById("txtHora").value = rutas[posC].horRuta
+            document.getElementById("txtPrecio").value = "$"+rutas[posC].preRuta
             document.getElementById("txtNumero").value = rutas[posC].numRuta
             waypoints.push(L.latLng(entradaR.latitud, entradaR.longitud));
         }

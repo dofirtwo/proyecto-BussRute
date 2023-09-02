@@ -104,7 +104,7 @@ function trazarRuta() {
         showAlternatives: false,
         routeLine: (route) => {
           return L.Routing.line(route, {
-            styles: [{ color: '#00A99D' }]
+            styles: [{ color: '#46668d' }]
           });
         }
       }).addTo(map);
@@ -122,7 +122,8 @@ function trazarRuta() {
 function registroDatosRuta() {
   var datos = {
     "numeroRuta": $("#txtNumeroRuta").val(),
-    "horario": $("#txtPrecio").val(),
+    "precio": $("#txtPrecio").val(),
+    "fileFoto": $("#fileFoto").val(),
     "empresa": $("#cbEmpresa").val(),
     "detalle": JSON.stringify(coordenadaRuta),
     "ubicacion": JSON.stringify(ubicacionRuta),
@@ -233,8 +234,8 @@ function abrirModalEliminar(id){
       text: "¿Estan seguros de eliminar?",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#6f7fe2',
+      cancelButtonColor: '#E81C2E',
       cancelButtonText: 'No',
       confirmButtonText: 'Si'
     }).then((result) => {
