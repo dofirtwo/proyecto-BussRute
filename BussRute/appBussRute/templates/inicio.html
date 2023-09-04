@@ -157,14 +157,15 @@
           <h3 class="name-user">{{ comentario.comUsuario.usuNombre }}</h3>
           <h4>Profession</h4>
           <div class="reseñas">
+            <!-- Mostrar el ícono del bote de basura solo para el usuario actual -->
+            {% if comentario.comUsuario.id == usuario.id %}
+              <i class="fa fa-trash text-danger"  onclick="eliminarComentario('{{ comentario.id }}')"></i>
+              <a href="/consultarComentario/{{comentario.id}}/"><i class="fa fa-edit text-warning"></i></a>
+            {% endif %}
           </div>
           <p>
             {{ comentario.comDescripcion }}
           </p>
-
-          <div class="media-icons">
-
-          </div>
         </div>
       </div>
       {% endfor %}

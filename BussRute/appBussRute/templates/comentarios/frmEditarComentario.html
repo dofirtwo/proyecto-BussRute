@@ -8,12 +8,12 @@
 {% block contenido %}
 <section class="agregarComentarios">
   <div class="agregarComentarioHeader">
-    <h1>Agregar Comentario</h1>
+    <h1>Actualizar Comentario</h1>
     <span>Cuentanos tu opinión sobre nuestro sitio.</span>
   </div>
   <!-- Formulario para agregar comentarios -->
   <div class="agregarComentarioContenedor">
-    <form class="needs-validation" action="/agregarComentario/" method="POST" enctype="multipart/form-data">
+    <form class="needs-validation" action="/actualizarComentario/{{comentario.id}}/" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="">
         <div class="col">
@@ -22,11 +22,8 @@
             <div class="input-group has-validation">
               
               <input type="text" class="form-control" id="txtNombre" name="txtNombre"
-                aria-describedby="inputGroupPrepend" required disabled value="@{{ form.initial.txtNombre }}">
-                
-              <div class="invalid-feedback">
-                Porfavor ingrese un nombre.
-              </div>
+                aria-describedby="inputGroupPrepend" required disabled value="@{{ comentario.comUsuario.usuNombre }}">
+    
             </div>
           </div>
         </div>
@@ -34,7 +31,7 @@
         <div class="col">
           <div class="col">
             <label for="txtComentario" class="form-label">Comentario: </label>
-            <textarea type="text" class="form-control" id="txtComentario" name="txtComentario" cols="35" rows="10" required></textarea>
+            <textarea type="text" class="form-control needs-validation" id="txtComentario" name="txtComentario" cols="35" rows="10" required>{{comentario.comDescripcion}}</textarea>
             <div class="invalid-feedback">
               Porfavor ingresar un comentario valido.
             </div>
@@ -46,19 +43,17 @@
         </div>
         <div class="reseñas text-center">
           <div class="reseñas text-center">
-            <span class="fa fa-heart heart" data-value="1"></span>
-            <span class="fa fa-heart heart" data-value="2"></span>
-            <span class="fa fa-heart heart" data-value="3"></span>
-            <span class="fa fa-heart heart" data-value="4"></span>
-            <span class="fa fa-heart heart" data-value="5"></span>
+            {% for i in "12345" %}
+            <span class="fa fa-heart heart {% if i|add:0 <= comentario.comValoracion %}selected{% endif %}" data-value="{{ i }}"></span>
+            {% endfor %}
           </div>
           
-          <input type="hidden" id="txtValoracion" name="txtValoracion" value="0">
+          <input type="hidden" id="txtValoracion" name="txtValoracion" value="{{comentario.comValoracion}}">
         </div>
       </div>
       <br>
       <div class="col-12">
-        <button class="btn btn-custom" id="btnEnviar" type="submit">Enviar Comentario</button>
+        <button class="btn btn-custom" id="btnActualizars" type="submit">Actualizar</button>
         <a href="#"><button class="btn btn-opuesto space-between" id="btnRegresar" name="regresar" onclick="disableValidation()">Regresar</button></a>
       </div>
     </form>
@@ -73,6 +68,7 @@
     });
   }
 </script>
+
 
 <!-- <form action="">
 

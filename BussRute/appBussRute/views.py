@@ -1,7 +1,7 @@
 import requests
 import json
 from google.auth.transport import requests as google_requests
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect 
 from django import forms
 from urllib.parse import urlencode
 from django.db import Error, transaction
@@ -396,6 +396,49 @@ def agregarComentario(request):
             form = ComentarioForm(initial={'txtNombre': nombre_usuario})
             context = {'form': form, 'usuario': usuario}
             return render(request, 'comentarios/agregarComentario.html', context)
+             
+def eliminarComentario(request,id):
+    try:
+        comentario = Comentario.objects.get(id=id)
+        comentario.delete()
+        mensaje="comentario eliminado"
+    except Error as error:
+        mensaje=f"problemas al eliminar el comentario {error}"
+
+    retorno = {"mensaje": mensaje}
+    
+    return redirect("/inicio/",retorno)
+
+def consultarComentario(request, id):
+    usuario_id = request.session.get('usuario_id')
+    usuario = None
+    if usuario_id:
+        usuario = Usuario.objects.get(id=usuario_id)
+        try:
+            comentario = Comentario.objects.get(id=id)
+            mensaje=""
+        except Error as error:
+            mensaje = f"problemas {error}"
+    retorno ={"mensaje":mensaje, "comentario":comentario, 'usuario':usuario}
+    return render(request,"comentarios/frmEditarComentario.html", retorno)
+
+def actualizarComentario(request, id):
+    
+    comDescripcion = request.POST["txtComentario"]
+    comValoracion = int(request.POST["txtValoracion"])
+    try:
+        #actualizar el producto. PRIMERO SE CONSULTA
+        comentario = Comentario.objects.get(id=id)
+        comentario.comDescripcion=comDescripcion
+        comentario.comValoracion=comValoracion
+        comentario.save()
+        mensaje="comentario actualizado correctamente"
+        return redirect("/inicio/")
+    except Error as error:
+        mensaje = f"problemas al realizar el proceso de actualizar el comentario {error}"
+    
+    retorno = {"mensaje":mensaje,"comentario":comentario}
+    return render(request,"frmEditar.html",retorno)
 
 def registrarseUsuario(request):
     try:

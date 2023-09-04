@@ -50,6 +50,9 @@ urlpatterns = [
     path('github-login/', views.github_login, name='github-login'),
     path('github-auth/', views.github_callback, name='github-auth'),
     path('eliminarRuta/',views.eliminarRuta),
+    path('eliminarComentario/<int:id>/',views.eliminarComentario),
+    path('consultarComentario/<int:id>/',views.consultarComentario),
+    path('actualizarComentario/<int:id>/',views.actualizarComentario),
     path('', include('appBussRute.urls'))
 ]
 

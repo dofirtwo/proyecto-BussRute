@@ -102,6 +102,25 @@ $(document).ready(function() {
   });
 });
 
+function eliminarComentario(idComentario) {
+  Swal.fire({
+    title: 'Eliminar Comentario',
+    text: '¿Estás seguro de eliminar el Comentario?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    cancelButtonText: 'No',
+    confirmButtonText: 'Sí'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Redirigir a la URL de eliminación
+      location.href = `/eliminarComentario/${idComentario}/`;
+    }
+  });
+}
+//TERMINA COMENTARIOS SECCION
+
 function guardarRuta() {
   $.ajax({
     url: '/verificarSesion/',
