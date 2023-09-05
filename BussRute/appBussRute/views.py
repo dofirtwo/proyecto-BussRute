@@ -549,7 +549,9 @@ def iniciarSesion(request):
                 # Las credenciales son válidas
                     request.session['usuario_id'] = usuario.id
                     estado = True
-                    return redirect('/inicio/')
+                    response = redirect('/inicio/')  # Redirige al usuario a la página de inicio
+                    response['Cache-Control'] = 'no-cache, no-store, must-revalidate'  # Evita el almacenamiento en caché
+                    return response
                 else:
                     mensaje = "La contraseña proporcionada es incorrecta."
         except ObjectDoesNotExist:
@@ -605,7 +607,8 @@ def enviarCambioContrasena(request):
                     usuario.save()
 
                     asunto = 'Solicitud para restablecer contraseña de BussRute'
-                    url = f"https://bussrute.pythonanywhere.com/vistaCambioContrasena/?token={token}&correo={correo}"
+                    #url = f"https://bussrute.pythonanywhere.com/vistaCambioContrasena/?token={token}&correo={correo}"
+                    url = f"http://127.0.0.1:8000//vistaCambioContrasena/?token={token}&correo={correo}"
                     mensaje = f'<div style="background:#f9f9f9">\
                         <div style="background-color:#f9f9f9">\
                             <div style="max-width:640px;margin:0 auto;border-radius:4px;overflow:hidden">\

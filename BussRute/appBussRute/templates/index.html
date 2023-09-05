@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <!-- Leafet (MAPA) -->
     <link rel="stylesheet" href="../static/css/leaflet/leaflet.css">
     <link rel="stylesheet" href="../static/css/leaflet/leaflet-routing-machine.css">
 
     <script src="../static/js/leaflet/leaflet.js"></script>
     <script src="../static/js/leaflet/leaflet-routing-machine.js"></script>
-  
+
     <script src="https://unpkg.com/leaflet-curve"></script>
     <script src="https://unpkg.com/leaflet-polylinedecorator"></script>
     <!-- fin -->
@@ -21,14 +23,19 @@
     <!-- Latest compiled JavaScript -->
     {% load static %}
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- fin -->
     <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- fin -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> {% endcomment %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% comment %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% endcomment %}
     <script src="https://kit.fontawesome.com/ffec4ec2ed.js" crossorigin="anonymous"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;600&display=swap" rel="stylesheet">
@@ -40,7 +47,7 @@
     <link rel="stylesheet" href="{%static '../static/css/style.css' %}">
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-    <link rel="shortcut icon" href="../static/img/Logo Empresa3.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../static/img/Logo Empresa3.1.png" sizes="16x16" type="image/png">
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <!-- <link href="{%static '../static/lib/animate/animate.min.css' %}" rel="stylesheet"> -->
@@ -50,29 +57,38 @@
     <link href="../static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <title>BussRute</title>
 </head>
-<body>
-        <header >
-            {% block encabezado %}
-            {% endblock %}
-        </header>
-        <nav>
-            {% block menu %}
-            {% endblock %}
-        </nav>
-        <section>
-            {% block contenido %}
-            {% endblock %}
-        </section>
-        <footer>
-            {% block pie_pagina %}
-            {% endblock %}
-        </footer>
+
+<body onload="sinVueltaAtras();" onpageshow="if (event.persisted) sinVueltaAtras();" onunload="">
+    <header>
+        {% block encabezado %}
+        {% endblock %}
+    </header>
+    <nav>
+        {% block menu %}
+        {% endblock %}
+    </nav>
+    <section>
+        {% block contenido %}
+        {% endblock %}
+    </section>
+    <footer>
+        {% block pie_pagina %}
+        {% endblock %}
+    </footer>
     <script src="{%static '../static/js/app.js'%}"></script>
     <script src="{%static '../static/lib/owlcarousel/owl.carousel.min.js'%}"></script>
     <script src="{%static '../static/js/main.js'%}"></script>
-    <script src="{%static '../static/js/facebook.js'%}"></script>
     <script src="https://kit.fontawesome.com/a8829d05b8.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            window.history.forward();
+            function sinVueltaAtras() { window.history.forward(); }
+          </script>
 </body>
+
 </html>
