@@ -146,8 +146,8 @@
 <hr>
 <div class="testimonial">
   <div class="container">
-    <div class="testimonios_header">
-      <h2>TESTIMONIOS</h2>
+    <div class="testimonios_header mt-1">
+      <h2>Comentarios</h2>
     </div>
     <div class="owl-carousel testimonials-carousel">
       {% for comentario in comentarios %}
@@ -155,18 +155,20 @@
         <!-- <img src="" alt="Image"> -->
         <div class="testimonial-text testimonios" data-valoracion="{{ comentario.comValoracion }}">
           <h3 class="name-user">{{ comentario.comUsuario.usuNombre }}</h3>
-          <h4>Profession</h4>
+          <h4>Ruta</h4>
           <div class="reseñas">
             <!-- Mostrar el ícono del bote de basura solo para el usuario actual -->
-            {% if comentario.comUsuario.id == usuario.id %}
-              <i class="fa fa-trash text-danger"  onclick="eliminarComentario('{{ comentario.id }}')"></i>
-              <a href="/consultarComentario/{{comentario.id}}/"><i class="fa fa-edit text-warning"></i></a>
-            {% endif %}
           </div>
+          
           <p>
             {{ comentario.comDescripcion }}
           </p>
         </div>
+        {% if comentario.comUsuario.id == usuario.id %}
+              
+              <a href="/consultarComentario/{{comentario.id}}/"><i class="fa fa-edit text-warning mr-2"></i></a>
+              <i class="fa fa-trash text-danger"  onclick="eliminarComentario('{{ comentario.id }}')"></i>
+            {% endif %}
       </div>
       {% endfor %}
     </div>
