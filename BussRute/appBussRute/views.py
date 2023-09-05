@@ -327,8 +327,7 @@ def registroRuta(request):
                 numeroRuta = int(request.POST["numeroRuta"])
                 precio = request.POST["precio"]
                 empresa = request.POST["empresa"]
-                archivo = request.POST["fileFoto"]
-                ruta = Ruta(rutNumero=numeroRuta,rutPrecio=precio,rutEmpresa=empresa,rutFoto=archivo)
+                ruta = Ruta(rutNumero=numeroRuta,rutPrecio=precio,rutEmpresa=empresa)
                 ruta.save()
                 detalleRutas = json.loads(request.POST["detalle"])
                 for detalle in detalleRutas:

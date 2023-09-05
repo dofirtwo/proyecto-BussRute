@@ -59,6 +59,7 @@ function getCookie(name) {
 
 var control;
 
+
 function removeRoute() {
     if (control) {
         control.remove();
@@ -121,10 +122,10 @@ function updateRoute(site) {
 function filtroBarrio() {
     let rutasAgregadas = [];
     ubiBarrio = document.getElementById("cbBarrio").value
+    document.getElementById("ruta").innerHTML += `<option value="0" disabled selected>Seleccione</option>`
     ubicaciones.forEach(entradaU => {
-
         if (entradaU.ubiBarrio == ubiBarrio) {
-            posU = rutas.findIndex(ruta => ruta.numRuta === entradaU.ubiRuta);
+            posU = rutas.findIndex(ruta => ruta.numRuta === entradaU.ubiRuta);       
             console.log(posU)
             if (!rutasAgregadas.includes(rutas[posU].numRuta)) {
                 rutasAgregadas.push(rutas[posU].numRuta)
@@ -145,6 +146,7 @@ function filtroBarrio() {
 function filtroComuna() {
     let rutasAgregadas = [];
     ubiComuna = document.getElementById("cbComuna").value
+    document.getElementById("ruta").innerHTML += `<option value="0" disabled selected>Seleccione</option>`
     ubicaciones.forEach(entradaU => {
         if (entradaU.ubiComuna == ubiComuna) {
             posU = rutas.findIndex(ruta => ruta.numRuta === entradaU.ubiRuta);
@@ -167,6 +169,7 @@ function filtroComuna() {
 function filtroSitio() {
     let rutasAgregadas = [];
     ubiSitioDeInteres = document.getElementById("cbSitioDeInteres").value
+    document.getElementById("ruta").innerHTML += `<option value="0" disabled selected>Seleccione</option>`
     ubicaciones.forEach(entradaU => {
         if (entradaU.ubiSitioDeInteres == ubiSitioDeInteres) {
             posU = rutas.findIndex(ruta => ruta.numRuta === entradaU.ubiRuta);
@@ -237,7 +240,7 @@ function verFavoritos() {
             if (data.logueado) {
                 // Si el usuario ha iniciado sesión, muestra el modal.
                 mostrarFavoritos()
-                $('#exampleModal').modal('show');
+                
             } else {
                 // Si el usuario no ha iniciado sesión, muestra un mensaje de error.
                 Swal.fire('Cuenta', 'Debes iniciar sesión primero.', 'error');
@@ -257,11 +260,11 @@ function mostrarFavoritos() {
                                                             <br>
                                                             Empresa: ${rutas[posF].empRuta}
                                                         </div>
-                                                        <div class="mb-1 col-lg-3 justify-content-end">
-                                                            <button type="button" class="btn btn-custom" onclick="vizualizarRutaFavorita(${rutas[posF].numRuta})">Visualizar</button>
+                                                        <div class="mb-1 col-lg-2 justify-content-end">
+                                                            <button type="button" class="btn btn-inicio" onclick="vizualizarRutaFavorita(${rutas[posF].numRuta})">Visualizar</button>
                                                         </div>
-                                                        <div class="mb-1 col-lg-3 justify-content-end">
-                                                            <button type="button" class="btn btn-opuesto" onclick="eliminarFavorito(${rutas[posF].numRuta})">Eliminar</button>
+                                                        <div class="mb-1 ml-5 col-lg-2 justify-content-end">
+                                                            <button type="button" class="btn btn-custom" onclick="eliminarFavorito(${rutas[posF].numRuta})">Eliminar</button>
                                                         </div>
                                                     </div>
                                                     <hr>`
@@ -269,9 +272,10 @@ function mostrarFavoritos() {
 }
 
 function vizualizarRutaFavorita(numeroRuta) {
+    removeRoute();
     var options = {
         lineOptions: {
-            styles: [{ color: '#00A99D' }]
+            styles: [{ color: '#46668d' }]
         },
         addWaypoints: false,
         createMarker: function () { return null; },
@@ -316,7 +320,6 @@ function vizualizarRutaFavorita(numeroRuta) {
 
     // Establecer el arreglo de waypoints en el control de enrutamiento
     control.setWaypoints(waypoints);
-
     control.hide();
 }
 
