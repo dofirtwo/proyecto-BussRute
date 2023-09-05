@@ -41,6 +41,10 @@
           </div>
         </div>
         <br>
+        <div>
+          <input type="hidden" id="txtRuta" name="txtRuta" value="">
+
+        </div>
         <div class="text-center">
           <label for="">¡Calificanos!</label>
         </div>
@@ -73,6 +77,17 @@
     });
   }
 </script>
+<script>
+  // Recupera el valor de txtRuta desde el localStorage
+  var rutaSeleccionada = localStorage.getItem('rutaSeleccionada');
+
+  // Verifica si se encontró un valor en el localStorage
+  if (rutaSeleccionada !== null) {
+    // Establece el valor en el campo de formulario txtRuta
+    document.getElementById('txtRuta').value = rutaSeleccionada;
+  }
+</script>
+
 
 <!-- <form action="">
 

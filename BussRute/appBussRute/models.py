@@ -98,22 +98,8 @@ class Usuario(models.Model):
     def __str__(self):
         return f"{self.usuNombre}"
 
-class Comentario(models.Model):
-    comDescripcion = models.CharField(max_length=100)
-    comValoracion = models.PositiveIntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(5)],null=True
-    )  # Valor de valoración entre 1 y 5
-    comUsuario = models.ForeignKey(Usuario, on_delete=models.PROTECT, null=True)
-    fechaHoraCreacion = models.DateTimeField(auto_now_add=True)
-    fechaHoraActualizacion = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.comDescripcion} - Valoración: {self.comValoracion}"
-
-
-
 class Ruta(models.Model):
-    rutNumero = models.IntegerField(db_comment="Numero de la ruta del bus")
+    rutNumero = models.IntegerField(db_comment="Numero de la ruta del bus", null=True)
     rutPrecio = models.TextField(db_comment="Precio de la Ruta",null=True)
     rutEmpresa = models.TextField(db_comment="Id de Empresa")
     fechaHoraCreacion  = models.DateTimeField(auto_now_add=True,db_comment="Fecha y hora del registro")
@@ -121,7 +107,20 @@ class Ruta(models.Model):
 
     def __str__(self):
         return f"{self.rutNumero}"
+    
+class Comentario(models.Model):
+    comDescripcion = models.CharField(max_length=100)
+    comValoracion = models.PositiveIntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)],null=True
+    )  # Valor de valoración entre 1 y 5
+    comUsuario = models.ForeignKey(Usuario, on_delete=models.PROTECT, null=True)
+    comRuta = models.ForeignKey(Ruta, on_delete=models.SET_NULL, null=True)
+    fechaHoraCreacion = models.DateTimeField(auto_now_add=True)
+    fechaHoraActualizacion = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"{self.comDescripcion} - Valoración: {self.comValoracion}"
+    
 class DetalleRuta(models.Model):
     detRuta = models.ForeignKey(Ruta,on_delete=models.PROTECT,
                                     db_comment="Hace referencia a la ruta que se va a registrar")

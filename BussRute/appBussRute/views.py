@@ -358,43 +358,55 @@ def verificarSesion(request):
         return JsonResponse({'logueado': False})
 
 def agregarComentario(request):
-        usuario_id = request.session.get('usuario_id')
-        usuario = None
-        if usuario_id:
-            usuario = Usuario.objects.get(id=usuario_id)
+    usuario_id = request.session.get('usuario_id')
+    usuario = None
+    if usuario_id:
+        usuario = Usuario.objects.get(id=usuario_id)
 
-        if request.method == 'POST':
-            if 'regresar' in request.POST:
-                return redirect('/inicio/')
-            else:
-                form = ComentarioForm(request.POST)
-                if form.is_valid():
-                    comentario = request.POST.get['txtComentario']
-                 # Creamos un objeto de tipo comentario
-                nombre = request.POST.get("txtNombre")
-                comentario = request.POST.get("txtComentario")
-                valoracion = request.POST.get("txtValoracion")
-
-                try:
-                    with transaction.atomic():
-                        contenidoComentario = Comentario(comDescripcion=comentario, comUsuario_id=usuario_id, comValoracion=valoracion)
-                        contenidoComentario.save()
-                        mensaje = "Comentario registrado correctamente"
-                        retorno = {"mensaje": mensaje}
-                        return redirect("/inicio/", retorno)
-                except Error as error:
-                    transaction.rollback()
-                    mensaje = f"{error}"
-                    retorno = {"mensaje": mensaje,
-                                "comentario": contenidoComentario}
-                    return render(request, 'comentarios/agregarComentario.html', retorno)
+    if request.method == 'POST':
+        if 'regresar' in request.POST:
+            return redirect('/inicio/')
         else:
-            # initial_data = {'txtNombre': request.user.username}
-            # Obtener el nombre de usuario actual
-            nombre_usuario = usuario.usuNombre if usuario else ''
-            form = ComentarioForm(initial={'txtNombre': nombre_usuario})
-            context = {'form': form, 'usuario': usuario}
-            return render(request, 'comentarios/agregarComentario.html', context)
+            form = ComentarioForm(request.POST)
+            if form.is_valid():
+                comentario = request.POST.get['txtComentario']
+            # Creamos un objeto de tipo comentario
+            nombre = request.POST.get("txtNombre")
+            comentario = request.POST.get("txtComentario")
+            valoracion = request.POST.get("txtValoracion")
+            numRuta = request.POST.get("txtRuta")
+
+            try:
+                with transaction.atomic():
+                    # Busca la instancia de Ruta correspondiente
+                    if numRuta:
+                        try:
+                            ruta = Ruta.objects.get(rutNumero=numRuta)
+                        except Ruta.DoesNotExist:
+                            ruta = None
+                    else:
+                        ruta = None
+
+                    # Crea un objeto de tipo Comentario con la ruta asociada
+                    contenidoComentario = Comentario(comDescripcion=comentario, comUsuario_id=usuario_id, comValoracion=valoracion, comRuta=ruta)
+                    contenidoComentario.save()
+                    mensaje = "Comentario registrado correctamente"
+                    retorno = {"mensaje": mensaje}
+                    return redirect("/inicio/", retorno)
+
+            except Error as error:
+                transaction.rollback()
+                mensaje = f"{error}"
+                retorno = {"mensaje": mensaje,
+                           "comentario": contenidoComentario}
+                return render(request, 'comentarios/agregarComentario.html', retorno)
+    else:
+        # initial_data = {'txtNombre': request.user.username}
+        # Obtener el nombre de usuario actual
+        nombre_usuario = usuario.usuNombre if usuario else ''
+        form = ComentarioForm(initial={'txtNombre': nombre_usuario})
+        context = {'form': form, 'usuario': usuario}
+        return render(request, 'comentarios/agregarComentario.html', context)
              
 def eliminarComentario(request,id):
     try:

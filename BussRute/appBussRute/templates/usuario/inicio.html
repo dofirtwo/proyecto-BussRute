@@ -140,6 +140,17 @@
         $('.modal-backdrop').remove();
     });
 </script>
+<script>
+    // Función para guardar la ruta seleccionada en el almacenamiento local
+    function guardarRutaSeleccionada() {
+        var rutaSelect = document.getElementById('ruta');
+        var rutaSeleccionada = rutaSelect.value;
+        localStorage.setItem('rutaSeleccionada', rutaSeleccionada);
+    }
+
+    // Asigna un evento al select para guardar la ruta cuando se seleccione
+    document.getElementById('ruta').addEventListener('change', guardarRutaSeleccionada);
+</script>
 
 <br>
 {% load static %}
