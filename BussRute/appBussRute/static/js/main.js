@@ -54,7 +54,7 @@
         $(window).resize(toggleNavbarMethod);
     });
 
-    
+
     // Main carousel
     // $(".carousel .owl-carousel").owlCarousel({
     //     autoplay: true,
@@ -71,7 +71,7 @@
     //     ]
     // });
 
-    
+
     // Facts counter
     // $('[data-toggle="counter-up"]').counterUp({
     //     delay: 10,
@@ -86,6 +86,20 @@
         smartSpeed: 2000,
         dots: true,
         loop: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            576: {
+                items: 1
+            },
+            768: {
+                items: 2
+            },
+            992: {
+                items: 3
+            }
+        }
     });
 
 

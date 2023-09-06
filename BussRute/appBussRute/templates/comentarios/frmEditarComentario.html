@@ -13,17 +13,18 @@
   </div>
   <!-- Formulario para agregar comentarios -->
   <div class="agregarComentarioContenedor">
-    <form class="needs-validation" action="/actualizarComentario/{{comentario.id}}/" method="POST" enctype="multipart/form-data">
+    <form class="needs-validation" action="/actualizarComentario/{{comentario.id}}/" method="POST"
+      enctype="multipart/form-data">
       {% csrf_token %}
       <div class="">
         <div class="col">
           <div class="">
             <label for="txtNombre" class="form-label">Nombre</label>
             <div class="input-group has-validation">
-              
+
               <input type="text" class="form-control" id="txtNombre" name="txtNombre"
                 aria-describedby="inputGroupPrepend" required disabled value="@{{ comentario.comUsuario.usuNombre }}">
-    
+
             </div>
           </div>
         </div>
@@ -31,7 +32,8 @@
         <div class="col">
           <div class="col">
             <label for="txtComentario" class="form-label">Comentario: </label>
-            <textarea type="text" class="form-control needs-validation" id="txtComentario" name="txtComentario" cols="35" rows="10" required>{{comentario.comDescripcion}}</textarea>
+            <textarea type="text" class="form-control needs-validation" id="txtComentario" name="txtComentario"
+              cols="35" rows="10" required>{{comentario.comDescripcion}}</textarea>
             <div class="invalid-feedback">
               Porfavor ingresar un comentario valido.
             </div>
@@ -44,17 +46,19 @@
         <div class="reseñas text-center">
           <div class="reseñas text-center">
             {% for i in "12345" %}
-            <span class="fa fa-heart heart {% if i|add:0 <= comentario.comValoracion %}selected{% endif %}" data-value="{{ i }}"></span>
+            <span class="fa fa-heart heart {% if i|add:0 <= comentario.comValoracion %}selected{% endif %}"
+              data-value="{{ i }}"></span>
             {% endfor %}
           </div>
-          
+
           <input type="hidden" id="txtValoracion" name="txtValoracion" value="{{comentario.comValoracion}}">
         </div>
       </div>
       <br>
       <div class="col-12 d-flex justify-content-center">
         <button class="btn btn-inicio " id="btnActualizars" type="submit">Actualizar</button>
-        <a href="#"><button class="btn btn-inicio ml-2" id="btnRegresar" name="regresar" onclick="disableValidation()">Regresar</button></a>
+        <a href="#"><button class="btn btn-inicio ml-2" id="btnRegresar" name="regresar"
+            onclick="disableValidation()">Regresar</button></a>
       </div>
     </form>
   </div>

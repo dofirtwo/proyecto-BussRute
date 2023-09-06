@@ -31,19 +31,19 @@
             </form>
             <div>
                 {% if mensaje %}
-                    {% if estado %}
-                        <script>
-                            Swal.fire('Cuenta', '{{mensaje}}', 'success').then(function () {
-                                setTimeout(function () {
-                                    window.location.href = '/inicioSesion/';
-                                }, 1000);
-                            });
-                        </script>
+                {% if estado %}
+                <script>
+                    Swal.fire('Cuenta', '{{mensaje}}', 'success').then(function () {
+                        setTimeout(function () {
+                            window.location.href = '/inicioSesion/';
+                        }, 1000);
+                    });
+                </script>
                 {% else %}
-                        <script>
-                            Swal.fire('Cuenta', '{{mensaje}}', 'error');
-                        </script>
-                    {% endif %}
+                <script>
+                    Swal.fire('Cuenta', '{{mensaje}}', 'error');
+                </script>
+                {% endif %}
                 {% endif %}
             </div>
 
