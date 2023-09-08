@@ -36,7 +36,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-custom w-100 bg-dark-y">Crear cuenta</button>
+                <button class="btn btn-inicio w-100 bg-dark-y">Verificar cuenta</button>
             </form>
             <div>
                 {% if mensaje %}
@@ -44,7 +44,7 @@
                 <script>
                     Swal.fire('Cuenta', '{{mensaje}}', 'success').then(function () {
                         setTimeout(function () {
-                            window.location.href = '/inicio/';
+                            window.location.href = '/vistaVerificarCorreo/';
                         }, 1000);
                     });
                 </script>

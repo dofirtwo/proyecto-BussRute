@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
 from django.core.validators import MinValueValidator, MaxValueValidator
+import hashlib
 
 # Create your models here.
 
@@ -80,8 +81,8 @@ class Rol(models.Model):
         return f"{self.rolNombre}"
 
 class Usuario(models.Model):
-    usuNombre = models.CharField(max_length=21)
-    usuCorreo = models.CharField(max_length=50)
+    usuNombre = models.CharField(unique=True,max_length=21)
+    usuCorreo = models.CharField(unique=True,max_length=50)
     usuPassword = models.CharField(max_length=128)  # Almacenar la contraseña en un campo de longitud suficiente
     usuCreadoConGoogle = models.BooleanField(default=False)
     usuTokenCambioContrasena = models.CharField(max_length=50, null=True, blank=True)
@@ -90,10 +91,16 @@ class Usuario(models.Model):
     fechaHoraActualizacion = models.DateTimeField(auto_now=True)
 
     def set_password(self, password):
-        self.usuPassword = make_password(password)
+        # Utilizar SHA-256 para encriptar la contraseña
+        sha256 = hashlib.sha256()
+        sha256.update(password.encode('utf-8'))
+        self.usuPassword = sha256.hexdigest()
 
     def check_password(self, password):
-        return check_password(password, self.usuPassword)
+        sha256 = hashlib.sha256()
+        sha256.update(password.encode('utf-8'))
+        hashed_password = sha256.hexdigest()
+        return hashed_password == self.usuPassword
 
     def __str__(self):
         return f"{self.usuNombre}"

@@ -53,6 +53,9 @@ urlpatterns = [
     path('eliminarComentario/<int:id>/',views.eliminarComentario),
     path('consultarComentario/<int:id>/',views.consultarComentario),
     path('actualizarComentario/<int:id>/',views.actualizarComentario),
+    path('vistaVerificarCorreo/', views.vistaVerificarCorreo),
+    path('enviarVerificacionCorreo/', views.verificarCodigoDeVerificacion),
+    path('eliminarSesionRegistro/', views.eliminarSesionRegistro),
     path('', include('appBussRute.urls'))
 ]
 

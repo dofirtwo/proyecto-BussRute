@@ -1,7 +1,7 @@
 import requests
 import json
 from google.auth.transport import requests as google_requests
-from django.shortcuts import render, redirect 
+from django.shortcuts import render, redirect
 from django import forms
 from urllib.parse import urlencode
 from django.db import Error, transaction
@@ -23,6 +23,8 @@ from django.utils.crypto import get_random_string
 from appBussRute.serializers import RutaSerializers,DetalleRutaSerializers, UsarioSerializers, RolSerializers, ComentarioSerializer
 from cryptography.fernet import Fernet
 import os
+import random
+from django.core.exceptions import ValidationError
 
 # Generar una clave de cifrado
 key = Fernet.generate_key()
@@ -46,6 +48,13 @@ def loginRequired(function):
 def inicioSesion(request):
     mensajeError = request.session.pop('mensajeError', None)
     return render(request, 'inicioSesion.html', {'mensaje': mensajeError})
+
+def vistaVerificarCorreo(request):
+    # Verifica si la variable de sesión 'registro_completado' está presente y es True.
+    if request.session.get('registro_completado'):
+        return render(request, "verificacionCorreo.html")
+    else:
+        return redirect("/inicioSesion/")
 
 def inicio(request):
 
@@ -159,6 +168,9 @@ def vistaNombreUsuario(request):
     encrypted_email = request.GET.get('email', '')
     email = f.decrypt(encrypted_email.encode()).decode()
     return render(request, "nombreUsuario.html", {'email': email})
+
+def generarCodigoVerificacion():
+    return str(random.randint(100000, 999999))
 
 # BLOQUE DE SOLO FUNCIONES -------------------------------------------------------------------------------------------
 
@@ -363,6 +375,10 @@ def agregarComentario(request):
     if usuario_id:
         usuario = Usuario.objects.get(id=usuario_id)
 
+    if 'usuario_id' not in request.session:
+        # Si el usuario no está autenticado, redirigirlo a la página de inicio de sesión
+        return redirect('/inicioSesion/')
+
     if request.method == 'POST':
         if 'regresar' in request.POST:
             return redirect('/inicio/')
@@ -407,7 +423,7 @@ def agregarComentario(request):
         form = ComentarioForm(initial={'txtNombre': nombre_usuario})
         context = {'form': form, 'usuario': usuario}
         return render(request, 'comentarios/agregarComentario.html', context)
-             
+    
 def eliminarComentario(request,id):
     try:
         comentario = Comentario.objects.get(id=id)
@@ -417,7 +433,7 @@ def eliminarComentario(request,id):
         mensaje=f"problemas al eliminar el comentario {error}"
 
     retorno = {"mensaje": mensaje}
-    
+
     return redirect("/inicio/",retorno)
 
 def consultarComentario(request, id):
@@ -434,7 +450,7 @@ def consultarComentario(request, id):
     return render(request,"comentarios/frmEditarComentario.html", retorno)
 
 def actualizarComentario(request, id):
-    
+
     comDescripcion = request.POST["txtComentario"]
     comValoracion = int(request.POST["txtValoracion"])
     try:
@@ -447,7 +463,7 @@ def actualizarComentario(request, id):
         return redirect("/inicio/")
     except Error as error:
         mensaje = f"problemas al realizar el proceso de actualizar el comentario {error}"
-    
+
     retorno = {"mensaje":mensaje,"comentario":comentario}
     return render(request,"frmEditar.html",retorno)
 
@@ -473,27 +489,206 @@ def registrarseUsuario(request):
             mensaje = 'El nombre de usuario debe tener al menos 6 caracteres'
             retorno = {"mensaje": mensaje, "estado": False}
             return render(request, "crearCuenta.html", retorno)
-
-        with transaction.atomic():
-            # Buscar el rol "Usuario"
-            rolUsuario = Rol.objects.get(id=1)
-
-            user = Usuario(usuNombre=nombreUsu,
-                           usuCorreo=email, usuRol=rolUsuario)
-            # Almacenar la contraseña de forma segura
-            user.set_password(contrasena)
-            user.save()
-            request.session['usuario_id'] = user.id
-            mensaje = "Registrado correctamente"
-            retorno = {"mensaje": mensaje, "estado": True}
+        
+        if Usuario.objects.filter(usuNombre=nombreUsu).exists():
+            mensaje = "El nombre de usuario ya está en uso. Por favor, elige otro."
+            retorno = {"mensaje": mensaje, "estado": False}
             return render(request, "crearCuenta.html", retorno)
-
+        
+        else:
+            codigoDeVerificacion = generarCodigoVerificacion()
+            request.session['nombreUsuario'] = nombreUsu
+            request.session['correoUsuario'] = email
+            request.session['contrasena'] = contrasena
+            request.session['codigo_verificacion'] = codigoDeVerificacion
+            request.session['registro_completado'] = True
+            asunto = 'Verificacion del Correo Electronico'
+            # Iniciar el hilo para enviar el correo electrónico
+            mensaje = f'<div style="background:#f9f9f9">\
+                            <div style="background-color:#f9f9f9">\
+                                <div style="max-width:640px;margin:0 auto;border-radius:4px;overflow:hidden">\
+                                    <div style="margin:0px auto;max-width:640px;background:#ffffff">\
+                <table role="presentation" cellpadding="0" cellspacing="0"\
+                    style="font-size:0px;width:100%;background:#ffffff" align="center" border="0">\
+                    <tbody>\
+                        <tr>\
+                            <td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:40px 50px">\
+                                <div aria-labelledby="mj-column-per-100" class="m_3451676835088794076mj-column-per-100" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%">\
+                                    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">\
+                                        <tbody>\
+                                            <tr>\
+                                                <td style="word-break:break-word;font-size:0px;padding:0px" align="center">\
+                                                    <div style="color:#737f8d;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:16px;line-height:24px;text-align:center">\
+                                                        <h2 style="font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-weight:500;font-size:20px;color:#4f545c;letter-spacing:0.27px">\
+                                                            ¡Verificación de la Cuenta!</h2>\
+                                                        <p>Confirma la cuenta con el siguiente\
+                                                                código de\
+                                                                confirmación.</p>\
+                                                    </div>\
+                                                </td>\
+                                            </tr>\
+                                            <tr>\
+                                                <td style="word-break:break-word;font-size:0px;padding:10px 25px;padding-top:20px" align="center">\
+                                                    <table role="presentation" cellpadding="0" cellspacing="0"\
+                                                        style="border-collapse:separate" align="center" border="0">\
+                                                        <tbody>\
+                                                            <tr>\
+                                                                <td style="border:none;border-radius:3px;color:white;padding:15px 19px"\
+                                                                    align="center" valign="middle"\
+                                                                    bgcolor="#0077ff"><h2\
+                                                                    style="text-decoration:none;line-height:100%;background:#0077ff;color:white;font-family:Ubuntu,Helvetica,Arial,sans-serif;font-size:15px;font-weight:normal;text-transform:none;margin:0px;letter-spacing:10px">\
+                                                                    {codigoDeVerificacion}</h2>\
+                                                                </td>\
+                                                            </tr>\
+                                                        </tbody>\
+                                                    </table>\
+                                                </td>\
+                                            </tr>\
+                                            <tr>\
+                                                <td bgcolor="#fff">\
+                                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"\
+                                                        bgcolor="#FFFFFF" style="border-top:1px solid #e2e2e2">\
+                                                        <tbody>\
+                                                            <tr>\
+                                                                <td\
+                                                                    style="padding:30px 30px;text-align:center;font-family:"Roboto",sans-serif;font-size:15px;line-height:20px">\
+                                                                    <table align="center" style="text-align:center">\
+                                                                        <tbody>\
+                                                                            <tr>\
+                                                                                <td\
+                                                                                    style="font-family:"Roboto",sans-serif;font-size:12px;line-height:20px;color:#555555;text-align:center;font-weight:300">\
+                                                                                    <p class="m_-45816842390854781disclaimer"\
+                                                                                        style="margin-bottom:5px">Este correo\
+                                                                                        electrónico se envía para confirmar la dirección\
+                                                                                        de correo electrónico que proporcionaste al\
+                                                                                        crear tu cuenta en\
+                                                                                        <span class="il">BussRute.</span>\
+                                                                                        Si no solicitaste\
+                                                                                        esta confirmación, Puedes ignorar este mensaje.\
+                                                                                    </p>\
+                                                                                </td>\
+                                                                            </tr>\
+                                                                        </tbody>\
+                                                                    </table>\
+                                                                </td>\
+                                                            </tr>\
+                                                        </tbody>\
+                                                    </table>\
+                                                </td>\
+                                            </tr>\
+                                        </tbody>\
+                                    </table>\
+                                </div>\
+                            </td>\
+                        </tr>\
+                    </tbody>\
+                </table>\
+            </div>\
+        </div>\
+        <div style="margin:0px auto;max-width:640px;background:transparent">\
+            <table role="presentation" cellpadding="0" cellspacing="0"\
+                style="font-size:0px;width:100%;background:transparent" align="center" border="0">\
+                <tbody>\
+                    <tr>\
+                        <td\
+                            style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:20px 0px">\
+                            <div aria-labelledby="mj-column-per-100" class="m_3451676835088794076mj-column-per-100"\
+                                style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%">\
+                                <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">\
+                                    <tbody>\
+                                        <tr>\
+                                            <td style="word-break:break-word;font-size:0px;padding:0px"\
+                                                align="center">\
+                                                <div\
+                                                    style="color:#99aab5;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:12px;line-height:24px;text-align:center">\
+                                                    Enviado por <span class="il">BussRute</span>\
+                                                </div>\
+                                            </td>\
+                                        </tr>\
+                                        <tr>\
+                                            <td style="word-break:break-word;font-size:0px;padding:0px"\
+                                                align="center">\
+                                                <div\
+                                                    style="color:#99aab5;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:12px;line-height:24px;text-align:center">\
+                                                    Derechos reservados: Ficha 2468288\
+                                                </div>\
+                                            </td>\
+                                        </tr>\
+                                    </tbody>\
+                                </table>\
+                            </div>\
+                        </td>\
+                    </tr>\
+                </tbody>\
+            </table>\
+        </div>\
+    </div>\
+</div>'
+            thread = threading.Thread(target=enviarCorreo,
+                            args=(asunto, mensaje, [email], request))
+            thread.start()
+            mensaje = f'Correo de verificación enviado.'
+            retorno = {'mensaje': mensaje, 'estado': True}
+            return render(request, "crearCuenta.html", retorno)
     except Error as error:
         transaction.rollback()
         mensaje = f"{error}"
         retorno = {"mensaje": mensaje, "estado": False}
 
     return render(request, "crearCuenta.html", retorno)
+
+def eliminarSesionRegistro(request):
+    if 'registro_completado' in request.session:
+        del request.session['registro_completado']
+    if 'codigo_verificacion' in request.session:
+        del request.session['codigo_verificacion']
+    if 'nombreUsuario' in request.session:
+        del request.session['nombreUsuario']
+    if 'correoUsuario' in request.session:
+        del request.session['correoUsuario']
+    if 'contrasena' in request.session:
+        del request.session['contrasena']
+        
+    return JsonResponse({'message': 'Sesión de registro eliminada'})
+
+
+def verificarCodigoDeVerificacion(request):
+    if request.method == "POST":
+        codigoVerificacionIngresado = request.POST.get("codigoVerifi")
+
+        # Obtiene el código de verificación almacenado en la variable de sesión
+        codigoVerificacionGenerado = request.session.get('codigo_verificacion')
+
+        if codigoVerificacionIngresado == codigoVerificacionGenerado:
+            # Elimina el código de verificación de la variable de sesión
+            del request.session['codigo_verificacion']
+            del request.session['registro_completado']
+            nombreUsuarioRe = request.session.get('nombreUsuario')
+            correoUsuarioRe = request.session.get('correoUsuario')
+            contrasena = request.session.get('contrasena')
+            with transaction.atomic():
+            # Buscar el rol "Usuario"
+                rolUsuario = Rol.objects.get(id=2)
+
+                user = Usuario(usuNombre=nombreUsuarioRe,
+                           usuCorreo=correoUsuarioRe, usuRol=rolUsuario)
+                # Almacenar la contraseña de forma segura
+                user.set_password(contrasena)
+                user.save()
+                request.session['usuario_id'] = user.id
+                mensaje = "El código de verificación es correcto. Tu cuenta ha sido verificada y se ha creado exitosamente."
+                del request.session['nombreUsuario'] 
+                del request.session['correoUsuario']
+                del request.session['contrasena']
+                retorno = {"mensaje": mensaje, "estado": True}
+                return render(request, "verificacionCorreo.html", retorno)
+        else:
+            mensaje = "El código de verificación es incorrecto. Por favor, verifica nuevamente."
+            estado = False
+
+        return render(request, "verificacionCorreo.html", {"mensaje": mensaje, "estado": estado})
+
+    return redirect("/inicio/")
 
 def registrarUsuarioIniciadoGoogle(request):
     if request.method != 'POST':
@@ -518,6 +713,11 @@ def registrarUsuarioIniciadoGoogle(request):
         elif Usuario.objects.filter(usuCorreo=email).exists():
             # Mostrar un mensaje de error al usuario
             mensaje = 'Ya existe una cuenta con este correo electrónico'
+            retorno = {"mensaje": mensaje, "estado": False, "email": email}
+            return render(request, "nombreUsuario.html", retorno)
+        
+        elif Usuario.objects.filter(usuNombre=nombreUsu).exists():
+            mensaje = "El nombre de usuario ya está en uso. Por favor, elige otro."
             retorno = {"mensaje": mensaje, "estado": False, "email": email}
             return render(request, "nombreUsuario.html", retorno)
 
@@ -545,7 +745,49 @@ def registrarUsuarioIniciadoGoogle(request):
 def iniciarSesion(request):
     estado = False
     if request.method == 'POST':
-        correo = request.POST['correoUsuarioInicio'].lower()
+        correo_o_usuario = request.POST['correoUsuarioInicioONombreUsuario'].lower()
+        contrasena = request.POST['passwordUsuarioInicio']
+
+        # Verificar si el valor ingresado es un correo electrónico válido
+        try:
+            validate_email(correo_o_usuario)
+            # Si no se lanza una excepción, es un correo electrónico válido
+            usuario = Usuario.objects.get(usuCorreo=correo_o_usuario)
+        except ValidationError:
+            # Si se lanza una excepción, no es un correo electrónico válido,
+            # entonces asumimos que es el nombre de usuario
+            try:
+                usuario = Usuario.objects.get(usuNombre=correo_o_usuario)
+            except Usuario.DoesNotExist:
+                usuario = None
+
+        if usuario:
+            if usuario.usuCreadoConGoogle:
+                # Si la cuenta fue creada iniciando sesión con Google, mostrar un mensaje al usuario
+                mensaje = "Para acceder a tu cuenta, inicia sesión con Google, ya que la cuenta fue creada utilizando este método de inicio de sesión."
+                return render(request, 'inicioSesion.html', {'mensaje': mensaje, 'estado': estado})
+            else:
+                # Si la cuenta no fue creada iniciando sesión con Google, continuar con el proceso de inicio de sesión
+                if usuario.check_password(contrasena):
+                    # Las credenciales son válidas
+                    request.session['usuario_id'] = usuario.id
+                    estado = True
+                    response = redirect('/inicio/')  # Redirige al usuario a la página de inicio
+                    response['Cache-Control'] = 'no-cache, no-store, must-revalidate'  # Evita el almacenamiento en caché
+                    return response
+                else:
+                    mensaje = "La contraseña proporcionada es incorrecta."
+        else:
+            mensaje = "No hay una cuenta vinculada con el correo o nombre de usuario proporcionado."
+
+        return render(request, 'inicioSesion.html', {'mensaje': mensaje, 'estado': estado})
+
+    return render(request, 'inicioSesion.html', {'estado': estado})
+
+# def iniciarSesion(request):
+    estado = False
+    if request.method == 'POST':
+        correo = request.POST['correoUsuarioInicioONombreUsuario'].lower()
         contrasena = request.POST['passwordUsuarioInicio']
 
         try:

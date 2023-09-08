@@ -57,9 +57,10 @@
             <form class="mb-5" action="/iniciarSesion/" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="mb-4">
-                    <label for="exampleEmail" class="form-label font-weight-bold">Correo</label>
-                    <input type="email" class="form-control border-0 text-light" id="correoUsuarioInicio"
-                        placeholder="Ingresa un email" name="correoUsuarioInicio" required>
+                    <label for="exampleEmail" class="form-label font-weight-bold">Correo o Nombre Usuario</label>
+                    <input type="text" class="form-control border-0 text-light" id="correoUsuarioInicioONombreUsuario"
+                        placeholder="Ingresa un email o el Nombre Usuario" name="correoUsuarioInicioONombreUsuario"
+                        required>
                 </div>
                 <div class="mb-4">
                     <label for="passwordUsuarioInicio" class="form-label font-weight-bold">Contraseña</label>
@@ -108,9 +109,6 @@
             </div>
         </div>
     </div>
-
-
-
     {% endblock %}
     {% block pie_pagina %}
     {% include "pie_pagina.html" %}
