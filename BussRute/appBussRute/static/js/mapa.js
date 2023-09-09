@@ -1,5 +1,6 @@
 let rutas = []
 let coodernadas = []
+let comentarios = []
 let ubicaciones = []
 let favoritos = []
 
@@ -107,33 +108,89 @@ function updateRoute(site) {
     // Guardar los datos actualizados en el almacenamiento local
     localStorage.setItem('datos', JSON.stringify(rutasGuardadas));
 
+    let datos = "";
+    // Recorrer el arreglo de comentarios para mostrarlos
+    comentarios.forEach(entradaC => {
+        if (entradaC.comRuta == numeroRut){
+            
+            datos += `
+            
+            <div class="card text-center"" style="width: 18rem;">
+                            <div class="card-body">
+                            <h5 class="card-title">${entradaC.conUsuario}</h5>
+                            <p class="card-text">${entradaC.comDescripcion}</p>
+                            <div class="testimonial-text testimonios" data-valoracion="${entradaC.comValoracion}">
+                                <div class="reseñas">
+                                </div>
+                            </div>
+                            <p class="card-text">Ruta ${entradaC.comRuta}</p>
+                            </div>
+                        </div>`;
+        }
+    });
+    document.getElementById("comentarios").innerHTML=datos
     // Recorrer el arreglo de coordenadas y agregar cada punto al arreglo de waypoints
     coodernadas.forEach(entradaR => {
-        posC = rutas.findIndex(ruta => ruta.numRuta == entradaR.idRuta);
-        if (rutas[posC].numRuta == numeroRut) {
-            if (rutas[posC].empRuta == "Coomotor") {
-                document.getElementById("txtColor").value = "Azul"
-                document.getElementById("txtImagen").src = '../../static/img/Coomotor.jpg'
+        posR = rutas.findIndex(ruta => ruta.numRuta == entradaR.idRuta);
+        if (rutas[posR].numRuta == numeroRut) {
+            if (rutas[posR].preRuta == 2400){
+                if (rutas[posR].empRuta == "Coomotor") {
+                    document.getElementById("txtColor").value = "Azul"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Nuevas/RUTANUEVACOOMOTOR.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Nuevas/RUTANUEVACOOMOTROLADO.jpg'
+                }
+                if (rutas[posR].empRuta == "CootransHuila") {
+                    document.getElementById("txtColor").value = "Verde Claro con Blanco"
+                    document.getElementById("txtImagenFrente").src = ''
+                    document.getElementById("txtImagenLado").src = ''
+                }
+                if (rutas[posR].empRuta == "FlotaHuila") {
+                    document.getElementById("txtColor").value = "Gris / Plateado"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Nuevas/RUTANUEVAFLOTA.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Nuevas/RUTANUEVAFLOTALADO.jpg'
+                }
+                if (rutas[posR].empRuta == "CootransNeiva") {
+                    document.getElementById("txtColor").value = "Blanco con Rojo"
+                    document.getElementById("txtImagenFrente").src = ''
+                    document.getElementById("txtImagenLado").src = ''
+                }
+                if (rutas[posR].empRuta == "AutoBuses") {
+                    document.getElementById("txtColor").value = "Verde Oscuro"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Nuevas/RUTANUEVAAUTOBUSES.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Nuevas/RUTANUEVAAUTOBUSESLADO.jpg'
+                }
             }
-            if (rutas[posC].empRuta == "Cootranshuila") {
-                document.getElementById("txtColor").value = "Verde Claro con Blanco"
-                document.getElementById("txtImagen").src = '../../static/img/Cootranshuila.jpg'
+            if (rutas[posR].preRuta == 2300){
+                if (rutas[posR].empRuta == "Coomotor") {
+                    document.getElementById("txtColor").value = "Azul"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOMOTOR.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOMOTORLADO.jpg'
+                }
+                if (rutas[posR].empRuta == "CootransHuila") {
+                    document.getElementById("txtColor").value = "Verde Claro con Blanco"
+                    document.getElementById("txtImagenFrente").src = ''
+                    document.getElementById("txtImagenLado").src = ''
+                }
+                if (rutas[posR].empRuta == "FlotaHuila") {
+                    document.getElementById("txtColor").value = "Gris / Plateado"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Viejas/RUTAVIEJAFLOTA.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Viejas/RUTAVIEJAFLOTALADO.jpg'
+                }
+                if (rutas[posR].empRuta == "CootransNeiva") {
+                    document.getElementById("txtColor").value = "Blanco con Rojo"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOTRANSNEIVA'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOTRANSNEIVALADO'
+                }
+                if (rutas[posR].empRuta == "AutoBuses") {
+                    document.getElementById("txtColor").value = "Verde Oscuro"
+                    document.getElementById("txtImagenFrente").src = ''
+                    document.getElementById("txtImagenLado").src = ''
+                }
             }
-            if (rutas[posC].empRuta == "Flotahuila") {
-                document.getElementById("txtColor").value = "Gris / Plateado"
-                document.getElementById("txtImagen").src = '../../static/img/Flotahuila.jpg'
-            }
-            if (rutas[posC].empRuta == "Cootransneiva") {
-                document.getElementById("txtColor").value = "Blanco con Rojo"
-                document.getElementById("txtImagen").src = '../../static/img/CootransNeiva.jpg'
-            }
-            if (rutas[posC].empRuta == "Autobuses") {
-                document.getElementById("txtColor").value = "Verde Oscuro"
-                document.getElementById("txtImagen").src = '../../static/img/AutobuseseKool.jpg'
-            }
-            document.getElementById("txtEmpresa").value = rutas[posC].empRuta
-            document.getElementById("txtPrecio").value = "$"+rutas[posC].preRuta
-            document.getElementById("txtNumero").value = rutas[posC].numRuta
+            
+            document.getElementById("txtEmpresa").value = rutas[posR].empRuta
+            document.getElementById("txtPrecio").value = "$"+rutas[posR].preRuta
+            document.getElementById("txtNumero").value = rutas[posR].numRuta
             waypoints.push(L.latLng(entradaR.latitud, entradaR.longitud));
         }
     });
@@ -142,6 +199,20 @@ function updateRoute(site) {
     control.setWaypoints(waypoints);
 
     control.hide();
+    $(document).ready(function () {
+        $('.testimonios').each(function () {
+          const valoracion = $(this).data('valoracion');
+          const reseñasContainer = $(this).find('.reseñas');
+    
+          for (let i = 1; i <= 5; i++) {
+            if (i <= valoracion) {
+              reseñasContainer.append('<i class="fa fa-heart hearto"></i>');
+            } else {
+              reseñasContainer.append('<i class="fa fa-heart hearti"></i>');
+            }
+          }
+        });
+      });
 }
 
 function filtroBarrio() {
@@ -215,6 +286,16 @@ function filtroSitio() {
 
 }
 
+function cargarComentarios(comDescripcion, conUsuario, conValoracion, comRuta) {
+    const comentario = {
+        "comDescripcion": comDescripcion,
+        "conUsuario": conUsuario,
+        "comValoracion": conValoracion,
+        "comRuta": comRuta
+    }
+    comentarios.push(comentario);
+
+}
 
 function cargarRutas(idRuta, numRuta, empRuta, preRuta) {
     const ruta = {

@@ -85,6 +85,7 @@ def visualizarRutas(request):
         usuario = Usuario.objects.get(id=usuario_id)
 
     rutasFavoritas = FavoritoRuta.objects.filter(favUsuario=usuario_id)
+    comentarios = Comentario.objects.all()
     barriosNeiva = barrios
     comunasNeiva = comunas
     sitiosNeiva = sitiosDeInteres
@@ -93,7 +94,7 @@ def visualizarRutas(request):
     rutas = Ruta.objects.all()
     ubicaciones = UbicacionRuta.objects.all()
     coordenadas = DetalleRuta.objects.all()
-    retorno = {"rutas":rutas,"coordenadas":coordenadas,"usuario": usuario,"barriosNeiva":lista_ordenada_barrios,
+    retorno = {"rutas":rutas,"coordenadas":coordenadas,"usuario": usuario,"comentarios":comentarios,"barriosNeiva":lista_ordenada_barrios,
                "comunasNeiva":comunasNeiva,"sitiosNeiva":lista_ordenada_sitios,"ubicaciones":ubicaciones,"rutasFavoritas":rutasFavoritas}
 
     return render(request, "usuario/inicio.html", retorno)
