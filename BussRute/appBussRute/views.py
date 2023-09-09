@@ -1,4 +1,7 @@
 import requests
+import matplotlib
+matplotlib.use("Agg")  # Cambia el backend a uno no interactivo
+import matplotlib.pyplot as plt
 import json
 from google.auth.transport import requests as google_requests
 from django.shortcuts import render, redirect
@@ -1082,3 +1085,34 @@ class ComentarioList(generics.ListCreateAPIView):
 class ComentarioDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comentario.objects.all()
     serializer_class = ComentarioSerializer
+
+# Graficas---------------------------------------------------------------------------------
+def realizarGrafica(request):
+    ruta=[]
+    for clave,valor in request.GET.items():
+        ruta.append(valor)
+    # Deserializar los elementos JSON y crear una nueva lista
+    nueva_lista = [json.loads(item) if item.startswith('[') else item for item in ruta]
+
+    # Inicializar una lista para las rutas
+    ruta = []
+    cantidad = []
+    # Recorrer la nueva lista y agregar las rutas a la lista_de_rutas
+    for item in nueva_lista:
+        if isinstance(item, list):
+            for sub_item in item:
+                if isinstance(sub_item, str):
+                    ruta.append(sub_item)
+                elif isinstance(sub_item, int):
+                    cantidad.append(sub_item)
+            
+    plt.title("Rutas mas Usadas")
+    plt.xlabel("Ruta")
+    plt.ylabel("Cantidad")
+
+    plt.bar(ruta,cantidad)
+
+    grafica = os.path.join(settings.MEDIA_ROOT, "graficaRuta.png")
+    plt.savefig(grafica)
+    
+    return render(request,"admin/listaGrafica.html") 

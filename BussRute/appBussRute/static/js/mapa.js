@@ -82,6 +82,31 @@ function updateRoute(site) {
     // Crear un arreglo para almacenar las coordenadas
     var waypoints = [];
     numeroRut = document.getElementById("ruta").value
+    //Guardar ruta en local Storage
+    var cantidad = 1;
+
+    // Obtener los datos existentes del almacenamiento local
+    var rutasGuardadas = JSON.parse(localStorage.getItem('datos') || '[]');
+
+    // Verificar si la opción ya existe en el arreglo
+    var opcionExistente = rutasGuardadas.find(function(item) {
+      return item.ruta === numeroRut;
+    });
+
+    if (opcionExistente) {
+      // Si la opción ya existe, aumentar la cantidad
+      opcionExistente.cantidad += cantidad;
+    } else {
+      // Si la opción no existe, agregarla al arreglo
+      rutasGuardadas.push({
+        ruta: numeroRut,
+        cantidad: cantidad
+      });
+    }
+
+    // Guardar los datos actualizados en el almacenamiento local
+    localStorage.setItem('datos', JSON.stringify(rutasGuardadas));
+
     // Recorrer el arreglo de coordenadas y agregar cada punto al arreglo de waypoints
     coodernadas.forEach(entradaR => {
         posC = rutas.findIndex(ruta => ruta.numRuta == entradaR.idRuta);
@@ -337,6 +362,47 @@ function eliminarFavorito(NumeroRuta) {
       console.log(resultado);
       window.location.reload();
       Swal.fire("Registro de Solicitud", resultado.mensaje, "success")
+    }
+  })
+}
+
+function hacerGrafica() {
+   var ruta=[];
+   var cantidad=[];
+   // Obtén los datos de local storage
+   var dataString = localStorage.getItem("datos");
+
+   // Convierte la cadena JSON en un arreglo de objetos JavaScript
+   var data = JSON.parse(dataString);
+   
+   // Verifica si los datos son un arreglo
+   if (Array.isArray(data)) {
+       // Itera sobre la lista de objetos
+       for (var i = 0; i < data.length; i++) {
+           var elemento = data[i];
+           
+           // Accede a los valores de "ruta" y "cantidad" para cada elemento
+            ruta.push("Ruta"+" "+elemento.ruta);
+            cantidad.push(parseInt(elemento.cantidad));
+           
+           
+       }
+   } else {
+       console.log("Los datos no son un arreglo o están vacíos.");
+   }
+   var datos = {
+    "ruta": JSON.stringify(ruta),
+    "cantidad": JSON.stringify(cantidad),
+  }
+   console.log(datos)
+   $.ajax({
+    url: "/realizarGrafica/",
+    data: datos,
+    type: 'GET',
+    dataType: 'json',
+    cache: false,
+    success: function (resultado) {
+        window.location.reload();
     }
   })
 }

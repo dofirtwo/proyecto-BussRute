@@ -56,6 +56,7 @@ urlpatterns = [
     path('vistaVerificarCorreo/', views.vistaVerificarCorreo),
     path('enviarVerificacionCorreo/', views.verificarCodigoDeVerificacion),
     path('eliminarSesionRegistro/', views.eliminarSesionRegistro),
+    path('realizarGrafica/', views.realizarGrafica),
     path('', include('appBussRute.urls'))
 ]
 
