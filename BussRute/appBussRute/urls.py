@@ -14,4 +14,5 @@ urlpatterns = [
     path('comentario', views.ComentarioList.as_view()),
     path('comentario/<int:pk>', views.ComentarioDetail.as_view()),
     path('enviarCorreoMovil/', views.enviarCorreoMovil),
+    path('enviarCorreoRecuperacion/', views.enviarCorreoRecuperarContraseña),
 ]

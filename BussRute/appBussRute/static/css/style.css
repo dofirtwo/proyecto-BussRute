@@ -160,49 +160,53 @@
 
 /* CSS DE VARGAS */
 
-.comment{
+.comment {
     display: flex;
 }
-.comment.author-comment{
+
+.comment.author-comment {
     justify-content: flex-end;
 }
-.comment.author-comment .info{
+
+.comment.author-comment .info {
     order: 3;
 }
 
-.comment.author-comment .avatar{
+.comment.author-comment .avatar {
     order: 2;
 }
 
-.comment.author-comment p{
+.comment.author-comment p {
     order: 1;
 }
-@media (max-width: 800px){
+
+@media (max-width: 800px) {
+
     /* Reverse the order of elements in the user comments,
     so that the avatar and info appear after the text. */
-    .comment.user-comment .info{
+    .comment.user-comment .info {
         order: 3;
     }
 
-    .comment.user-comment .avatar{
+    .comment.user-comment .avatar {
         order: 2;
     }
 
-    .comment.user-comment p{
+    .comment.user-comment p {
         order: 1;
     }
 
 
     /* Make the paragraph in the comments take up the whole width,
     forcing the avatar and user info to wrap to the next line*/
-    .comment p{
+    .comment p {
         width: 100%;
     }
 
 
     /* Align toward the beginning of the container (to the left)
     all the elements inside the author comments. */
-    .comment.author-comment{
+    .comment.author-comment {
         justify-content: flex-start;
     }
 }
@@ -212,11 +216,13 @@
 .location .location-form .form-control::-ms-input-placeholder {
     color: #ffffff;
 }
+
 .contact .contact-form input {
     padding: 15px;
     border-radius: 5px;
     border: 1px solid #202C45;
 }
+
 .single .comment-form input,
 .single .comment-form textarea {
     border-radius: 5px;
@@ -227,6 +233,7 @@
 .single .comment-form textarea:focus {
     border-color: #E81C2E;
 }
+
 .sidebar .search-widget input {
     height: 50px;
     border: 1px solid #dddddd;
@@ -237,6 +244,7 @@
     box-shadow: none;
     border-color: #E81C2E;
 }
+
 .footer .footer-newsletter input {
     margin-bottom: 15px;
     height: 45px;
@@ -249,6 +257,7 @@
 .form-control:focus {
     box-shadow: none;
 }
+
 .location .location-form .form-control {
     height: 45px;
     color: #ffffff;
@@ -275,7 +284,7 @@
 
 .btn.btn-custom {
     padding: 10px 30px 12px 30px;
-    text-align: center; 
+    text-align: center;
     font-size: 16px;
     font-weight: 500;
     color: #ffffff;
@@ -298,14 +307,14 @@
     background-color: #46668d;
 }
 
-.colorFondoInput{
+.colorFondoInput {
     background-color: #fffbf4;
 }
 
 
 .btn.btn-inicio {
     padding: 10px 30px 12px 30px;
-    text-align: center; 
+    text-align: center;
     font-size: 16px;
     font-weight: 500;
     color: #fffbf4;
@@ -347,7 +356,7 @@ label {
 
 input {
     color: #151515;
-    
+
 }
 
 #map {
@@ -398,13 +407,15 @@ input {
     background: #7d2ae8;
 }
 
-.swiper-button-next, .swiper-button-prev {
+.swiper-button-next,
+.swiper-button-prev {
     opacity: 0.7;
     color: #7d2ae8;
     transition: all 0.3s ease;
 }
 
-.swiper-button-next:hover, .swiper-button-prev:hover {
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
     opacity: 1;
     color: black;
 }
@@ -443,16 +454,18 @@ input {
     width: 100%;
 }
 
-#txtNombre{
+#txtNombre {
     border-radius: 25px;
-    
+
 }
-#inputGroupPrepend{
+
+#inputGroupPrepend {
     border-radius: 25px;
-    
+
 }
-#txtComentario{
-    border-radius: 25px;    
+
+#txtComentario {
+    border-radius: 25px;
 }
 
 
@@ -485,7 +498,7 @@ Logo Dell: https://worldvectorlogo.com/logo/dell-1
 }
 
 body {
-    background-color: #f3f5f9 ;
+    background-color: #f3f5f9;
     font-family: 'Spartan', sans-serif;
     font-weight: 300;
     color: var(--light);
@@ -551,6 +564,11 @@ body {
 
 .logo1 {
     width: 50%;
+}
+
+#codigoVerifi {
+    letter-spacing: 10px;
+    text-align: center;
 }
 
 /* .dropdown-menu {
@@ -1161,5 +1179,3 @@ body {
 .testimonial .owl-dot.active {
     background: #E81C2E;
 } */
-
-

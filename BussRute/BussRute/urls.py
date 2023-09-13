@@ -57,6 +57,8 @@ urlpatterns = [
     path('enviarVerificacionCorreo/', views.verificarCodigoDeVerificacion),
     path('eliminarSesionRegistro/', views.eliminarSesionRegistro),
     path('realizarGrafica/', views.realizarGrafica),
+    path('enviarCorreoRecuperacion/<str:tokenCambio>', views.mostrarInterfaz),
+    path('cambioAndroid/', views.cambioAndroid),
     path('', include('appBussRute.urls'))
 ]
 

@@ -15,7 +15,6 @@
             <h1 class="text-center font-weight-bold mb-4">Cambiar Contraseña</h1>
             <form action="/cambioContrasena/" class="mb-5" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input type="hidden" name="correo" value="{{ correo }}">
                 <div class="mb-4">
                     <label for="passwordCambioContraseña" class="form-label font-weight-bold">Nueva Contraseña:</label>
                     <div class="input-group">

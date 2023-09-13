@@ -23,7 +23,7 @@ import secrets
 from django.core.validators import validate_email
 from rest_framework import generics
 from django.utils.crypto import get_random_string
-from appBussRute.serializers import RutaSerializers,DetalleRutaSerializers, UsarioSerializers, RolSerializers, ComentarioSerializer, CorreoSerializer
+from appBussRute.serializers import RutaSerializers,DetalleRutaSerializers, UsarioSerializers, RolSerializers, ComentarioSerializer, CorreoSerializer, RecuperarContrasenaSerializer
 from cryptography.fernet import Fernet
 import os
 import random
@@ -31,6 +31,8 @@ from django.core.exceptions import ValidationError
 from rest_framework.decorators import api_view
 from django.core.mail import EmailMessage
 from rest_framework.response import Response
+from rest_framework import status
+
 
 # Generar una clave de cifrado
 key = Fernet.generate_key()
@@ -78,7 +80,11 @@ def inicio(request):
     return render(request, 'inicio.html',context)
 
 def crearCuenta(request):
-    return render(request, "crearCuenta.html")
+    # Verifica si la variable de sesión 'registro_completado' está presente y es True.
+    if request.session.get('registro_completado'):
+        return redirect("/vistaVerificarCorreo/")
+    else:
+        return render(request, "crearCuenta.html")
 
 def visualizarRutas(request):
     usuario_id = request.session.get('usuario_id')
@@ -967,6 +973,164 @@ def enviarCorreoMovil(request):
     else:
         return Response(serializer.errors, status=400)
 
+def mostrarInterfaz(request, tokenCambio):
+    try:
+        user = Usuario.objects.get(usuTokenCambioContrasena=tokenCambio)
+    except Usuario.DoesNotExist:
+            estado = False
+            mensaje = "Ya este token fue utilizado"
+            retorno = {"mensaje": mensaje, "estado": estado}
+            return render(request, "cambiarContraAndroid.html", retorno)
+
+    return render(request, 'cambiarContraAndroid.html', {'tokenCambio': tokenCambio})
+
+@api_view(['POST'])
+def cambioAndroid(request):
+    tokenCambio = request.POST.get('tokenCambio')
+    pasNuevaContraseña = request.POST.get('androidNuevaContra')
+
+    try:
+        user = Usuario.objects.get(usuTokenCambioContrasena=tokenCambio)
+    except Usuario.DoesNotExist:
+            estado = False
+            mensaje = "Ya este token fue utilizado"
+            retorno = {"mensaje": mensaje, "estado": estado}
+            return render(request, "cambiarContraAndroid.html", retorno)
+
+    # Actualiza la contraseña del usuario y guarda el usuario
+    user.set_password(pasNuevaContraseña)
+    user.usuTokenCambioContrasena = None
+    estado = True
+    user.save()
+    mensaje = "Contraseña cambiada correctamente"
+    retorno = {"mensaje": mensaje, "estado": estado}
+    return render(request, "cambiarContraAndroid.html", retorno)
+
+@api_view(['POST'])
+def enviarCorreoRecuperarContraseña(request):
+    serializer = RecuperarContrasenaSerializer(data=request.data)
+    if serializer.is_valid():
+        correoCambio = serializer.validated_data['correoCambio']
+        tokenCambio = serializer.validated_data['tokenCambio']
+        try:
+            user = Usuario.objects.get(usuCorreo=correoCambio)
+        except Usuario.DoesNotExist:
+            return Response({"error": "Usuario no encontrado"}, status=400)
+
+        nombreUsuario = user.usuNombre
+        user.usuTokenCambioContrasena = tokenCambio
+        user.save()
+        asunto = 'Solicitud para restablecer contraseña de BussRute'
+
+        # Construye la URL de cambio de contraseña
+        url = f"https://bussrute.pythonanywhere.com/enviarCorreoRecuperacion/{tokenCambio}"
+        mensaje = f'<div style="background:#f9f9f9">\
+                        <div style="background-color:#f9f9f9">\
+                            <div style="max-width:640px;margin:0 auto;border-radius:4px;overflow:hidden">\
+                                <div style="margin:0px auto;max-width:640px;background:#ffffff">\
+                                    <table role="presentation" cellpadding="0" cellspacing="0"\
+                                        style="font-size:0px;width:100%;background:#ffffff" align="center" border="0">\
+                                        <tbody>\
+                                            <tr>\
+                                                <td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:40px 50px">\
+                                                    <div aria-labelledby="mj-column-per-100" class="m_3451676835088794076mj-column-per-100" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%">\
+                                                        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">\
+                                                            <tbody>\
+                                                                <tr>\
+                                                                    <td style="word-break:break-word;font-size:0px;padding:0px" align="left">\
+                                                                        <div style="color:#737f8d;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:16px;line-height:24px;text-align:left">\
+                                                                            <h2 style="font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-weight:500;font-size:20px;color:#4f545c;letter-spacing:0.27px">\
+                                                                                Hola, {nombreUsuario}:</h2>\
+                                                                            <p>Haz clic en el siguiente botón para restablecer tu contraseña de <span class="il">BussRute</span>. Si no has solicitado una nueva contraseña, ignora este correo.</p>\
+                                                                        </div>\
+                                                                    </td>\
+                                                                </tr>\
+                                                                <tr>\
+                                                                    <td style="word-break:break-word;font-size:0px;padding:10px 25px;padding-top:20px" align="center">\
+                                                                        <table role="presentation" cellpadding="0" cellspacing="0"\
+                                                                            style="border-collapse:separate" align="center" border="0">\
+                                                                            <tbody>\
+                                                                                <tr>\
+                                                                                    <td style="border:none;border-radius:3px;color:white;padding:15px 19px"\
+                                                                                        align="center" valign="middle"\
+                                                                                        bgcolor="#0077ff"><a\
+                                                                                            href="{url}"\
+                                                                                            style="text-decoration:none;line-height:100%;background:#0077ff;color:white;font-family:Ubuntu,Helvetica,Arial,sans-serif;font-size:15px;font-weight:normal;text-transform:none;margin:0px">\
+                                                                                            Restablecer contraseña\
+                                                                                        </a></td>\
+                                                                                </tr>\
+                                                                            </tbody>\
+                                                                        </table>\
+                                                                    </td>\
+                                                                </tr>\
+                                                                <tr>\
+                                                                    <td style="word-break:break-word;font-size:0px;padding:30px 0px">\
+                                                                        <p\
+                                                                            style="font-size:1px;margin:0px auto;border-top:1px solid #dcddde;width:100%">\
+                                                                        </p>\
+                                                                    </td>\
+                                                                </tr>\
+                                                            </tbody>\
+                                                        </table>\
+                                                    </div>\
+                                                </td>\
+                                            </tr>\
+                                        </tbody>\
+                                    </table>\
+                                </div>\
+                            </div>\
+                            <div style="margin:0px auto;max-width:640px;background:transparent">\
+                                <table role="presentation" cellpadding="0" cellspacing="0"\
+                                    style="font-size:0px;width:100%;background:transparent" align="center" border="0">\
+                                    <tbody>\
+                                        <tr>\
+                                            <td\
+                                                style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:20px 0px">\
+                                                <div aria-labelledby="mj-column-per-100" class="m_3451676835088794076mj-column-per-100"\
+                                                    style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%">\
+                                                    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">\
+                                                        <tbody>\
+                                                            <tr>\
+                                                                <td style="word-break:break-word;font-size:0px;padding:0px"\
+                                                                    align="center">\
+                                                                    <div\
+                                                                        style="color:#99aab5;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:12px;line-height:24px;text-align:center">\
+                                                                        Enviado por <span class="il">BussRute</span>\
+                                                                    </div>\
+                                                                </td>\
+                                                            </tr>\
+                                                            <tr>\
+                                                                <td style="word-break:break-word;font-size:0px;padding:0px"\
+                                                                    align="center">\
+                                                                    <div\
+                                                                        style="color:#99aab5;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:12px;line-height:24px;text-align:center">\
+                                                                        Derechos reservados: Ficha 2468288\
+                                                                    </div>\
+                                                                </td>\
+                                                            </tr>\
+                                                        </tbody>\
+                                                    </table>\
+                                                </div>\
+                                            </td>\
+                                        </tr>\
+                                    </tbody>\
+                                </table>\
+                            </div>\
+                        </div>\
+                    </div>'
+
+        correo = EmailMessage(
+            asunto,
+            mensaje,
+            settings.EMAIL_HOST_USER,  # Utiliza la dirección de correo electrónico almacenada en tus configuraciones
+            [correoCambio],
+        )
+        correo.content_subtype = 'html'  # Aquí es donde especificas que el contenido del correo es HTML
+        correo.send(fail_silently=False)
+
+        return JsonResponse({'estado': 'Correo de recuperacion enviado correctamente'})
+    else:
+        return Response(serializer.errors, status=400)
 
 def enviarCorreo(asunto=None, mensaje=None, destinatario=None, request=None):
     remitente = settings.EMAIL_HOST_USER
@@ -1002,13 +1166,15 @@ def enviarCambioContrasena(request):
                     # Genera un token hexadecimal de 16 bytes
                     token = secrets.token_hex(16)
 
+                    request.session['token'] = token
+
                     # Asignar el token al usuario
                     usuario.usuTokenCambioContrasena = token
                     usuario.save()
 
                     asunto = 'Solicitud para restablecer contraseña de BussRute'
-                    #url = f"https://bussrute.pythonanywhere.com/vistaCambioContrasena/?token={token}&correo={correo}"
-                    url = f"http://127.0.0.1:8000//vistaCambioContrasena/?token={token}&correo={correo}"
+                    #url = f"https://bussrute.pythonanywhere.com/vistaCambioContrasena/?token={token}"
+                    url = f"http://127.0.0.1:8000//vistaCambioContrasena/?token={token}"
                     mensaje = f'<div style="background:#f9f9f9">\
                         <div style="background-color:#f9f9f9">\
                             <div style="max-width:640px;margin:0 auto;border-radius:4px;overflow:hidden">\
@@ -1128,10 +1294,9 @@ def enviarCambioContrasena(request):
 def vistaCambioContrasena(request):
     if request.method == 'GET':
         token = request.GET.get('token')
-        correo = request.GET.get('correo')
-        if token is not None and tokenValido(token, correo):
+        if token is not None and tokenValido(token):
             # Token válido, permitir el cambio de contraseña
-            return render(request, "cambiarContrasena.html", {"correo": correo})
+            return render(request, "cambiarContrasena.html")
         else:
             # Token inválido, mostrar un mensaje de error utilizando SweetAlert en la página "inicioSesion.html"
             mensaje = "No se ha solicitado un cambio de contraseña"
@@ -1140,12 +1305,12 @@ def vistaCambioContrasena(request):
 
     # Manejar el caso si se realiza una solicitud POST para cambiar la contraseña
     elif request.method == 'POST':
-        return cambiarContrasena(request, {"correo": correo})
+        return cambiarContrasena(request,"cambiarContrasena.html")
 
-def tokenValido(token, correo):
+def tokenValido(token):
     try:
         # Buscar el token en los usuarios
-        usuario = Usuario.objects.get(usuTokenCambioContrasena=token, usuCorreo = correo)
+        usuario = Usuario.objects.get(usuTokenCambioContrasena=token)
 
         # Obtener la fecha y hora actual
         now = datetime.now(timezone.utc)
@@ -1165,15 +1330,21 @@ def tokenValido(token, correo):
 def cambiarContrasena(request):
     estado = False
     try:
+        # Obtener el token de la sesión del usuario
+        token = request.session.get('token')
         contraNueva = request.POST["pasNuevaContraseña"]
-        correo = request.POST.get('correo')
-        usuario = Usuario.objects.get(usuCorreo=correo)
-        usuario.set_password(contraNueva)
-        # Limpiar el token después de cambiar la contraseña
-        usuario.usuTokenCambioContrasena = None
-        usuario.save()
-        estado = True
-        mensaje = "Contraseña cambiada con éxito"
+        usuario = Usuario.objects.get(usuTokenCambioContrasena=token)
+        if tokenValido(token):
+            usuario.set_password(contraNueva)
+            usuario.usuTokenCambioContrasena = None
+            usuario.save()
+            estado = True
+            mensaje = "Contraseña cambiada con éxito"
+            del request.session['token']
+        else:
+            mensaje = "El token ha caducado o no es válido para cambiar la contraseña"
+    except Usuario.DoesNotExist:
+        mensaje = "No se encontró un usuario asociado a este token"
     except Error as error:
         mensaje = f"{error}"
 

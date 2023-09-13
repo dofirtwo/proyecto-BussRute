@@ -35,3 +35,7 @@ class ComentarioSerializer(serializers.ModelSerializer):
 class CorreoSerializer(serializers.Serializer):
     correoUsuarioIngresado = serializers.EmailField()
     codigoVerificacionMovil = serializers.CharField(max_length=6)
+
+class RecuperarContrasenaSerializer(serializers.Serializer):
+    correoCambio = serializers.EmailField()
+    tokenCambio = serializers.CharField(max_length=16)
