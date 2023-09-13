@@ -31,3 +31,7 @@ class ComentarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comentario
         fields = ('id', 'comDescripcion', 'comValoracion', 'comUsuario')
+
+class CorreoSerializer(serializers.Serializer):
+    correoUsuarioIngresado = serializers.EmailField()
+    codigoVerificacionMovil = serializers.CharField(max_length=6)

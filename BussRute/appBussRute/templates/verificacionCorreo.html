@@ -20,16 +20,12 @@
                     <input type="number" class="form-control border-0 text-light" id="codigoVerifi"
                         placeholder="Ingresa el codigo de Verificación" name="codigoVerifi" required>
                 </div>
-                <div class="d-flex"> <!-- Div para los botones -->
+                <div class="d-flex">
                     <button class="btn btn-inicio flex-grow-1 bg-dark-y mr-2">Continuar</button>
-                    <!-- Agrega este botón en la página de verificaciónCorreo.html -->
                     <button class="btn btn-inicio flex-grow-1" id="btnCancelar">Cancelar verificación</button>
                 </div>
-
-                <!-- Agrega el script de SweetAlert2 para la confirmación -->
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
-                        // Agrega un evento clic al botón "Salir"
                         document.getElementById('btnCancelar').addEventListener('click', function () {
                             Swal.fire({
                                 title: '¿Estás seguro?',
@@ -40,11 +36,10 @@
                                 cancelButtonText: 'No, quedarme'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    // Elimina la variable de sesión y redirige al usuario a la página de inicio
                                     fetch('/eliminarSesionRegistro/', {
                                         method: 'POST',
                                         headers: {
-                                            'X-CSRFToken': '{{ csrf_token }}'  // Asegúrate de incluir el token CSRF
+                                            'X-CSRFToken': '{{ csrf_token }}'
                                         }
                                     }).then(function () {
                                         window.location.href = '/inicio/';
@@ -63,7 +58,7 @@
                     Swal.fire('Cuenta', '{{mensaje}}', 'success').then(function () {
                         setTimeout(function () {
                             window.location.href = '/inicio/';
-                        }, 1000);
+                        }, 500);
                     });
                 </script>
                 {% else %}

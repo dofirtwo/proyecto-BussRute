@@ -12,5 +12,6 @@ urlpatterns = [
     path('rol', views.RolList.as_view()),
     #Comentario
     path('comentario', views.ComentarioList.as_view()),
-    path('comentario/<int:pk>', views.ComentarioDetail.as_view())
+    path('comentario/<int:pk>', views.ComentarioDetail.as_view()),
+    path('enviarCorreoMovil/', views.enviarCorreoMovil),
 ]

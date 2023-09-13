@@ -23,11 +23,14 @@ import secrets
 from django.core.validators import validate_email
 from rest_framework import generics
 from django.utils.crypto import get_random_string
-from appBussRute.serializers import RutaSerializers,DetalleRutaSerializers, UsarioSerializers, RolSerializers, ComentarioSerializer
+from appBussRute.serializers import RutaSerializers,DetalleRutaSerializers, UsarioSerializers, RolSerializers, ComentarioSerializer, CorreoSerializer
 from cryptography.fernet import Fernet
 import os
 import random
 from django.core.exceptions import ValidationError
+from rest_framework.decorators import api_view
+from django.core.mail import EmailMessage
+from rest_framework.response import Response
 
 # Generar una clave de cifrado
 key = Fernet.generate_key()
@@ -287,7 +290,6 @@ def github_callback(request):
             print("Error:", e)
 
     return redirect('/inicio/')
-
 
 def eliminarFavorito(request):
     if request.method == "POST":
@@ -655,7 +657,6 @@ def eliminarSesionRegistro(request):
         
     return JsonResponse({'message': 'Sesión de registro eliminada'})
 
-
 def verificarCodigoDeVerificacion(request):
     if request.method == "POST":
         codigoVerificacionIngresado = request.POST.get("codigoVerifi")
@@ -825,6 +826,147 @@ def cerrarSesion(request):
     except KeyError:
         pass
     return redirect('/inicioSesion/')
+
+@api_view(['POST'])
+def enviarCorreoMovil(request):
+    serializer = CorreoSerializer(data=request.data)
+    if serializer.is_valid():
+        correoUsuarioIngresado = serializer.validated_data['correoUsuarioIngresado']
+        codigoVerificacionMovil = serializer.validated_data['codigoVerificacionMovil']
+        asunto = 'Verificacion del Correo Electronico'
+        mensaje = f'<div style="background:#f9f9f9">\
+                            <div style="background-color:#f9f9f9">\
+                                <div style="max-width:640px;margin:0 auto;border-radius:4px;overflow:hidden">\
+                                    <div style="margin:0px auto;max-width:640px;background:#ffffff">\
+                <table role="presentation" cellpadding="0" cellspacing="0"\
+                    style="font-size:0px;width:100%;background:#ffffff" align="center" border="0">\
+                    <tbody>\
+                        <tr>\
+                            <td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:40px 50px">\
+                                <div aria-labelledby="mj-column-per-100" class="m_3451676835088794076mj-column-per-100" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%">\
+                                    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">\
+                                        <tbody>\
+                                            <tr>\
+                                                <td style="word-break:break-word;font-size:0px;padding:0px" align="center">\
+                                                    <div style="color:#737f8d;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:16px;line-height:24px;text-align:center">\
+                                                        <h2 style="font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-weight:500;font-size:20px;color:#4f545c;letter-spacing:0.27px">\
+                                                            ¡Verificación de la Cuenta!</h2>\
+                                                        <p>Confirma la cuenta con el siguiente\
+                                                                código de\
+                                                                confirmación.</p>\
+                                                    </div>\
+                                                </td>\
+                                            </tr>\
+                                            <tr>\
+                                                <td style="word-break:break-word;font-size:0px;padding:10px 25px;padding-top:20px" align="center">\
+                                                    <table role="presentation" cellpadding="0" cellspacing="0"\
+                                                        style="border-collapse:separate" align="center" border="0">\
+                                                        <tbody>\
+                                                            <tr>\
+                                                                <td style="border:none;border-radius:3px;color:white;padding:15px 19px"\
+                                                                    align="center" valign="middle"\
+                                                                    bgcolor="#0077ff"><h2\
+                                                                    style="text-decoration:none;line-height:100%;background:#0077ff;color:white;font-family:Ubuntu,Helvetica,Arial,sans-serif;font-size:15px;font-weight:normal;text-transform:none;margin:0px;letter-spacing:10px">\
+                                                                    {codigoVerificacionMovil}</h2>\
+                                                                </td>\
+                                                            </tr>\
+                                                        </tbody>\
+                                                    </table>\
+                                                </td>\
+                                            </tr>\
+                                            <tr>\
+                                                <td bgcolor="#fff">\
+                                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"\
+                                                        bgcolor="#FFFFFF" style="border-top:1px solid #e2e2e2">\
+                                                        <tbody>\
+                                                            <tr>\
+                                                                <td\
+                                                                    style="padding:30px 30px;text-align:center;font-family:"Roboto",sans-serif;font-size:15px;line-height:20px">\
+                                                                    <table align="center" style="text-align:center">\
+                                                                        <tbody>\
+                                                                            <tr>\
+                                                                                <td\
+                                                                                    style="font-family:"Roboto",sans-serif;font-size:12px;line-height:20px;color:#555555;text-align:center;font-weight:300">\
+                                                                                    <p class="m_-45816842390854781disclaimer"\
+                                                                                        style="margin-bottom:5px">Este correo\
+                                                                                        electrónico se envía para confirmar la dirección\
+                                                                                        de correo electrónico que proporcionaste al\
+                                                                                        crear tu cuenta en\
+                                                                                        <span class="il">BussRute.</span>\
+                                                                                        Si no solicitaste\
+                                                                                        esta confirmación, Puedes ignorar este mensaje.\
+                                                                                    </p>\
+                                                                                </td>\
+                                                                            </tr>\
+                                                                        </tbody>\
+                                                                    </table>\
+                                                                </td>\
+                                                            </tr>\
+                                                        </tbody>\
+                                                    </table>\
+                                                </td>\
+                                            </tr>\
+                                        </tbody>\
+                                    </table>\
+                                </div>\
+                            </td>\
+                        </tr>\
+                    </tbody>\
+                </table>\
+            </div>\
+        </div>\
+        <div style="margin:0px auto;max-width:640px;background:transparent">\
+            <table role="presentation" cellpadding="0" cellspacing="0"\
+                style="font-size:0px;width:100%;background:transparent" align="center" border="0">\
+                <tbody>\
+                    <tr>\
+                        <td\
+                            style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:20px 0px">\
+                            <div aria-labelledby="mj-column-per-100" class="m_3451676835088794076mj-column-per-100"\
+                                style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%">\
+                                <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">\
+                                    <tbody>\
+                                        <tr>\
+                                            <td style="word-break:break-word;font-size:0px;padding:0px"\
+                                                align="center">\
+                                                <div\
+                                                    style="color:#99aab5;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:12px;line-height:24px;text-align:center">\
+                                                    Enviado por <span class="il">BussRute</span>\
+                                                </div>\
+                                            </td>\
+                                        </tr>\
+                                        <tr>\
+                                            <td style="word-break:break-word;font-size:0px;padding:0px"\
+                                                align="center">\
+                                                <div\
+                                                    style="color:#99aab5;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:12px;line-height:24px;text-align:center">\
+                                                    Derechos reservados: Ficha 2468288\
+                                                </div>\
+                                            </td>\
+                                        </tr>\
+                                    </tbody>\
+                                </table>\
+                            </div>\
+                        </td>\
+                    </tr>\
+                </tbody>\
+            </table>\
+        </div>\
+    </div>\
+</div>'
+        correo = EmailMessage(
+            asunto,
+            mensaje,
+            settings.EMAIL_HOST_USER,  # Utiliza la dirección de correo electrónico almacenada en tus configuraciones
+            [correoUsuarioIngresado],
+        )
+        correo.content_subtype = 'html'  # Aquí es donde especificas que el contenido del correo es HTML
+        correo.send(fail_silently=False)
+
+        return JsonResponse({'estado': 'Correo enviado correctamente'})
+    else:
+        return Response(serializer.errors, status=400)
+
 
 def enviarCorreo(asunto=None, mensaje=None, destinatario=None, request=None):
     remitente = settings.EMAIL_HOST_USER
