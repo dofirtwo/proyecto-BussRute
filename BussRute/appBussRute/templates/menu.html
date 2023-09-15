@@ -11,12 +11,11 @@
           <a href="/inicio/" class="nav-item nav-link active">Inicio</a>
           <a href="/visualizarRutas/" class="nav-link">Rutas</a>
           <a href="#contacto" class="nav-item nav-link">Contacto</a>
-          <a href="/realizarGrafica/" class="nav-link">Graficas</a>
+          <a type="button" onclick="hacerGrafica()" class="nav-link">Graficas</a>
           {% if usuario %}
           {% if usuario.usuRol_id == 1 %}
           <a href="/vistaRegistrarRuta/" class="nav-link">Registrar Ruta</a>
           <a href="/listaRutas/" class="nav-link">Lista Ruta</a>
-          <a href="/vistaGraficas/" class="nav-link">Graficas</a>
           {% endif %}
           {% endif %}
         </div>

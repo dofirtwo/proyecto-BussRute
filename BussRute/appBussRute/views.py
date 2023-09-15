@@ -136,18 +136,21 @@ def registroFavorito(request):
         try:
             with transaction.atomic():
                 numeroRuta = request.POST["ruta"]
-                usuario_id = request.session.get('usuario_id')
-                usuario = None
-                ruta = None
-                if usuario_id:
-                    ruta = Ruta.objects.get(rutNumero=numeroRuta)
-                    usuario = Usuario.objects.get(id=usuario_id)
-                    rutFavorita = FavoritoRuta(favRuta=ruta,favUsuario=usuario)
-                    rutFavorita.save()
-                    mensaje="Ruta Añadida a Favorito Correctamente"
+                if (numeroRuta==0):
+                    mensaje="Debe Ingresar una Ruta Primero"
                 else:
-                    mensaje="Debe Iniciar Sesion Primero"
-                estado = True
+                    usuario_id = request.session.get('usuario_id')
+                    usuario = None
+                    ruta = None
+                    if usuario_id:
+                        ruta = Ruta.objects.get(rutNumero=numeroRuta)
+                        usuario = Usuario.objects.get(id=usuario_id)
+                        rutFavorita = FavoritoRuta(favRuta=ruta,favUsuario=usuario)
+                        rutFavorita.save()
+                        mensaje="Ruta Añadida a Favorito Correctamente"
+                    else:
+                        mensaje="Debe Iniciar Sesion Primero"
+                    estado = True
         except Error as error:
             transaction.rollback()
             mensaje = f"{error}"
@@ -435,7 +438,7 @@ def agregarComentario(request):
         form = ComentarioForm(initial={'txtNombre': nombre_usuario})
         context = {'form': form, 'usuario': usuario}
         return render(request, 'comentarios/agregarComentario.html', context)
-    
+
 def eliminarComentario(request,id):
     try:
         comentario = Comentario.objects.get(id=id)
@@ -501,12 +504,12 @@ def registrarseUsuario(request):
             mensaje = 'El nombre de usuario debe tener al menos 6 caracteres'
             retorno = {"mensaje": mensaje, "estado": False}
             return render(request, "crearCuenta.html", retorno)
-        
+
         if Usuario.objects.filter(usuNombre=nombreUsu).exists():
             mensaje = "El nombre de usuario ya está en uso. Por favor, elige otro."
             retorno = {"mensaje": mensaje, "estado": False}
             return render(request, "crearCuenta.html", retorno)
-        
+
         else:
             codigoDeVerificacion = generarCodigoVerificacion()
             request.session['nombreUsuario'] = nombreUsu
@@ -660,7 +663,7 @@ def eliminarSesionRegistro(request):
         del request.session['correoUsuario']
     if 'contrasena' in request.session:
         del request.session['contrasena']
-        
+
     return JsonResponse({'message': 'Sesión de registro eliminada'})
 
 def verificarCodigoDeVerificacion(request):
@@ -688,7 +691,7 @@ def verificarCodigoDeVerificacion(request):
                 user.save()
                 request.session['usuario_id'] = user.id
                 mensaje = "El código de verificación es correcto. Tu cuenta ha sido verificada y se ha creado exitosamente."
-                del request.session['nombreUsuario'] 
+                del request.session['nombreUsuario']
                 del request.session['correoUsuario']
                 del request.session['contrasena']
                 retorno = {"mensaje": mensaje, "estado": True}
@@ -726,7 +729,7 @@ def registrarUsuarioIniciadoGoogle(request):
             mensaje = 'Ya existe una cuenta con este correo electrónico'
             retorno = {"mensaje": mensaje, "estado": False, "email": email}
             return render(request, "nombreUsuario.html", retorno)
-        
+
         elif Usuario.objects.filter(usuNombre=nombreUsu).exists():
             mensaje = "El nombre de usuario ya está en uso. Por favor, elige otro."
             retorno = {"mensaje": mensaje, "estado": False, "email": email}
@@ -1351,6 +1354,34 @@ def cambiarContrasena(request):
     retorno = {"mensaje": mensaje, "estado": estado}
     return render(request, "cambiarContrasena.html", retorno)
 
+#------------------------------------------------------------------------------
+def graficaEstadistica(request):
+        # try:
+        #     print(request.POST)
+        #     color = '#960b0b'
+        #     ruts = json.loads(request.POST("rutas"))
+        #     ruta = []
+        #     cantidad = []
+
+        #     print(ruts)
+        #     for rut in ruts:
+        #         ruta.append(rut['ruta'])
+        #         cantidad.append(rut['cantidad'])
+
+        #     plt.title("PRODUCTOS MAS VENDIDOS")
+        #     plt.xlabel("Productos")
+        #     plt.ylabel("Ventas")
+
+
+        #     # print(info)
+        #     plt.bar(ruta, cantidad, color=color)
+        #     imagen3 = os.path.join(settings.MEDIA_ROOT +"\\"+"grafica3.png")
+        #     plt.savefig(imagen3)
+        #     plt.tight_layout()
+            return render(request, "admin/grafica.html")
+        # except Error as error:
+        #     mensaje = f"{error}"
+
 # BLOQUE DE EN CASO DE CLASES -------------------------------------------------------------------------------------------
 
 class ComentarioForm(forms.Form):
@@ -1373,10 +1404,14 @@ class DetalleRutaList(generics.ListCreateAPIView):
     queryset = DetalleRuta.objects.all()
     serializer_class = DetalleRutaSerializers
 
-class DetalleRutaDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = DetalleRuta.objects.all()
+class DetalleRutaDetail(generics.ListAPIView):  # Cambiamos RetrieveUpdateDestroyAPIView por ListAPIView
     serializer_class = DetalleRutaSerializers
     lookup_field = 'detRuta'
+
+    def get_queryset(self):
+        detRuta_value = self.kwargs[self.lookup_field]
+        queryset = DetalleRuta.objects.filter(detRuta=detRuta_value)
+        return queryset
 
 #PARTE DE USUARIO
 class UsuarioList(generics.ListCreateAPIView):
@@ -1419,7 +1454,7 @@ def realizarGrafica(request):
                     ruta.append(sub_item)
                 elif isinstance(sub_item, int):
                     cantidad.append(sub_item)
-            
+
     plt.title("Rutas mas Usadas")
     plt.xlabel("Ruta")
     plt.ylabel("Cantidad")
@@ -1428,5 +1463,9 @@ def realizarGrafica(request):
 
     grafica = os.path.join(settings.MEDIA_ROOT, "graficaRuta.png")
     plt.savefig(grafica)
-    
-    return render(request,"admin/listaGrafica.html") 
+    mensaje= "Funcion"
+    retorno = {'mensaje': mensaje, 'estado': False}
+    return JsonResponse(retorno)
+
+def verGraficas(request):
+    return render(request,"admin/listaGrafica.html")

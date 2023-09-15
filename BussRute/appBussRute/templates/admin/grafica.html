@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% block encabezado %}
+{% include "encabezado.html" %}
+{% endblock %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock %}
+{% block contenido %}
+{% load static %}
+<script src="{%static '../static/js/mapa.js'%}"></script>
+    <form>
+        {%csrf_token%}
+        <div class="w-50 mt-3" style="margin: 0 auto;">
+            <img src="" alt="">
+         <div>
+    </form>
+    
+
+<script>
+    document.addEventListener("DOMContentLoaded", graficaRutas());
+</script>
+{% endblock %}
+{% block pie_pagina %}
+{% include "pie_pagina.html" %}
+{% endblock %}
