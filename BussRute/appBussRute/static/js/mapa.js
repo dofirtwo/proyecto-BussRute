@@ -483,7 +483,7 @@ function hacerGrafica() {
     dataType: 'json',
     cache: false,
     success: function (resultado) {
-        window.location.reload();
+        
     }
   })
 }

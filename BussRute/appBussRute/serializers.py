@@ -38,4 +38,4 @@ class CorreoSerializer(serializers.Serializer):
 
 class RecuperarContrasenaSerializer(serializers.Serializer):
     correoCambio = serializers.EmailField()
-    tokenCambio = serializers.CharField(max_length=16)
+    tokenCambio = serializers.CharField(max_length=32)

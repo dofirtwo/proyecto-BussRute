@@ -347,6 +347,24 @@ def eliminarRuta(request):
         retorno = {"mensaje":mensaje}
         return JsonResponse(retorno)
 
+def desactivarOActivar(request):
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                id = int(request.POST["id"])
+                ruta = Ruta.objects.get(id=id)
+                if ruta.rutEstado == 'A':
+                    ruta.rutEstado = 'I'
+                else:
+                    ruta.rutEstado = 'A'
+                ruta.save()
+                mensaje = "Estado de la ruta actualizado"
+        except Error as error:
+            mensaje = f"Problemas al actualizar el estado {error}"
+
+        retorno = {"mensaje": mensaje}
+        return JsonResponse(retorno)
+
 def registroRuta(request):
     if request.method == "POST":
         try:

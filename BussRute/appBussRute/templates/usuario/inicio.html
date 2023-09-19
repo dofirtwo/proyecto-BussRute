@@ -55,13 +55,15 @@
                     <select id="ruta" class="form-select colorFondoInput">
                         <option value="0" disabled selected>Seleccione</option>
                         {% for ruta in rutas %}
+                        {% if ruta.rutEstado == 'A' %}
                         <option value="{{ruta.rutNumero}}">Ruta {{ruta.rutNumero}}</option>
+                        {% endif %}
                         {% endfor %}
                     </select>
                     <span class="input-group-text border-0" id="search-addon">
                         <i class="fas fa-search"></i>
                     </span>
-                </div>
+                </div>                
                 <hr>
                 <div class="form-group row mt-2">
                     <div class="mb-3 col-lg-6">

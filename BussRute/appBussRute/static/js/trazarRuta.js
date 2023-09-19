@@ -262,3 +262,14 @@ function eliminarRuta(id) {
     }
   })
 }
+
+function cambiarEstado(id) {
+  $.ajax({
+      url: '/vistaListaNuevo/',
+      type: 'POST',
+      data: {
+          'id': id,
+          'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value
+      },
+  });
+}

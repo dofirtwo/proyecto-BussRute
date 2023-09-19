@@ -106,9 +106,19 @@ class Usuario(models.Model):
         return f"{self.usuNombre}"
 
 class Ruta(models.Model):
+    ESTADO_CHOICES = [
+        ('A', 'Activa'),
+        ('I', 'Inactiva'),
+    ]
     rutNumero = models.IntegerField(db_comment="Numero de la ruta del bus", null=True)
     rutPrecio = models.TextField(db_comment="Precio de la Ruta",null=True)
     rutEmpresa = models.TextField(db_comment="Id de Empresa")
+    rutEstado = models.CharField(
+        db_comment="Activa y desactiva la ruta",
+        max_length=1,
+        choices=ESTADO_CHOICES,
+        default='A',
+    )
     fechaHoraCreacion  = models.DateTimeField(auto_now_add=True,db_comment="Fecha y hora del registro")
     fechaHoraActualizacion = models.DateTimeField(auto_now=True,db_comment="Fecha y hora última actualización")
 

@@ -60,6 +60,7 @@ urlpatterns = [
     path('enviarCorreoRecuperacion/<str:tokenCambio>', views.mostrarInterfaz),
     path('cambioAndroid/', views.cambioAndroid),
     path('verGraficas/', views.verGraficas),
+    path('vistaListaNuevo/', views.desactivarOActivar),
     path('', include('appBussRute.urls'))
 ]
 
