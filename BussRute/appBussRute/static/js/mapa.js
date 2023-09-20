@@ -112,9 +112,9 @@ function updateRoute(site) {
     // Recorrer el arreglo de comentarios para mostrarlos
     comentarios.forEach(entradaC => {
         if (entradaC.comRuta == numeroRut){
-            
+
             datos += `
-            
+
             <div class="card text-center"" style="width: 18rem;">
                             <div class="card-body">
                             <h5 class="card-title">${entradaC.conUsuario}</h5>
@@ -187,7 +187,7 @@ function updateRoute(site) {
                     document.getElementById("txtImagenLado").src = ''
                 }
             }
-            
+
             document.getElementById("txtEmpresa").value = rutas[posR].empRuta
             document.getElementById("txtPrecio").value = "$"+rutas[posR].preRuta
             document.getElementById("txtNumero").value = rutas[posR].numRuta
@@ -203,7 +203,7 @@ function updateRoute(site) {
         $('.testimonios').each(function () {
           const valoracion = $(this).data('valoracion');
           const reseñasContainer = $(this).find('.reseñas');
-    
+
           for (let i = 1; i <= 5; i++) {
             if (i <= valoracion) {
               reseñasContainer.append('<i class="fa fa-heart hearto"></i>');
@@ -221,7 +221,7 @@ function filtroBarrio() {
     document.getElementById("ruta").innerHTML += `<option value="0" disabled selected>Seleccione</option>`
     ubicaciones.forEach(entradaU => {
         if (entradaU.ubiBarrio == ubiBarrio) {
-            posU = rutas.findIndex(ruta => ruta.numRuta === entradaU.ubiRuta);       
+            posU = rutas.findIndex(ruta => ruta.numRuta === entradaU.ubiRuta);
             console.log(posU)
             if (!rutasAgregadas.includes(rutas[posU].numRuta)) {
                 rutasAgregadas.push(rutas[posU].numRuta)
@@ -346,7 +346,7 @@ function verFavoritos() {
             if (data.logueado) {
                 // Si el usuario ha iniciado sesión, muestra el modal.
                 mostrarFavoritos()
-                
+
             } else {
                 // Si el usuario no ha iniciado sesión, muestra un mensaje de error.
                 Swal.fire('Cuenta', 'Debes iniciar sesión primero.', 'error');
@@ -455,18 +455,18 @@ function hacerGrafica() {
 
    // Convierte la cadena JSON en un arreglo de objetos JavaScript
    var data = JSON.parse(dataString);
-   
+
    // Verifica si los datos son un arreglo
    if (Array.isArray(data)) {
        // Itera sobre la lista de objetos
        for (var i = 0; i < data.length; i++) {
            var elemento = data[i];
-           
+
            // Accede a los valores de "ruta" y "cantidad" para cada elemento
             ruta.push("Ruta"+" "+elemento.ruta);
             cantidad.push(parseInt(elemento.cantidad));
-           
-           
+
+
        }
    } else {
        console.log("Los datos no son un arreglo o están vacíos.");
@@ -483,8 +483,10 @@ function hacerGrafica() {
     dataType: 'json',
     cache: false,
     success: function (resultado) {
-        
+        location.href = `/verGraficas/`;
     }
   })
 }
+
+
 

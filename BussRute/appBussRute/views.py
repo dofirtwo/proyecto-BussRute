@@ -23,7 +23,7 @@ import secrets
 from django.core.validators import validate_email
 from rest_framework import generics
 from django.utils.crypto import get_random_string
-from appBussRute.serializers import RutaSerializers,DetalleRutaSerializers, UsarioSerializers, RolSerializers, ComentarioSerializer, CorreoSerializer, RecuperarContrasenaSerializer
+from appBussRute.serializers import *
 from cryptography.fernet import Fernet
 import os
 import random
@@ -32,7 +32,7 @@ from rest_framework.decorators import api_view
 from django.core.mail import EmailMessage
 from rest_framework.response import Response
 from rest_framework import status
-
+from django.db.models import Count
 
 # Generar una clave de cifrado
 key = Fernet.generate_key()
@@ -336,7 +336,7 @@ def eliminarRuta(request):
                 id = int(request.POST["id"])
                 ruta = Ruta.objects.get(id=id)
                 detalleRuta = DetalleRuta.objects.filter(detRuta=ruta)
-                ubicacion = UbicacionRuta.objects.get(ubiRuta=ruta)
+                ubicacion = UbicacionRuta.objects.filter(ubiRuta=ruta)
                 ubicacion.delete()
                 detalleRuta.delete()
                 ruta.delete()
@@ -345,24 +345,6 @@ def eliminarRuta(request):
             mensaje = f"problemas al eliminar {error}"
 
         retorno = {"mensaje":mensaje}
-        return JsonResponse(retorno)
-
-def desactivarOActivar(request):
-    if request.method == "POST":
-        try:
-            with transaction.atomic():
-                id = int(request.POST["id"])
-                ruta = Ruta.objects.get(id=id)
-                if ruta.rutEstado == 'A':
-                    ruta.rutEstado = 'I'
-                else:
-                    ruta.rutEstado = 'A'
-                ruta.save()
-                mensaje = "Estado de la ruta actualizado"
-        except Error as error:
-            mensaje = f"Problemas al actualizar el estado {error}"
-
-        retorno = {"mensaje": mensaje}
         return JsonResponse(retorno)
 
 def registroRuta(request):
@@ -394,6 +376,25 @@ def registroRuta(request):
             mensaje = f"{error}"
         retorno = {"mensaje":mensaje,"estado":estado}
         return JsonResponse(retorno)
+
+def desactivarOActivar(request):
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                id = int(request.POST["id"])
+                ruta = Ruta.objects.get(id=id)
+                if ruta.rutEstado == 'A':
+                    ruta.rutEstado = 'I'
+                else:
+                    ruta.rutEstado = 'A'
+                ruta.save()
+                mensaje = "Estado de la ruta actualizado"
+        except Error as error:
+            mensaje = f"Problemas al actualizar el estado {error}"
+
+        retorno = {"mensaje": mensaje}
+        return JsonResponse(retorno)
+
 
 def verificarSesion(request):
     usuario_id = request.session.get('usuario_id')
@@ -1418,6 +1419,38 @@ class RutaDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = RutaSerializers
     lookup_field = 'rutNumero'
 
+class RutaDetailAndroid(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Ruta.objects.all()
+    serializer_class = RutaSerializers
+
+class FavoritoList(generics.ListCreateAPIView):
+    queryset = FavoritoRuta.objects.all()
+    serializer_class = FavoritoSerializers
+
+class FavoritoDetailAndroid(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FavoritoRuta.objects.all()
+    serializer_class = FavoritoSerializers
+    lookup_field = 'favUsuario'
+
+    def get_object(self):
+        favUsuario = self.kwargs.get('favUsuario')
+        favRuta = self.kwargs.get('favRuta')
+
+        # Utiliza un filtro combinado para buscar por ambos campos
+        obj = FavoritoRuta.objects.filter(favUsuario=favUsuario, favRuta=favRuta).first()
+
+
+        return obj
+
+class FavoritoDetail(generics.ListAPIView):  # Cambiamos RetrieveUpdateDestroyAPIView por ListAPIView
+    serializer_class = FavoritoSerializers
+    lookup_field = 'favUsuario'
+
+    def get_queryset(self):
+        favUsuario_value = self.kwargs[self.lookup_field]
+        queryset = FavoritoRuta.objects.filter(favUsuario=favUsuario_value)
+        return queryset
+
 class DetalleRutaList(generics.ListCreateAPIView):
     queryset = DetalleRuta.objects.all()
     serializer_class = DetalleRutaSerializers
@@ -1454,7 +1487,40 @@ class ComentarioDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ComentarioSerializer
 
 # Graficas---------------------------------------------------------------------------------
+def get_data():
+    # Obtiene los comentarios agrupados por ruta (excluyendo los que no tienen ruta)
+    data_with_route = Comentario.objects.exclude(comRuta__isnull=True).values('comRuta__rutNumero').annotate(total=Count('comRuta')).order_by('-total')
+
+    # Obtiene los comentarios que no tienen ruta
+    data_without_route = Comentario.objects.filter(comRuta__isnull=True).count()
+
+    # Prepara los datos para la gráfica
+    labels = ['ruta:' + str(item['comRuta__rutNumero']) for item in data_with_route] + ['global']
+    values = [item['total'] for item in data_with_route] + [data_without_route]
+
+    return labels, values
+
+
 def realizarGrafica(request):
+    # Trae los datos de la base de datos
+    labels, values = get_data()
+
+    # Convierte las etiquetas a valores numéricos
+    numeric_labels = range(len(labels))
+
+
+
+    plt.subplot(2, 2, 1)
+    # Añade títulos y etiquetas
+    plt.title('Comentarios por Ruta')
+    plt.xlabel('Ruta')
+    plt.ylabel('Número de Comentarios')
+
+    # Cambia las etiquetas del eje x a las etiquetas originales
+    plt.xticks(numeric_labels, labels)
+    # Crea la gráfica
+    plt.bar(numeric_labels, values)
+    #RUTAS GRAFICA
     ruta=[]
     for clave,valor in request.GET.items():
         ruta.append(valor)
@@ -1473,6 +1539,7 @@ def realizarGrafica(request):
                 elif isinstance(sub_item, int):
                     cantidad.append(sub_item)
 
+    plt.subplot(2, 2, 2)
     plt.title("Rutas mas Usadas")
     plt.xlabel("Ruta")
     plt.ylabel("Cantidad")
@@ -1481,6 +1548,8 @@ def realizarGrafica(request):
 
     grafica = os.path.join(settings.MEDIA_ROOT, "graficaRuta.png")
     plt.savefig(grafica)
+    plt.tight_layout()
+
     mensaje= "Funcion"
     retorno = {'mensaje': mensaje, 'estado': False}
     return JsonResponse(retorno)

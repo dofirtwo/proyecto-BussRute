@@ -48,19 +48,25 @@ function verificarSesion() {
 }
 
 function añadirFavorito(){
-  var datos = {
-    "ruta": $("#ruta").val(),
-  }
-  $.ajax({
-      url: "/registroFavorito/",
-      data: datos,
-      type: 'post',
-      dataType: 'json',
-      cache: false,
-      success: function(resultado){
-          console.log(resultado);
+  if(document.getElementById("ruta").value==""){
+      Swal.fire('Ruta', 'Debe Seleccionar la Ruta Primero', 'error');
+  }else{
+      var datos = {
+        "ruta": $("#ruta").val(),
       }
-  })
+      $.ajax({
+          url: "/registroFavorito/",
+          data: datos,
+          type: 'post',
+          dataType: 'json',
+          cache: false,
+          success: function(resultado){
+              Swal.fire('Cuenta', 'Ruta Agregada Correctamente', 'success');
+              window.location.reload();
+              console.log(resultado);
+          }
+      })
+  }
 }
 
 //CODIGO COMENTARIOS Y CALIFICACION COMENTARIOS
@@ -128,8 +134,6 @@ function guardarRuta() {
     success: function (data) {
       if (data.logueado) {
           añadirFavorito()
-          Swal.fire('Cuenta', 'Ruta Agregada Correctamente', 'success');
-          window.location.reload();
       } else {
           Swal.fire('Cuenta', 'Debes iniciar sesión primero.', 'error');
       }

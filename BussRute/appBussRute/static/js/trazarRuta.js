@@ -104,7 +104,7 @@ function trazarRuta() {
         showAlternatives: false,
         routeLine: (route) => {
           return L.Routing.line(route, {
-            styles: [{ color: '#46668d' }]
+            styles: [{ color: '#00A99D' }]
           });
         }
       }).addTo(map);
@@ -123,7 +123,6 @@ function registroDatosRuta() {
   var datos = {
     "numeroRuta": $("#txtNumeroRuta").val(),
     "precio": $("#txtPrecio").val(),
-    "fileFoto": $("#fileFoto").val(),
     "empresa": $("#cbEmpresa").val(),
     "detalle": JSON.stringify(coordenadaRuta),
     "ubicacion": JSON.stringify(ubicacionRuta),
@@ -234,13 +233,13 @@ function abrirModalEliminar(id){
       text: "¿Estan seguros de eliminar?",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#6f7fe2',
-      cancelButtonColor: '#E81C2E',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
       cancelButtonText: 'No',
       confirmButtonText: 'Si'
     }).then((result) => {
       if (result.isConfirmed) {
-        eliminarRuta(id) 
+        eliminarRuta(id)
       }
     })
 }
@@ -262,6 +261,7 @@ function eliminarRuta(id) {
     }
   })
 }
+
 
 function cambiarEstado(id) {
   $.ajax({
