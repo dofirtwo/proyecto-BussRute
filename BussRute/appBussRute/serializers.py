@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from appBussRute.models import Ruta, DetalleRuta, Usuario, Rol, FavoritoRuta
+from appBussRute.models import Ruta, DetalleRuta, Usuario, Rol,FavoritoRuta
 from appBussRute.models import Comentario
 
 class RutaSerializers(serializers.ModelSerializer):
     class Meta:
         model = Ruta
-        fields = ('id','rutNumero','rutHorario','rutEmpresa')
+        fields = ('id','rutNumero','rutPrecio','rutEmpresa')
 
 class FavoritoSerializers(serializers.ModelSerializer):
     class Meta:

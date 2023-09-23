@@ -1,5 +1,5 @@
 from django.test import TestCase, Client, override_settings
-from appBussRute.models import Usuario, Rol, Ruta, FavoritoRuta
+from appBussRute.models import Usuario, Rol, Ruta, FavoritoRuta,Comentario, Usuario, Ruta
 from appBussRute.views import registrarseUsuario, enviarCorreo, generarCodigoVerificacion 
 from django.http import HttpResponse
 import hashlib
@@ -8,6 +8,7 @@ from django.core import mail
 import re
 from bs4 import BeautifulSoup
 import pdb
+from appBussRute.views import *
 
 
 class TestInicioSesion(TestCase):
@@ -183,3 +184,77 @@ class DesactivarOActivarViewTest(TestCase):
         # Limpia cualquier recurso o datos creados durante las pruebas
         self.ruta.delete()
 
+
+
+class EliminarComentarioTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.usuario = Usuario.objects.create(usuNombre='testuser', usuCorreo='testuser@test.com', usuPassword='testpassword')
+        self.ruta = Ruta.objects.create(rutNumero=1, rutPrecio='5000', rutEmpresa='Empresa Test')
+        self.comentario = Comentario.objects.create(comDescripcion='Comentario Test', comValoracion=5, comUsuario=self.usuario, comRuta=self.ruta)
+
+    def test_eliminar_comentario(self):
+        response = self.client.get(reverse('eliminarComentario', args=[self.comentario.id]))
+        self.assertEqual(response.status_code, 302)  # Verificar que la redirección fue exitosa
+        with self.assertRaises(Comentario.DoesNotExist):
+            Comentario.objects.get(id=self.comentario.id)  # Verificar que el comentario fue eliminado 
+            
+class ActualizarComentarioTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.usuario = Usuario.objects.create(usuNombre='testuser', usuCorreo='testuser@test.com', usuPassword='testpassword')
+        self.ruta = Ruta.objects.create(rutNumero=1, rutPrecio='5000', rutEmpresa='Empresa Test')
+        self.comentario = Comentario.objects.create(comDescripcion='Comentario Test', comValoracion=5, comUsuario=self.usuario, comRuta=self.ruta)
+
+    def test_actualizar_comentario(self):
+        response = self.client.post(reverse('actualizarComentario', args=[self.comentario.id]), {'txtComentario': 'Comentario Actualizado', 'txtValoracion': 4})
+        self.assertEqual(response.status_code, 302)  # Verificar que la redirección fue exitosa
+        comentario_actualizado = Comentario.objects.get(id=self.comentario.id)
+        self.assertEqual(comentario_actualizado.comDescripcion, 'Comentario Actualizado')  # Verificar que el comentario fue actualizado correctamente
+        self.assertEqual(comentario_actualizado.comValoracion, 4)  # Verificar que la valoración fue actualizada correctamente
+         
+class ConsultarComentarioTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.usuario = Usuario.objects.create(usuNombre='testuser', usuCorreo='testuser@test.com', usuPassword='testpassword')
+        self.ruta = Ruta.objects.create(rutNumero=1, rutPrecio='5000', rutEmpresa='Empresa Test')
+        self.comentario = Comentario.objects.create(comDescripcion='Comentario Test', comValoracion=5, comUsuario=self.usuario, comRuta=self.ruta)
+
+    def test_consultar_comentario(self):
+        session = self.client.session
+        session['usuario_id'] = self.usuario.id  # Simular un usuario en sesión
+        session.save()
+        
+        response = self.client.get(reverse('consultarComentario', args=[self.comentario.id]))
+        self.assertEqual(response.status_code, 200)  # Verificar que la respuesta fue exitosa
+        self.assertContains(response, 'Comentario Test')  # Verificar que el comentario está en la respuesta 
+
+class AgregarComentarioTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.usuario = Usuario.objects.create(usuNombre='testuser', usuCorreo='testuser@test.com', usuPassword='testpassword')
+        self.ruta = Ruta.objects.create(rutNumero=1, rutPrecio='5000', rutEmpresa='Empresa Test')
+
+    def test_agregar_comentario(self):
+        session = self.client.session
+        session['usuario_id'] = self.usuario.id  # Simular un usuario en sesión
+        session.save()
+        
+        response = self.client.post(reverse('agregarComentario'), {'txtNombre': 'testuser', 'txtComentario': 'Comentario Test', 'txtValoracion': 5, 'txtRuta': self.ruta.rutNumero})
+        self.assertEqual(response.status_code, 302)  # Verificar que la redirección fue exitosa
+        comentario = Comentario.objects.get(comDescripcion='Comentario Test')  # Obtener el comentario recién creado
+        self.assertIsNotNone(comentario)  # Verificar que el comentario fue creado correctamente
+
+class CerrarSesionTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.usuario = Usuario.objects.create(usuNombre='testuser', usuCorreo='testuser@test.com', usuPassword='testpassword')
+
+    def test_cerrar_sesion(self):
+        session = self.client.session
+        session['usuario_id'] = self.usuario.id  # Simular un usuario en sesión
+        session.save()
+        
+        response = self.client.get(reverse('cerrarSesion'))
+        self.assertEqual(response.status_code, 302)  # Verificar que la redirección fue exitosa
+        self.assertNotIn('usuario_id', self.client.session)  # Verificar que 'usuario_id' ya no está en la sesión

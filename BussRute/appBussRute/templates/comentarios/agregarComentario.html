@@ -13,7 +13,7 @@
   </div>
   <!-- Formulario para agregar comentarios -->
   <div class="agregarComentarioContenedor">
-    <form class="needs-validation" action="/agregarComentario/" method="POST" enctype="multipart/form-data">
+    <form class="needs-validation" action="/agregarComentario/" method="POST" enctype="multipart/form-data" onsubmit="return validarComentario();">
       {% csrf_token %}
       <div class="">
         <div class="col">
@@ -80,31 +80,42 @@
   }
 </script>
 <script>
-  // Recupera el valor de txtRuta desde el localStorage
-  var rutaSeleccionada = localStorage.getItem('rutaSeleccionada');
+ // Recupera el valor de txtRuta desde el localStorage
+var rutaSeleccionada = localStorage.getItem('rutaSeleccionada');
 
-  // Verifica si se encontró un valor en el localStorage
-  if (rutaSeleccionada !== null) {
-    // Establece el valor en el campo de formulario txtRuta
-    document.getElementById('txtRuta').value = rutaSeleccionada;
+// Verifica si se encontró un valor en el localStorage
+if (rutaSeleccionada !== null) {
+  // Establece el valor en el campo de formulario txtRuta
+  document.getElementById('txtRuta').value = rutaSeleccionada;
+
+  // Luego de establecerlo en el campo, elimina el valor del localStorage
+  localStorage.removeItem('rutaSeleccionada');
+}
+</script>
+<script>
+  function validarComentario() {
+    // Obten el valor del comentario ingresado
+    var comentario = document.getElementById('txtComentario').value;
+  
+    // Verifica si la longitud del comentario excede 500 caracteres
+    if (comentario.length > 500) {
+      // Muestra un SweetAlert con un mensaje de error
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: '¡El Comentario es Demasiado Extenso!.',
+      });
+  
+      // Evita que el formulario se envíe
+      return false;
+    }
+  
+    // Si la validación pasa, permite que el formulario se envíe
+    return true;
   }
+  
 </script>
 
-
-<!-- <form action="">
-
-    <h2>Contacto</h2>
-
-    <div class="input-group">
-        <label for="name">Nombre: </label>
-        <input type="text" name="name" id="name" placeholder="Nombre">
-
-        <label for="message">Comentario: </label>
-    </div>
-
-
-
-</form> -->
 
 {% endblock %}
 {% block pie_pagina %}

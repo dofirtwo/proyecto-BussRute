@@ -1523,3 +1523,42 @@ def realizarGrafica(request):
 
 def verGraficas(request):
     return render(request,"admin/listaGrafica.html")
+
+def get_data():
+    # Obtiene los comentarios agrupados por ruta (excluyendo los que no tienen ruta)
+    data_with_route = Comentario.objects.exclude(comRuta__isnull=True).values('comRuta__rutNumero').annotate(total=Count('comRuta')).order_by('-total')
+
+    # Obtiene los comentarios que no tienen ruta
+    data_without_route = Comentario.objects.filter(comRuta__isnull=True).count()
+
+    # Prepara los datos para la gráfica
+    labels = ['ruta:' + str(item['comRuta__rutNumero']) for item in data_with_route] + ['global']
+    values = [item['total'] for item in data_with_route] + [data_without_route]
+
+    return labels, values
+
+
+def graficaComentario():
+    # Trae los datos de la base de datos
+    labels, values = get_data()
+
+    # Convierte las etiquetas a valores numéricos
+    numeric_labels = range(len(labels))
+
+    # Crea la gráfica
+    plt.bar(numeric_labels, values)
+
+    # Añade títulos y etiquetas
+    plt.title('Comentarios por Ruta')
+    plt.xlabel('Ruta')
+    plt.ylabel('Número de Comentarios')
+
+    # Cambia las etiquetas del eje x a las etiquetas originales
+    plt.xticks(numeric_labels, labels)
+
+    # Guarda la gráfica en una imagen
+    grafica = os.path.join(settings.MEDIA_ROOT, "graficaCom.png")
+    plt.savefig(grafica)
+
+    
+graficaComentario()
