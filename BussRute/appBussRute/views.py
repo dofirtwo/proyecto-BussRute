@@ -174,7 +174,7 @@ def registroRuta(request):
                     ubicacionRuta = UbicacionRuta(ubiRuta=ruta,ubiBarrio=barrio,ubiComuna=comuna,ubiSitioDeInteres=sitioDeInteres)
                     ubicacionRuta.save()
                 estado = True
-                mensaje = "Se ha registrado la Ruta Correctamete"
+                mensaje = "Se ha registrado la Ruta Correctamente"
         except Error as error:
             transaction.rollback()
             mensaje = f"{error}"
@@ -189,7 +189,7 @@ def eliminarFavorito(request):
                 ruta = Ruta.objects.get(rutNumero=numeroRuta)
                 favorito = FavoritoRuta.objects.filter(favRuta=ruta)
                 favorito.delete()
-                mensaje="ProductoEliminado"
+                mensaje="Ruta Favorita Eliminada"
         except Error as error:
             mensaje = f"problemas al eliminar {error}"
 
