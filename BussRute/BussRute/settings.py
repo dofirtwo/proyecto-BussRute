@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os, sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -57,7 +57,6 @@ MIDDLEWARE = [
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
-
 
 ROOT_URLCONF = 'BussRute.urls'
 
@@ -138,12 +137,24 @@ MEDIA_ROOT= os.path.join(BASE_DIR,'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# settings.py
+# Configuración personalizada para pruebas
+if 'test' in sys.argv:
+    # Configuración de correo electrónico para las pruebas
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+    EMAIL_HOST_USER = '15cd014fde7358'
+    EMAIL_HOST_PASSWORD = '8bc2a73d05c709'
+    EMAIL_PORT = '2525'
+    EMAIL_USE_TLS = True
+else:
+    # Configuración de correo electrónico para el entorno de producción
+    EMAIL_HOST = "smtp.gmail.com"
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = "bussrutebitcode@gmail.com"
+    EMAIL_HOST_PASSWORD = "acxeoaxkbnekylmt"
+    EMAIL_USE_TLS = True
 
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "bussrutebitcode@gmail.com"
-EMAIL_HOST_PASSWORD = "acxeoaxkbnekylmt"
-EMAIL_USE_TLS = True
 # FACEBOOK_APP_ID = '784661986686095'
 # FACEBOOK_APP_SECRET = 'dbeff57584b6b1cdb3c588172e5fa81a'
 

@@ -131,15 +131,115 @@ def vistaRegistrarRuta(request):
     # Código para mostrar la vista para usuarios con rol de administrador
     return render(request, "admin/frmRegistrarRuta.html",retorno)
 
+def vistaEnvioCorreo(request):
+    return render(request, "contrasenaOlvidada.html")
+
+def vistaNombreUsuario(request):
+    # Leer la clave de cifrado de una variable de entorno y convertirla en un objeto de bytes
+    key = os.environ['ENCRYPTION_KEY'].encode()
+    # Crear una instancia de Fernet con la clave de cifrado
+    f = Fernet(key)
+    encrypted_email = request.GET.get('email', '')
+    email = f.decrypt(encrypted_email.encode()).decode()
+    return render(request, "nombreUsuario.html", {'email': email})
+
+def generarCodigoVerificacion():
+    return str(random.randint(100000, 999999))
+
+clientID = '279970518458-chlpaq00krnoahgvdqdftdcfsu3gp8b9.apps.googleusercontent.com'
+redirectUri = 'https://bussrute.pythonanywhere.com/google-auth/'
+
+# BLOQUE DE VARGAS FUNCIONES -------------------------------------------------------------------------------------------
+
+def registroRuta(request):
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                numeroRuta = int(request.POST["numeroRuta"])
+                precio = request.POST["precio"]
+                empresa = request.POST["empresa"]
+                ruta = Ruta(rutNumero=numeroRuta,rutPrecio=precio,rutEmpresa=empresa)
+                ruta.save()
+                detalleRutas = json.loads(request.POST["detalle"])
+                for detalle in detalleRutas:
+                    latitud = detalle['latitud']
+                    longitud = detalle['longitud']
+                    detalleRuta = DetalleRuta(detRuta=ruta,detLatitud=latitud,detLongitud=longitud)
+                    detalleRuta.save()
+                ubicacionRutas = json.loads(request.POST["ubicacion"])
+                for ubicacion in ubicacionRutas:
+                    barrio = ubicacion['barrio']
+                    comuna = ubicacion['comuna']
+                    sitioDeInteres = ubicacion['sitioDeInteres']
+                    ubicacionRuta = UbicacionRuta(ubiRuta=ruta,ubiBarrio=barrio,ubiComuna=comuna,ubiSitioDeInteres=sitioDeInteres)
+                    ubicacionRuta.save()
+                estado = True
+                mensaje = "Se ha registrado la Ruta Correctamete"
+        except Error as error:
+            transaction.rollback()
+            mensaje = f"{error}"
+        retorno = {"mensaje":mensaje,"estado":estado}
+        return JsonResponse(retorno)
+
+def eliminarFavorito(request):
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                numeroRuta = int(request.POST["numeroRuta"])
+                ruta = Ruta.objects.get(rutNumero=numeroRuta)
+                favorito = FavoritoRuta.objects.filter(favRuta=ruta)
+                favorito.delete()
+                mensaje="ProductoEliminado"
+        except Error as error:
+            mensaje = f"problemas al eliminar {error}"
+
+        retorno = {"mensaje":mensaje}
+        return JsonResponse(retorno)
+
+def listaRutas(request):
+    try:
+        usuario_id = request.session.get('usuario_id')
+        usuario = None
+
+        if usuario_id:
+            usuario = Usuario.objects.get(id=usuario_id)
+        rutas = Ruta.objects.all()
+        mensaje=""
+    except Error as error:
+        mensaje = f"problemas al listar Productos {error}"
+    retorno = {"mensaje":mensaje,"listaRutas":rutas,"usuario":usuario}
+    return render (request, "admin/frmListaRutas.html",retorno)
+
+def eliminarRuta(request):
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+                id = int(request.POST["id"])
+                ruta = Ruta.objects.get(id=id)
+                detalleRuta = DetalleRuta.objects.filter(detRuta=ruta)
+                ubicacion = UbicacionRuta.objects.filter(ubiRuta=ruta)
+                ubicacion.delete()
+                detalleRuta.delete()
+                ruta.delete()
+                mensaje="Ruta Eliminada"
+        except Error as error:
+            mensaje = f"problemas al eliminar {error}"
+
+        retorno = {"mensaje":mensaje}
+        return JsonResponse(retorno)
+
 def registroFavorito(request):
     if request.method == "POST":
         try:
             with transaction.atomic():
                 numeroRuta = request.POST["ruta"]
+                print(f"numeroRuta: {numeroRuta}")  # Agrega esta línea
+
                 if (numeroRuta==0):
                     mensaje="Debe Ingresar una Ruta Primero"
                 else:
                     usuario_id = request.session.get('usuario_id')
+                    print(f"usuario_id: {usuario_id}")
                     usuario = None
                     ruta = None
                     if usuario_id:
@@ -157,41 +257,111 @@ def registroFavorito(request):
         retorno = {"mensaje":mensaje,"estado":estado}
         return JsonResponse(retorno)
 
-def vistaEnvioCorreo(request):
-    return render(request, "contrasenaOlvidada.html")
 
-"""
-def comentarios(request):
+
+# BLOQUE DE ORTIZ Y CASTAÑEDA FUNCIONES -------------------------------------------------------------------------------------------
+
+def agregarComentario(request):
     usuario_id = request.session.get('usuario_id')
     usuario = None
-
     if usuario_id:
         usuario = Usuario.objects.get(id=usuario_id)
-        comentarios = Comentario.objects.all()
-        context = {
-            'comentarios': comentarios,
-            'usuario': usuario
-        }
-    return render(request, 'comentarios/comentarios.html', context)
-"""
+
+    if 'usuario_id' not in request.session:
+        # Si el usuario no está autenticado, redirigirlo a la página de inicio de sesión
+        return redirect('/inicioSesion/')
+
+    if request.method == 'POST':
+        if 'regresar' in request.POST:
+            return redirect('/inicio/')
+        else:
+            form = ComentarioForm(request.POST)
+            if form.is_valid():
+                comentario = request.POST.get['txtComentario']
+            # Creamos un objeto de tipo comentario
+            nombre = request.POST.get("txtNombre")
+            comentario = request.POST.get("txtComentario")
+            valoracion = request.POST.get("txtValoracion")
+            numRuta = request.POST.get("txtRuta")
+
+            try:
+                with transaction.atomic():
+                    # Busca la instancia de Ruta correspondiente
+                    if numRuta:
+                        try:
+                            ruta = Ruta.objects.get(rutNumero=numRuta)
+                        except Ruta.DoesNotExist:
+                            ruta = None
+                    else:
+                        ruta = None
+
+                    # Crea un objeto de tipo Comentario con la ruta asociada
+                    contenidoComentario = Comentario(comDescripcion=comentario, comUsuario_id=usuario_id, comValoracion=valoracion, comRuta=ruta)
+                    contenidoComentario.save()
+                    mensaje = "Comentario registrado correctamente"
+                    retorno = {"mensaje": mensaje}
+                    return redirect("/inicio/", retorno)
+
+            except Error as error:
+                transaction.rollback()
+                mensaje = f"{error}"
+                retorno = {"mensaje": mensaje,
+                           "comentario": contenidoComentario}
+                return render(request, 'comentarios/agregarComentario.html', retorno)
+    else:
+        # initial_data = {'txtNombre': request.user.username}
+        # Obtener el nombre de usuario actual
+        nombre_usuario = usuario.usuNombre if usuario else ''
+        form = ComentarioForm(initial={'txtNombre': nombre_usuario})
+        context = {'form': form, 'usuario': usuario}
+        return render(request, 'comentarios/agregarComentario.html', context)
+
+def eliminarComentario(request,id):
+    try:
+        comentario = Comentario.objects.get(id=id)
+        comentario.delete()
+        mensaje="comentario eliminado"
+    except Error as error:
+        mensaje=f"problemas al eliminar el comentario {error}"
+
+    retorno = {"mensaje": mensaje}
+
+    return redirect("/inicio/",retorno)
+
+def consultarComentario(request, id):
+    usuario_id = request.session.get('usuario_id')
+    usuario = None
+    if usuario_id:
+        usuario = Usuario.objects.get(id=usuario_id)
+        try:
+            comentario = Comentario.objects.get(id=id)
+            mensaje=""
+        except Error as error:
+            mensaje = f"problemas {error}"
+    retorno ={"mensaje":mensaje, "comentario":comentario, 'usuario':usuario}
+    return render(request,"comentarios/frmEditarComentario.html", retorno)
+
+def actualizarComentario(request, id):
+
+    comDescripcion = request.POST["txtComentario"]
+    comValoracion = int(request.POST["txtValoracion"])
+    try:
+        #actualizar el producto. PRIMERO SE CONSULTA
+        comentario = Comentario.objects.get(id=id)
+        comentario.comDescripcion=comDescripcion
+        comentario.comValoracion=comValoracion
+        comentario.save()
+        mensaje="comentario actualizado correctamente"
+        return redirect("/inicio/")
+    except Error as error:
+        mensaje = f"problemas al realizar el proceso de actualizar el comentario {error}"
+
+    retorno = {"mensaje":mensaje,"comentario":comentario}
+    return render(request,"frmEditar.html",retorno)
 
 
-def vistaNombreUsuario(request):
-    # Leer la clave de cifrado de una variable de entorno y convertirla en un objeto de bytes
-    key = os.environ['ENCRYPTION_KEY'].encode()
-    # Crear una instancia de Fernet con la clave de cifrado
-    f = Fernet(key)
-    encrypted_email = request.GET.get('email', '')
-    email = f.decrypt(encrypted_email.encode()).decode()
-    return render(request, "nombreUsuario.html", {'email': email})
 
-def generarCodigoVerificacion():
-    return str(random.randint(100000, 999999))
-
-# BLOQUE DE SOLO FUNCIONES -------------------------------------------------------------------------------------------
-
-clientID = '279970518458-chlpaq00krnoahgvdqdftdcfsu3gp8b9.apps.googleusercontent.com'
-redirectUri = 'https://bussrute.pythonanywhere.com/google-auth/'
+# BLOQUE DE CATAÑO FUNCIONES -------------------------------------------------------------------------------------------
 
 def google_login(request):
     auth_url = f"https://accounts.google.com/o/oauth2/auth?response_type=code&client_id={clientID}&redirect_uri={redirectUri}&scope=email%20profile%20https://www.googleapis.com/auth/userinfo.profile%20openid&access_type=offline"
@@ -300,83 +470,6 @@ def github_callback(request):
 
     return redirect('/inicio/')
 
-def eliminarFavorito(request):
-    if request.method == "POST":
-        try:
-            with transaction.atomic():
-                numeroRuta = int(request.POST["numeroRuta"])
-                ruta = Ruta.objects.get(rutNumero=numeroRuta)
-                favorito = FavoritoRuta.objects.filter(favRuta=ruta)
-                favorito.delete()
-                mensaje="ProductoEliminado"
-        except Error as error:
-            mensaje = f"problemas al eliminar {error}"
-
-        retorno = {"mensaje":mensaje}
-        return JsonResponse(retorno)
-
-def listaRutas(request):
-    try:
-        usuario_id = request.session.get('usuario_id')
-        usuario = None
-
-        if usuario_id:
-            usuario = Usuario.objects.get(id=usuario_id)
-        rutas = Ruta.objects.all()
-        mensaje=""
-    except Error as error:
-        mensaje = f"problemas al listar Productos {error}"
-    retorno = {"mensaje":mensaje,"listaRutas":rutas,"usuario":usuario}
-    return render (request, "admin/frmListaRutas.html",retorno)
-
-def eliminarRuta(request):
-    if request.method == "POST":
-        try:
-            with transaction.atomic():
-                id = int(request.POST["id"])
-                ruta = Ruta.objects.get(id=id)
-                detalleRuta = DetalleRuta.objects.filter(detRuta=ruta)
-                ubicacion = UbicacionRuta.objects.filter(ubiRuta=ruta)
-                ubicacion.delete()
-                detalleRuta.delete()
-                ruta.delete()
-                mensaje="Ruta Eliminada"
-        except Error as error:
-            mensaje = f"problemas al eliminar {error}"
-
-        retorno = {"mensaje":mensaje}
-        return JsonResponse(retorno)
-
-def registroRuta(request):
-    if request.method == "POST":
-        try:
-            with transaction.atomic():
-                numeroRuta = int(request.POST["numeroRuta"])
-                precio = request.POST["precio"]
-                empresa = request.POST["empresa"]
-                ruta = Ruta(rutNumero=numeroRuta,rutPrecio=precio,rutEmpresa=empresa)
-                ruta.save()
-                detalleRutas = json.loads(request.POST["detalle"])
-                for detalle in detalleRutas:
-                    latitud = detalle['latitud']
-                    longitud = detalle['longitud']
-                    detalleRuta = DetalleRuta(detRuta=ruta,detLatitud=latitud,detLongitud=longitud)
-                    detalleRuta.save()
-                ubicacionRutas = json.loads(request.POST["ubicacion"])
-                for ubicacion in ubicacionRutas:
-                    barrio = ubicacion['barrio']
-                    comuna = ubicacion['comuna']
-                    sitioDeInteres = ubicacion['sitioDeInteres']
-                    ubicacionRuta = UbicacionRuta(ubiRuta=ruta,ubiBarrio=barrio,ubiComuna=comuna,ubiSitioDeInteres=sitioDeInteres)
-                    ubicacionRuta.save()
-                estado = True
-                mensaje = "Se ha registrado la Ruta Correctamete"
-        except Error as error:
-            transaction.rollback()
-            mensaje = f"{error}"
-        retorno = {"mensaje":mensaje,"estado":estado}
-        return JsonResponse(retorno)
-
 def desactivarOActivar(request):
     if request.method == "POST":
         try:
@@ -395,111 +488,12 @@ def desactivarOActivar(request):
         retorno = {"mensaje": mensaje}
         return JsonResponse(retorno)
 
-
 def verificarSesion(request):
     usuario_id = request.session.get('usuario_id')
     if usuario_id:
         return JsonResponse({'logueado': True})
     else:
         return JsonResponse({'logueado': False})
-
-def agregarComentario(request):
-    usuario_id = request.session.get('usuario_id')
-    usuario = None
-    if usuario_id:
-        usuario = Usuario.objects.get(id=usuario_id)
-
-    if 'usuario_id' not in request.session:
-        # Si el usuario no está autenticado, redirigirlo a la página de inicio de sesión
-        return redirect('/inicioSesion/')
-
-    if request.method == 'POST':
-        if 'regresar' in request.POST:
-            return redirect('/inicio/')
-        else:
-            form = ComentarioForm(request.POST)
-            if form.is_valid():
-                comentario = request.POST.get['txtComentario']
-            # Creamos un objeto de tipo comentario
-            nombre = request.POST.get("txtNombre")
-            comentario = request.POST.get("txtComentario")
-            valoracion = request.POST.get("txtValoracion")
-            numRuta = request.POST.get("txtRuta")
-
-            try:
-                with transaction.atomic():
-                    # Busca la instancia de Ruta correspondiente
-                    if numRuta:
-                        try:
-                            ruta = Ruta.objects.get(rutNumero=numRuta)
-                        except Ruta.DoesNotExist:
-                            ruta = None
-                    else:
-                        ruta = None
-
-                    # Crea un objeto de tipo Comentario con la ruta asociada
-                    contenidoComentario = Comentario(comDescripcion=comentario, comUsuario_id=usuario_id, comValoracion=valoracion, comRuta=ruta)
-                    contenidoComentario.save()
-                    mensaje = "Comentario registrado correctamente"
-                    retorno = {"mensaje": mensaje}
-                    return redirect("/inicio/", retorno)
-
-            except Error as error:
-                transaction.rollback()
-                mensaje = f"{error}"
-                retorno = {"mensaje": mensaje,
-                           "comentario": contenidoComentario}
-                return render(request, 'comentarios/agregarComentario.html', retorno)
-    else:
-        # initial_data = {'txtNombre': request.user.username}
-        # Obtener el nombre de usuario actual
-        nombre_usuario = usuario.usuNombre if usuario else ''
-        form = ComentarioForm(initial={'txtNombre': nombre_usuario})
-        context = {'form': form, 'usuario': usuario}
-        return render(request, 'comentarios/agregarComentario.html', context)
-
-def eliminarComentario(request,id):
-    try:
-        comentario = Comentario.objects.get(id=id)
-        comentario.delete()
-        mensaje="comentario eliminado"
-    except Error as error:
-        mensaje=f"problemas al eliminar el comentario {error}"
-
-    retorno = {"mensaje": mensaje}
-
-    return redirect("/inicio/",retorno)
-
-def consultarComentario(request, id):
-    usuario_id = request.session.get('usuario_id')
-    usuario = None
-    if usuario_id:
-        usuario = Usuario.objects.get(id=usuario_id)
-        try:
-            comentario = Comentario.objects.get(id=id)
-            mensaje=""
-        except Error as error:
-            mensaje = f"problemas {error}"
-    retorno ={"mensaje":mensaje, "comentario":comentario, 'usuario':usuario}
-    return render(request,"comentarios/frmEditarComentario.html", retorno)
-
-def actualizarComentario(request, id):
-
-    comDescripcion = request.POST["txtComentario"]
-    comValoracion = int(request.POST["txtValoracion"])
-    try:
-        #actualizar el producto. PRIMERO SE CONSULTA
-        comentario = Comentario.objects.get(id=id)
-        comentario.comDescripcion=comDescripcion
-        comentario.comValoracion=comValoracion
-        comentario.save()
-        mensaje="comentario actualizado correctamente"
-        return redirect("/inicio/")
-    except Error as error:
-        mensaje = f"problemas al realizar el proceso de actualizar el comentario {error}"
-
-    retorno = {"mensaje":mensaje,"comentario":comentario}
-    return render(request,"frmEditar.html",retorno)
 
 def registrarseUsuario(request):
     try:
@@ -661,6 +655,7 @@ def registrarseUsuario(request):
             thread = threading.Thread(target=enviarCorreo,
                             args=(asunto, mensaje, [email], request))
             thread.start()
+            thread.join()
             mensaje = f'Correo de verificación enviado.'
             retorno = {'mensaje': mensaje, 'estado': True}
             return render(request, "crearCuenta.html", retorno)
@@ -812,37 +807,6 @@ def iniciarSesion(request):
                     mensaje = "La contraseña proporcionada es incorrecta."
         else:
             mensaje = "No hay una cuenta vinculada con el correo o nombre de usuario proporcionado."
-
-        return render(request, 'inicioSesion.html', {'mensaje': mensaje, 'estado': estado})
-
-    return render(request, 'inicioSesion.html', {'estado': estado})
-
-# def iniciarSesion(request):
-    estado = False
-    if request.method == 'POST':
-        correo = request.POST['correoUsuarioInicioONombreUsuario'].lower()
-        contrasena = request.POST['passwordUsuarioInicio']
-
-        try:
-            usuario = Usuario.objects.get(usuCorreo=correo)
-
-            if usuario.usuCreadoConGoogle:
-            # Si la cuenta fue creada iniciando sesión con Google, mostrar un mensaje al usuario
-                mensaje = "Para acceder a tu cuenta, inicia sesión con Google, ya que la cuenta fue creada utilizando este método de inicio de sesión."
-                return render(request, 'inicioSesion.html', {'mensaje': mensaje, 'estado': estado})
-            else:
-            # Si la cuenta no fue creada iniciando sesión con Google, continuar con el proceso de inicio de sesión
-                if usuario.check_password(contrasena):
-                # Las credenciales son válidas
-                    request.session['usuario_id'] = usuario.id
-                    estado = True
-                    response = redirect('/inicio/')  # Redirige al usuario a la página de inicio
-                    response['Cache-Control'] = 'no-cache, no-store, must-revalidate'  # Evita el almacenamiento en caché
-                    return response
-                else:
-                    mensaje = "La contraseña proporcionada es incorrecta."
-        except ObjectDoesNotExist:
-            mensaje = "No hay una cuenta vinculada con el correo proporcionado."
 
         return render(request, 'inicioSesion.html', {'mensaje': mensaje, 'estado': estado})
 
@@ -1196,7 +1160,7 @@ def enviarCambioContrasena(request):
 
                     asunto = 'Solicitud para restablecer contraseña de BussRute'
                     #url = f"https://bussrute.pythonanywhere.com/vistaCambioContrasena/?token={token}"
-                    url = f"http://127.0.0.1:8000//vistaCambioContrasena/?token={token}"
+                    url = f"http://127.0.0.1:8000/vistaCambioContrasena/?token={token}"
                     mensaje = f'<div style="background:#f9f9f9">\
                         <div style="background-color:#f9f9f9">\
                             <div style="max-width:640px;margin:0 auto;border-radius:4px;overflow:hidden">\
@@ -1299,6 +1263,7 @@ def enviarCambioContrasena(request):
                         thread = threading.Thread(target=enviarCorreo,
                                               args=(asunto, mensaje, [usuario.usuCorreo], request))
                         thread.start()
+                        thread.join()
                         mensaje = f'Correo de recuperación enviado. Puede demorar unos minutos en llegar. Si no lo recibes, intenta enviarlo nuevamente.'
                         retorno = {'mensaje': mensaje, 'estado': True}
                         return render(request, "contrasenaOlvidada.html", retorno)
@@ -1372,6 +1337,8 @@ def cambiarContrasena(request):
 
     retorno = {"mensaje": mensaje, "estado": estado}
     return render(request, "cambiarContrasena.html", retorno)
+
+
 
 #------------------------------------------------------------------------------
 def graficaEstadistica(request):

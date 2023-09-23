@@ -35,7 +35,7 @@ urlpatterns = [
     path('vistaRegistrarRuta/',views.vistaRegistrarRuta),
     path('vistaRegistrarCuenta/', views.crearCuenta),
     path('registrarCuenta/',views.registrarseUsuario),
-    path('iniciarSesion/', views.iniciarSesion),
+    path('iniciarSesion/', views.iniciarSesion, name='iniciarSesion'),
     path('cerrarSesion/', views.cerrarSesion),
     path('vistaEnvioCorreo/',views.vistaEnvioCorreo),
     path('enviarCambioContrasena/',views.enviarCambioContrasena),
@@ -44,7 +44,7 @@ urlpatterns = [
     path('verificarSesion/', views.verificarSesion, name='verificarSesion'),
     path('registroRuta/', views.registroRuta),
     path('vistaNombre/', views.vistaNombreUsuario),
-    path('enviarNombreUsuario/', views.registrarUsuarioIniciadoGoogle),
+    path('enviarNombreUsuario/', views.registrarUsuarioIniciadoGoogle, name='enviarNombreUsuario'),
     path('google-login/', views.google_login, name='google-login'),
     path('google-auth/', views.google_auth, name='google-auth'),
     path('github-login/', views.github_login, name='github-login'),
@@ -60,6 +60,6 @@ urlpatterns = [
     path('enviarCorreoRecuperacion/<str:tokenCambio>', views.mostrarInterfaz),
     path('cambioAndroid/', views.cambioAndroid),
     path('verGraficas/', views.verGraficas),
-    path('vistaListaNuevo/', views.desactivarOActivar),
+    path('vistaListaNuevo/', views.desactivarOActivar, name='desactivarOActivar'),
     path('', include('appBussRute.urls'))
 ]
