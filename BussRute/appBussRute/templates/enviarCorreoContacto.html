@@ -1,0 +1,5 @@
+{% extends "index.html" %}
+{% block contenido %}
+    <div>De: {{ remitente }}</div>
+    <div>{{ mensaje | safe }}</div>
+{% endblock %}

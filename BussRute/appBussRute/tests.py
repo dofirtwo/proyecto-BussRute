@@ -10,6 +10,8 @@ from bs4 import BeautifulSoup
 import pdb
 import json
 
+# BLOQUE DE MAURICIO CATAÑO TESTS -------------------------------------------------------------------------------------------
+
 class TestInicioSesion(TestCase):
     def setUp(self):
         self.client = Client()
@@ -183,7 +185,7 @@ class DesactivarOActivarViewTest(TestCase):
         # Limpia cualquier recurso o datos creados durante las pruebas
         self.ruta.delete()
 
-
+# BLOQUE DE JUAN ORITZ TESTS ------------------------------------------------------------------------------------------------
 
 class EliminarComentarioTest(TestCase):
     def setUp(self):
@@ -257,6 +259,8 @@ class CerrarSesionTest(TestCase):
         response = self.client.get(reverse('cerrarSesion'))
         self.assertEqual(response.status_code, 302)  # Verificar que la redirección fue exitosa
         self.assertNotIn('usuario_id', self.client.session)  # Verificar que 'usuario_id' ya no está en la sesión
+
+# BLOQUE DE SANTIAGO VARGAS TESTS ------------------------------------------------------------------------------------------------
 
 class VisualizarRutasTestCase(TestCase):
     def setUp(self):

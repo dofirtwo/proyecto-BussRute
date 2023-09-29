@@ -149,6 +149,14 @@ def generarCodigoVerificacion():
 clientID = '279970518458-chlpaq00krnoahgvdqdftdcfsu3gp8b9.apps.googleusercontent.com'
 redirectUri = 'https://bussrute.pythonanywhere.com/google-auth/'
 
+def contacto(request):
+    usuario_id = request.session.get('usuario_id')
+    usuario = None
+
+    if usuario_id:
+        usuario = Usuario.objects.get(id=usuario_id)
+    return render(request,'contacto.html', {'usuario':usuario})
+
 # BLOQUE DE VARGAS FUNCIONES -------------------------------------------------------------------------------------------
 
 def registroRuta(request):
@@ -1338,6 +1346,42 @@ def cambiarContrasena(request):
     retorno = {"mensaje": mensaje, "estado": estado}
     return render(request, "cambiarContrasena.html", retorno)
 
+def enviarMensajeContacto(request):
+    nombreUsuario = request.POST.get('NombreUsuario')
+    correoUsuario = request.POST.get('emailUsuario')
+    asuntoUsuario = request.POST.get('asuntoUsuario')
+    mensajeUsuario = request.POST.get('mensajeUsuario')
+    print(correoUsuario)
+    try:
+        thread = threading.Thread(target=enviarCorreoContacto,
+                              args=(asuntoUsuario, mensajeUsuario, [settings.EMAIL_HOST_USER], correoUsuario, request))
+        thread.start()
+        thread.join()
+        mensaje = f'Correo enviado exitosamente.'
+        retorno = {'mensaje': mensaje, 'estado': True}
+        return JsonResponse(retorno)
+    except ValidationError:
+        mensaje = f'No se pudo enviar el correo'
+        
+    return JsonResponse({'mensaje': mensaje, 'estado': False})
+
+
+def enviarCorreoContacto(asunto=None, mensaje=None, destinatario=None, remitente=None, request=None):
+    template = get_template('enviarCorreoContacto.html')
+    print(remitente)
+    contenido = template.render({
+        'destinatario': destinatario,
+        'mensaje': mensaje,
+        'asunto': asunto,
+        'remitente': remitente
+    })
+    try: 
+        correo = EmailMultiAlternatives(
+            asunto, mensaje, settings.EMAIL_HOST_USER, destinatario)
+        correo.attach_alternative(contenido, 'text/html')
+        correo.send(fail_silently=False)
+    except SMTPException as error:
+        print(error)
 
 
 #------------------------------------------------------------------------------
