@@ -4,6 +4,174 @@ let comentarios = []
 let ubicaciones = []
 let favoritos = []
 
+let sitios = [
+    {
+        nombre: "Estadio Guillermo Plazas Alcid",
+        coordenadas: [
+            [2.937096, -75.280227],   
+            [2.936764, -75.281488], 
+            [2.936202, -75.281423],  
+            [2.934809, -75.280806], 
+            [2.935168, -75.279310], 
+            [2.936764, -75.279685], 
+        ],
+        color: "#ff7800",
+        weight: 1
+    },
+    {
+        nombre: "Hospital General",
+        coordenadas: [
+            [2.933915, -75.281020],
+            [2.933291, -75.281966],
+            [2.930875, -75.281164],
+            [2.930832, -75.281127],
+            [2.931496, -75.280317],
+            [2.931676, -75.280100],
+            [2.933889, -75.280971]
+        ],
+        color: "#00ff00",
+        weight: 1
+    },
+    {
+        nombre: "Cementario",
+        coordenadas: [
+            [2.935137, -75.294844],
+            [2.935067, -75.295029],
+            [2.934207, -75.296829],
+            [2.932970, -75.296086],
+            [2.933587, -75.294669],
+            [2.933884, -75.294234]
+        ],
+        color: "#00ff00",
+        weight: 1
+    },
+    {
+        nombre: "Biblioteca Banco de la Republica",
+        coordenadas: [
+            [2.925263, -75.288289],  
+            [2.925121, -75.288658], 
+            [2.924864, -75.288557],  
+            [2.924993, -75.288192], 
+        ],
+        color: "#ff7800",
+        weight: 1
+    },
+    {
+        nombre: "Parque Leesburg",
+        coordenadas: [
+            [2.937551, -75.289330],  
+            [2.937221, -75.290126], 
+            [2.936755, -75.290024],  
+            [2.936889, -75.289254], 
+        ],
+        color: "#ff7800",
+        weight: 1
+    },
+    {
+        nombre: "Centro Comercial San Pedro Plaza",
+        coordenadas: [
+            [2.950750, -75.287006],  
+            [2.952571, -75.287711], 
+            [2.950868, -75.289755],  
+            [2.950621, -75.289539], 
+            [2.950392, -75.289325], 
+            [2.950068, -75.289083], 
+            [2.949837, -75.288947], 
+            [2.949597, -75.288835], 
+            [2.948754, -75.288458], 
+            [2.948623, -75.288490], 
+            [2.948363, -75.288451], 
+        ],
+        color: "#ff7800",
+        weight: 1
+    },
+    {
+        nombre: "La Cruz Roja",
+        coordenadas: [
+            [2.942958, -75.293270],  
+            [2.943104, -75.293900], 
+            [2.941589, -75.294304],  
+            [2.941495, -75.294296], 
+            [2.941646, -75.294243],  
+            [2.941804, -75.294159], 
+            [2.941854, -75.294113],  
+            [2.941927, -75.294005],
+            [2.942039, -75.293732],
+            [2.942071, -75.293616],
+            [2.942110, -75.293254],
+        ],
+        color: "#ff7800",
+        weight: 1
+    },
+    {
+        nombre: "Universidad Antonio Ñariño",
+        coordenadas: [
+            [2.940017, -75.255730],  
+            [2.940048, -75.256516], 
+            [2.940058, -75.256805],  
+            [2.940163, -75.257485], 
+            [2.938842, -75.257492],  
+            [2.938834, -75.255797], 
+        ],
+        color: "#ff7800",
+        weight: 1
+    },
+    {
+        nombre: "Canchas El Jardin",
+        coordenadas: [
+            [2.940614, -75.268698],  
+            [2.940595, -75.269305], 
+            [2.939758, -75.269313],  
+            [2.939781, -75.268656], 
+        ],
+        color: "#ff7800",
+        weight: 1
+    },
+    {
+        nombre: "Coca-Cola",
+        coordenadas: [
+            [2.954642, -75.297719],  
+            [2.955389, -75.301990], 
+            [2.954181, -75.302167],  
+            [2.953447, -75.297907], 
+        ],
+        color: "#ff7800",
+        weight: 1
+    },
+    {
+        nombre: "Terminal de Trasportes",
+        coordenadas: [
+            [2.918369, -75.280876],
+            [2.918363, -75.281518], 
+            [2.918265, -75.281590],  
+            [2.918227, -75.281739], 
+            [2.918264, -75.282755], 
+            [2.917948, -75.282967], 
+            [2.916646, -75.283001], 
+            [2.916350, -75.283030],  
+            [2.916243, -75.283065], 
+            [2.916104, -75.283181], 
+            [2.916081, -75.283179], 
+            [2.915365, -75.282635], 
+            [2.915323, -75.282188],  
+            [2.915264, -75.281860], 
+            [2.915264, -75.281860], 
+            [2.915240, -75.281615],  
+            [2.915264, -75.281578], 
+            [2.915307, -75.281614],           
+            [2.915677, -75.281528],
+            [2.916168, -75.281332],
+            [2.916738, -75.281025],         
+            [2.917159, -75.280712], 
+            [2.917334, -75.280886], 
+            [2.917473, -75.280938], 
+        ],
+        color: "#ff7800",
+        weight: 1
+    },
+    // Puedes agregar más cuadrados aquí
+];
+
 var map = L.map('map').setView([2.9341049606236704, -75.28170112926662], 13);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -14,7 +182,18 @@ document.getElementById('ruta').addEventListener('change', function () {
     var site = this.value;
     removeRoute();
     updateRoute(site);
-    mostrarDatosTabla()
+});
+
+document.getElementById('btnUbicacion').addEventListener('change', function () {
+    if (this.checked) {
+        mostrarRutasCercanas();
+    } else {
+        document.getElementById("ruta").innerHTML = ""
+        document.getElementById("ruta").innerHTML = `<option value="0">Seleccione</option>`
+        rutas.forEach(entradaR => {
+            document.getElementById("ruta").innerHTML += `<option value="${entradaR.numRuta}">Ruta ${entradaR.numRuta}</option>`
+        })
+    }
 });
 
 document.getElementById('cbBarrio').addEventListener('change', function () {
@@ -67,7 +246,85 @@ function removeRoute() {
     }
 }
 
+// Función para calcular la distancia haversine entre dos puntos en la Tierra
+function haversine(lat1, lon1, lat2, lon2) {
+    // Radio de la Tierra en kilómetros
+    var R = 6371;
+
+    // Convierte las coordenadas de grados a radianes
+    var lat1Rad = (lat1 * Math.PI) / 180;
+    var lon1Rad = (lon1 * Math.PI) / 180;
+    var lat2Rad = (lat2 * Math.PI) / 180;
+    var lon2Rad = (lon2 * Math.PI) / 180;
+
+    // Diferencias entre las coordenadas
+    var dLat = lat2Rad - lat1Rad;
+    var dLon = lon2Rad - lon1Rad;
+
+    // Fórmula haversine
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    // Distancia en kilómetros
+    var distance = R * c;
+
+    return distance;
+}
+
+
+
+function mostrarRutasCercanas() {
+    // Limpia el contenido actual del elemento <select>
+    document.getElementById("ruta").innerHTML = `<option value="0" disabled selected>Seleccione</option>`;
+
+    // Crear un objeto para mantener un registro de las rutas
+    var rutasAgregadas = {};
+
+    coodernadas.forEach(entradaR => {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            // Calcula la distancia entre tu ubicación y el punto específico
+            var distancia = haversine(lat, lon, entradaR.latitud, entradaR.longitud);
+
+            // Define un umbral de distancia (en kilómetros)
+            var umbral = 1.0; // Por ejemplo, 1 kilómetro
+            // Compara la distancia con el umbral
+            if (distancia <= umbral) {
+                posU = rutas.findIndex(ruta => ruta.numRuta == entradaR.idRuta);
+                // Verifica si esta ruta ya ha sido agregada antes
+                if (!rutasAgregadas[rutas[posU].numRuta]) {
+                    // Agrega la ruta al elemento <select>
+                    document.getElementById("ruta").innerHTML += `<option value="${rutas[posU].numRuta}">Ruta ${rutas[posU].numRuta}</option>`;
+
+                    // Marca la ruta como agregada en el registro
+                    rutasAgregadas[rutas[posU].numRuta] = true;
+                }
+            }
+        }, function (error) {
+            // Manejo de errores de geolocalización
+            console.error('Error de geolocalización:', error);
+        });
+    });
+}
+
+
 function updateRoute(site) {
+    map.eachLayer(function(layer) {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+    ubicacionDispositivo()
+    map.eachLayer(function(layer) {
+        if (layer instanceof L.Polygon) {
+            map.removeLayer(layer);
+        }
+    });
+    
     var options = {
         lineOptions: {
             styles: [{ color: '#46668d' }]
@@ -83,6 +340,25 @@ function updateRoute(site) {
     // Crear un arreglo para almacenar las coordenadas
     var waypoints = [];
     numeroRut = document.getElementById("ruta").value
+    
+    ubicaciones.forEach(entradaC => {
+        if (entradaC.ubiRuta == numeroRut){
+            sitios.forEach(function(cuadrado) {
+                if(cuadrado.nombre == entradaC.ubiSitioDeInteres){
+                    var polygon = L.polygon(cuadrado.coordenadas, { color: cuadrado.color, weight: cuadrado.weight }).addTo(map);
+                    // Calcular las coordenadas del centro del cuadrado
+                    var squareCenter = polygon.getBounds().getCenter();
+
+                    // Crear un marcador en el centro del cuadrado
+                    var marker = L.marker(squareCenter).addTo(map);
+                    polygon.bindPopup(cuadrado.nombre); // Agregar nombre como etiqueta emergente
+                }
+               
+            });
+        }
+    });
+
+
     //Guardar ruta en local Storage
     var cantidad = 1;
 
@@ -488,5 +764,19 @@ function hacerGrafica() {
   })
 }
 
+function ubicacionDispositivo(){
+    // Obtén la ubicación del dispositivo
+    navigator.geolocation.getCurrentPosition(function (position) {
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+
+        // Crea un marcador en la ubicación del dispositivo
+        L.marker([lat, lon]).addTo(map)
+            .bindPopup('Tu ubicación').openPopup();
+    }, function (error) {
+        // Manejo de errores
+        console.error('Error de geolocalización:', error);
+    });
+}
 
 

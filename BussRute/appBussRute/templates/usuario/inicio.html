@@ -51,6 +51,13 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="form-check">
+                    <label class="form-check-label">
+                        Ver Rutas que pasan cerca de tu Ubicacion
+                    </label>
+                    <input id="btnUbicacion" class="form-check-input" type="checkbox">
+                </div>
                 <div class="input-group rounded">
                     <select id="ruta" class="form-select colorFondoInput">
                         <option value="0" disabled selected>Seleccione</option>
@@ -169,27 +176,27 @@
 
 <br>
 {% load static %}
-<script>
-    
-</script>
-<script src="{%static '../static/js/mapa.js'%}"></script>
+    <script src="{%static '../static/js/mapa.js'%}"></script>
 {% for ruta in rutas %}
-<script>cargarRutas("{{ruta.id}}", "{{ruta.rutNumero}}", "{{ruta.rutEmpresa}}", "{{ruta.rutPrecio}}")</script>
+    <script>cargarRutas("{{ruta.id}}", "{{ruta.rutNumero}}", "{{ruta.rutEmpresa}}", "{{ruta.rutPrecio}}")</script>
 {% endfor %}
 {% for coordenada in coordenadas %}
-<script>cargasCoodernadas("{{coordenada.detRuta}}", "{{coordenada.detLatitud}}",
-        "{{coordenada.detLongitud}}")</script>
+    <script>cargasCoodernadas("{{coordenada.detRuta}}", "{{coordenada.detLatitud}}",
+            "{{coordenada.detLongitud}}")</script>
 {% endfor %}
 {% for ubicacion in ubicaciones %}
-<script>cargarUbicaciones("{{ubicacion.id}}", "{{ubicacion.ubiBarrio}}",
-        "{{ubicacion.ubiComuna}}", "{{ubicacion.ubiSitioDeInteres}}", "{{ubicacion.ubiRuta}}")</script>
+    <script>cargarUbicaciones("{{ubicacion.id}}", "{{ubicacion.ubiBarrio}}",
+            "{{ubicacion.ubiComuna}}", "{{ubicacion.ubiSitioDeInteres}}", "{{ubicacion.ubiRuta}}")</script>
 {% endfor %}
 {% for favoritos in rutasFavoritas %}
-<script>cargarFavorito("{{favoritos.favRuta}}", "{{favoritos.favUsuario}}")</script>
+    <script>cargarFavorito("{{favoritos.favRuta}}", "{{favoritos.favUsuario}}")</script>
 {% endfor %}
 {% for comentario in comentarios %}
-<script>cargarComentarios("{{comentario.comDescripcion}}", "{{comentario.comUsuario}}", "{{comentario.comValoracion}}", "{{comentario.comRuta}}")</script>
+    <script>cargarComentarios("{{comentario.comDescripcion}}", "{{comentario.comUsuario}}", "{{comentario.comValoracion}}", "{{comentario.comRuta}}")</script>
 {% endfor %}
+<script>
+    window.addEventListener('load', ubicacionDispositivo());
+</script>
 {% endblock %}
 {% block pie_pagina %}
 {% include "pie_pagina.html" %}

@@ -67,9 +67,11 @@ comunas =[
 
 sitiosDeInteres =[
     ('centro de Convenciones José Eustásio Rivera','centro de Convenciones José Eustásio Rivera'),
-    ('Monumentos a los Potros','Monumentos a los Potros'),('Centro Comercial San Pedro Plaza','Centro Comercial San Pedro Plaza'),
-    ('Parque de la Musica','Parque de la Musica'),('Parque Leesburg','Parque Leesburg'),
-    ('La Cruz Roja','La Cruz Roja'),('Los Comuneros','Los Comuneros')
+    ('Estadio Guillermo Plazas Alcid','Estadio Guillermo Plazas Alcid'),('Centro Comercial San Pedro Plaza','Centro Comercial San Pedro Plaza'),
+    ('Hospital General','Hospital General'),('Parque Leesburg','Parque Leesburg'),
+    ('La Cruz Roja','La Cruz Roja'),('Cementario','Cementario'),('Biblioteca Banco de la Republica','Biblioteca Banco de la Republica'),
+    ('Universidad Antonio Ñariño','Universidad Antonio Ñariño'),
+    ('Canchas El Jardin','Canchas El Jardin'),('Coca-Cola','Coca-Cola'),('Terminal de Trasportes','Terminal de Trasportes'),
 ]
 
 class Rol(models.Model):
