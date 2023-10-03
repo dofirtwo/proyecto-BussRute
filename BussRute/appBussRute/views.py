@@ -1354,7 +1354,7 @@ def enviarMensajeContacto(request):
     print(correoUsuario)
     try:
         thread = threading.Thread(target=enviarCorreoContacto,
-                              args=(asuntoUsuario, mensajeUsuario, [settings.EMAIL_HOST_USER], correoUsuario, request))
+                              args=(asuntoUsuario, mensajeUsuario, [settings.EMAIL_HOST_USER], correoUsuario, nombreUsuario, request))
         thread.start()
         thread.join()
         mensaje = f'Correo enviado exitosamente.'
@@ -1365,15 +1365,15 @@ def enviarMensajeContacto(request):
         
     return JsonResponse({'mensaje': mensaje, 'estado': False})
 
-
-def enviarCorreoContacto(asunto=None, mensaje=None, destinatario=None, remitente=None, request=None):
+def enviarCorreoContacto(asunto=None, mensaje=None, destinatario=None, remitente=None, nombreUsuario=None, request=None):
     template = get_template('enviarCorreoContacto.html')
     print(remitente)
     contenido = template.render({
         'destinatario': destinatario,
         'mensaje': mensaje,
         'asunto': asunto,
-        'remitente': remitente
+        'remitente': remitente,
+        'nombreUsuario': nombreUsuario  
     })
     try: 
         correo = EmailMultiAlternatives(
@@ -1382,6 +1382,7 @@ def enviarCorreoContacto(asunto=None, mensaje=None, destinatario=None, remitente
         correo.send(fail_silently=False)
     except SMTPException as error:
         print(error)
+
 
 
 #------------------------------------------------------------------------------

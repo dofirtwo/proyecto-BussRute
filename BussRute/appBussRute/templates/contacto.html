@@ -20,7 +20,7 @@
                     <input type="text" class="form-control" id="NombreUsuario" name="NombreUsuario" value="{{usuario.usuNombre}}" readonly>
                     {% else %}
                     <label for="NombreUsuario" class="fw-bold">Nombre:</label>
-                    <input type="text" class="form-control" id="NombreUsuario" name="NombreUsuario">
+                    <input type="text" class="form-control" id="NombreUsuario" name="NombreUsuario" required>
                     {% endif %}
                 </div>
                 <div class="form-group">
@@ -30,7 +30,7 @@
                         readonly>
                     {% else %}
                     <label for="emailUsuario" class="fw-bold">Correo electrónico:</label>
-                    <input type="email" class="form-control" id="emailUsuario" name="emailUsuario">
+                    <input type="email" class="form-control" id="emailUsuario" name="emailUsuario" required>
                     {% endif %}
                 </div>
                 <div class="form-group">
