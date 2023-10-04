@@ -468,6 +468,25 @@ input {
     border-radius: 25px;
 }
 
+#txtMensaje {
+    border-radius: 25px;
+}
+
+.txtNombre {
+    border-radius: 25px;
+}
+
+.txtCorreo {
+    border-radius: 25px;
+}
+
+.txtAsunto {
+    border-radius: 25px;
+}
+
+.txtMensaje {
+    border-radius: 25px;
+}
 
 
 

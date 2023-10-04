@@ -11,35 +11,37 @@
         <div class="col-12 col-md-8 col-lg-6">
             <div class="agregarComentarioHeader">
                 <h1>Contactanos</h1>
+                
+                <p>Ponte en contacto con nosotros</p>
             </div>
             <form class="needs-validation" enctype="multipart/form-data" action="/mensajeUsuario/" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                     {% if usuario %}
-                    <label for="NombreUsuario" class="fw-bold">Nombre:</label>
-                    <input type="text" class="form-control" id="NombreUsuario" name="NombreUsuario" value="{{usuario.usuNombre}}" readonly>
+                    <label for="NombreUsuario" class="fw-bold txtNombre mb-2 ml-2" id="txtNombre">Nombre:</label>
+                    <input type="text" class="form-control txtNombre mb-4" id="NombreUsuario" name="NombreUsuario" value="{{usuario.usuNombre}}" readonly>
                     {% else %}
-                    <label for="NombreUsuario" class="fw-bold">Nombre:</label>
-                    <input type="text" class="form-control" id="NombreUsuario" name="NombreUsuario" required>
+                    <label for="NombreUsuario" class="fw-bold mb-2 ml-2" id="txtNombre">Nombre:</label>
+                    <input type="text" class="form-control txtNombre mb-4" id="NombreUsuario" name="NombreUsuario" required>
                     {% endif %}
                 </div>
                 <div class="form-group">
                     {% if usuario %}
-                    <label for="emailUsuario" class="fw-bold">Correo electrónico:</label>
-                    <input type="email" class="form-control" id="emailUsuario" name="emailUsuario" value="{{usuario.usuCorreo}}"
+                    <label for="emailUsuario" class="fw-bold mb-2 ml-2">Correo electrónico:</label>
+                    <input type="email" class="form-control txtCorreo mb-4" id="emailUsuario" name="emailUsuario" value="{{usuario.usuCorreo}}"
                         readonly>
                     {% else %}
-                    <label for="emailUsuario" class="fw-bold">Correo electrónico:</label>
-                    <input type="email" class="form-control" id="emailUsuario" name="emailUsuario" required>
+                    <label for="emailUsuario" class="fw-bold mb-2 ml-2">Correo electrónico:</label>
+                    <input type="email" class="form-control txtCorreo mb-4" id="emailUsuario" name="emailUsuario" required>
                     {% endif %}
                 </div>
-                <div class="form-group">
-                    <label for="asuntoUsuario" class="fw-bold">Asunto:</label>
-                    <input type="text" class="form-control" id="asuntoUsuario" name="asuntoUsuario" required>
+                <div class="form-group"> 
+                    <label for="asuntoUsuario" class="fw-bold mb-2 ml-2">Asunto:</label>
+                    <input type="text" class="form-control txtAsunto mb-4" id="asuntoUsuario" name="asuntoUsuario" required>
                 </div>
                 <div class="form-group">
-                    <label for="mensajeUsuario" class="fw-bold">Mensaje:</label>
-                    <textarea class="form-control" id="mensajeUsuario" name="mensajeUsuario" required></textarea>
+                    <label for="mensajeUsuario" class="fw-bold mb-2 ml-2">Mensaje:</label>
+                    <textarea class="form-control txtMensaje mb-4 " id="mensajeUsuario" name="mensajeUsuario"  cols="35" rows="5" required></textarea>
                 </div>
                 <br>
                 <div class="d-flex justify-content-center">

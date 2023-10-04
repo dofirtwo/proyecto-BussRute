@@ -1351,7 +1351,6 @@ def enviarMensajeContacto(request):
     correoUsuario = request.POST.get('emailUsuario')
     asuntoUsuario = request.POST.get('asuntoUsuario')
     mensajeUsuario = request.POST.get('mensajeUsuario')
-    print(correoUsuario)
     try:
         thread = threading.Thread(target=enviarCorreoContacto,
                               args=(asuntoUsuario, mensajeUsuario, [settings.EMAIL_HOST_USER], correoUsuario, nombreUsuario, request))
