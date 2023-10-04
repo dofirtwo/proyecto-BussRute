@@ -177,6 +177,11 @@
 <br>
 {% load static %}
     <script src="{%static '../static/js/mapa.js'%}"></script>
+<!-- {% if not estado %}
+    <script>Swal.fire('Cuenta', "{{mensaje}}", 'success');
+        console.log("funciona")
+    </script> -->
+{% endif %}
 {% for ruta in rutas %}
     <script>cargarRutas("{{ruta.id}}", "{{ruta.rutNumero}}", "{{ruta.rutEmpresa}}", "{{ruta.rutPrecio}}")</script>
 {% endfor %}

@@ -86,6 +86,7 @@ def crearCuenta(request):
     else:
         return render(request, "crearCuenta.html")
 
+
 def visualizarRutas(request):
     usuario_id = request.session.get('usuario_id')
     usuario = None
@@ -226,6 +227,8 @@ def eliminarRuta(request):
                 ruta = Ruta.objects.get(id=id)
                 detalleRuta = DetalleRuta.objects.filter(detRuta=ruta)
                 ubicacion = UbicacionRuta.objects.filter(ubiRuta=ruta)
+                favorito = FavoritoRuta.objects.filter(favRuta=ruta)
+                favorito.delete()
                 ubicacion.delete()
                 detalleRuta.delete()
                 ruta.delete()
@@ -252,13 +255,23 @@ def registroFavorito(request):
                     ruta = None
                     if usuario_id:
                         ruta = Ruta.objects.get(rutNumero=numeroRuta)
+                        print(ruta.id)
                         usuario = Usuario.objects.get(id=usuario_id)
-                        rutFavorita = FavoritoRuta(favRuta=ruta,favUsuario=usuario)
-                        rutFavorita.save()
-                        mensaje="Ruta Añadida a Favorito Correctamente"
+                        print(usuario)
+                        prueba = FavoritoRuta.objects.filter(favRuta=ruta,favUsuario=usuario)
+                        if prueba:
+                            mensaje="Ya tienes esa Ruta añadida en Favorito"
+                            estado = False
+                            for p in prueba:
+                                print(p.favRuta)
+                            print("hayalgo ?")
+                        else:
+                            rutFavorita = FavoritoRuta(favRuta=ruta,favUsuario=usuario)
+                            rutFavorita.save()
+                            mensaje="Ruta Añadida a Favorito Correctamente"
+                            estado = True
                     else:
-                        mensaje="Debe Iniciar Sesion Primero"
-                    estado = True
+                        mensaje="Debe Iniciar Sesion Primero"                 
         except Error as error:
             transaction.rollback()
             mensaje = f"{error}"

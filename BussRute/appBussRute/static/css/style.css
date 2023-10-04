@@ -159,6 +159,11 @@
 
 
 /* CSS DE VARGAS */
+#comentarios {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Mostrar 4 elementos a lo ancho */
+    grid-gap: 16px; /* Espacio entre elementos */
+  }
 
 .comment {
     display: flex;

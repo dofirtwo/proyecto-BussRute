@@ -1,10 +1,7 @@
-$(function () {
-  $("#fileFoto").on("change", validar);
-})
-
 let coodernadas = []
 let coordenadaRuta = []
 let ubicacionRuta = []
+
 $(function () {
   //se utiliza para las peticiones ajax con query
   $.ajaxSetup({
@@ -33,10 +30,15 @@ function getCookie(name) {
   return cookieValue;
 }
 
+//Este evento ejecuta la funcion cuando la pagina carga
 document.addEventListener("DOMContentLoaded", function () {
   trazarRuta();
 });
 
+/**
+ * Esta funcion se encarga de inicializar el mapa de la api y lograr que al momento de darle click en algun punto
+ * del mapa este guarde las coordenadas (latitud, longitd) en una lista 
+ */
 function trazarRuta() {
   // Crea un mapa
   const map = L.map('map').setView([2.9341049606236704, -75.28170112926662], 13);
@@ -64,9 +66,6 @@ function trazarRuta() {
   map.on('click', (e) => {
     const latlng = e.latlng;
 
-    // Mostrar coordenadas en la consola
-    console.log('Latitud:', latlng.lat);
-    console.log('Longitud:', latlng.lng);
     agregarDetalleSolicitud(latlng.lat, latlng.lng)
     cargarCoodernada(document.getElementById("txtNumeroRuta").value, latlng.lat, latlng.lng);
     // Crea un marcador en la ubicación del clic con el icono personalizado
@@ -104,7 +103,7 @@ function trazarRuta() {
         showAlternatives: false,
         routeLine: (route) => {
           return L.Routing.line(route, {
-            styles: [{ color: '#00A99D' }]
+            styles: [{ color: '#46668d' }]
           });
         }
       }).addTo(map);
@@ -118,7 +117,10 @@ function trazarRuta() {
   });
 }
 
-
+/**
+ * Esta funcion se encarga de mandar los datos de la Ruta, a la funcion en Python/Django
+ * por Post
+ */
 function registroDatosRuta() {
   var datos = {
     "numeroRuta": $("#txtNumeroRuta").val(),
@@ -145,6 +147,12 @@ function registroDatosRuta() {
   })
 }
 
+/**
+ * Esta funcion se encarga de guardar las coodernadas de una punto de la ruta en una lista
+ * tambien muestra en una tabla los valores que tiene esta lista
+ * @param {Double} latitud latitud del punto de la Ruta
+ * @param {Double} Longitud longitud del punto de la Ruta
+ */
 function agregarDetalleSolicitud(latitud, Longitud) {
   const elemento = {
     "numeroRuta": $("#txtNumeroRuta").val(),
@@ -155,6 +163,9 @@ function agregarDetalleSolicitud(latitud, Longitud) {
   mostrarDatosTabla()
 }
 
+/**
+ * Esta funcion se encarga de colocar en una tabla los valores que tenga la lista de coordenadasRuta
+ */
 function mostrarDatosTabla() {
   datos = "";
   coordenadaRuta.forEach(entrada => {
@@ -177,25 +188,13 @@ function cargarCoodernada(numRuta, Latitud, Longitud) {
   console.log(coodernadas)
 }
 
-function validar(evt) {
-  let files = evt.target.files
-  let file = files[0]
-  let url = URL.createObjectURL(file)
-  $("#imagenProducto").attr("src", url)
-
-  let fileName = files[0].name
-  let fileSize = files[0].size
-  let extension = fileName.split('.').pop()
-  extension = extension.toLowerCase()
-  if (extension != "jpg") {
-    Swal.fire({ title: 'Problemas', text: "Solo se pueden cargar Imagenes con extension .jpg", icon: 'error', })
-    $("#fileFoto").val("")
-  } else if (fileSize > "50000") {
-    Swal.fire({ title: 'Problemas', text: "Solo se pueden cargar Imagenes mayores a 50Kb .jpg", icon: 'error', })
-    $("#fileFoto").val("")
-  }
-}
-
+/**
+ * Esta funcion se encarga de llenar la lista de ubicacionRuta con datos
+ * tambien se encarga de mostrar en una tabla 
+ * @param {String} barrio Barrio de la Ubicacion
+ * @param {String} comuna Comuna de la Ubicacion
+ * @param {String} sitio Sitio de Interes de la Ubicacion
+ */
 function cargarUbicacion(barrio, comuna, sitio) {
   const ubicacion = {
     "numeroRuta": $("#txtNumeroRuta").val(),
@@ -207,6 +206,9 @@ function cargarUbicacion(barrio, comuna, sitio) {
   mostrarDatosUnicacionTabla()
 }
 
+/**
+ * esta funcion se encarga de enviar los datos a la funcion de cargarUbicacion
+ */
 function agregarUbicacion() {
   barrio = document.getElementById("cbBarrio").value
   comuna = document.getElementById("cbComuna").value
@@ -214,6 +216,9 @@ function agregarUbicacion() {
   cargarUbicacion(barrio, comuna, sitio)
 }
 
+/**
+ * Esta funcion se encarga de colocar en una tabla los valores que tenga la lista de ubicacionRuta
+ */
 function mostrarDatosUnicacionTabla() {
   datos = "";
   ubicacionRuta.forEach(entrada => {
@@ -227,6 +232,11 @@ function mostrarDatosUnicacionTabla() {
   document.getElementById("datosUbicacionRutas").innerHTML = datos;
 }
 
+/**
+ * Esta funcion se encarga de abrir una modal para al momento de eliminar pueda tomar la decision final 
+ * y si el selecciona que "Si" ejecuta la funcion eliminarRuta()
+ * @param {Int} id Id de la Ruta
+ */
 function abrirModalEliminar(id){
   Swal.fire({
       title: 'Eliminar Ruta',
@@ -244,6 +254,10 @@ function abrirModalEliminar(id){
     })
 }
 
+/**
+ * Esta funcion de encarga de Realizar una peticion a Python/Django para eliminar una ruta de la base de datos
+ * @param {Int} id Id de la Ruta
+ */
 function eliminarRuta(id) {
   var datos = {
     "id": id,
@@ -255,14 +269,21 @@ function eliminarRuta(id) {
     dataType: 'json',
     cache: false,
     success: function (resultado) {
-      console.log(resultado);
-      window.location.reload();
       Swal.fire("Registro de Solicitud", resultado.mensaje, "success")
+        .then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
     }
   })
 }
 
-
+/**
+ * Esta funcion se encarga de Realizar una peticion a Python/Django para cambiar el estado de la ruta
+ * ya sea de (A) a (I) o de (I) a (A)
+ * @param {Int} id Id de la Ruta
+ */
 function cambiarEstado(id) {
   $.ajax({
       url: '/vistaListaNuevo/',

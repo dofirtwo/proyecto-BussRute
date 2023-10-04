@@ -4,6 +4,7 @@ let comentarios = []
 let ubicaciones = []
 let favoritos = []
 
+//Json de los sitios de interes para lograr bordearlos mediante la api (con su logintud y latitud)
 let sitios = [
     {
         nombre: "Estadio Guillermo Plazas Alcid",
@@ -15,7 +16,6 @@ let sitios = [
             [2.935168, -75.279310], 
             [2.936764, -75.279685], 
         ],
-        color: "#ff7800",
         weight: 1
     },
     {
@@ -29,7 +29,6 @@ let sitios = [
             [2.931676, -75.280100],
             [2.933889, -75.280971]
         ],
-        color: "#00ff00",
         weight: 1
     },
     {
@@ -42,7 +41,6 @@ let sitios = [
             [2.933587, -75.294669],
             [2.933884, -75.294234]
         ],
-        color: "#00ff00",
         weight: 1
     },
     {
@@ -53,7 +51,6 @@ let sitios = [
             [2.924864, -75.288557],  
             [2.924993, -75.288192], 
         ],
-        color: "#ff7800",
         weight: 1
     },
     {
@@ -64,7 +61,6 @@ let sitios = [
             [2.936755, -75.290024],  
             [2.936889, -75.289254], 
         ],
-        color: "#ff7800",
         weight: 1
     },
     {
@@ -82,7 +78,6 @@ let sitios = [
             [2.948623, -75.288490], 
             [2.948363, -75.288451], 
         ],
-        color: "#ff7800",
         weight: 1
     },
     {
@@ -100,7 +95,6 @@ let sitios = [
             [2.942071, -75.293616],
             [2.942110, -75.293254],
         ],
-        color: "#ff7800",
         weight: 1
     },
     {
@@ -113,7 +107,6 @@ let sitios = [
             [2.938842, -75.257492],  
             [2.938834, -75.255797], 
         ],
-        color: "#ff7800",
         weight: 1
     },
     {
@@ -124,7 +117,6 @@ let sitios = [
             [2.939758, -75.269313],  
             [2.939781, -75.268656], 
         ],
-        color: "#ff7800",
         weight: 1
     },
     {
@@ -135,7 +127,6 @@ let sitios = [
             [2.954181, -75.302167],  
             [2.953447, -75.297907], 
         ],
-        color: "#ff7800",
         weight: 1
     },
     {
@@ -166,24 +157,37 @@ let sitios = [
             [2.917334, -75.280886], 
             [2.917473, -75.280938], 
         ],
-        color: "#ff7800",
         weight: 1
     },
     // Puedes agregar más cuadrados aquí
 ];
 
+//Inicializa la api para que muestre un mapa en unas coordenadas deseadas
+//en este caso Neiva
 var map = L.map('map').setView([2.9341049606236704, -75.28170112926662], 13);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
+//evento para cuando se seleccione una ruta y esta se pueda vizualizar
 document.getElementById('ruta').addEventListener('change', function () {
-    var site = this.value;
-    removeRoute();
-    updateRoute(site);
+    ocultarRuta();
+    if (document.getElementById('ruta').value == 0){
+        document.getElementById("txtEmpresa").value = ""
+        document.getElementById("txtPrecio").value = ""
+        document.getElementById("txtNumero").value = ""
+        document.getElementById("comentarios").innerHTML=""
+        document.getElementById("txtColor").value = ""
+        document.getElementById("txtImagenFrente").src = ""
+        document.getElementById("txtImagenLado").src = ""
+    } else{
+        mostrarRuta();
+    }
 });
 
+//evento cuando se seleccione la opcion de mostrar las Rutas que pasan cerca
+//de la Ubicacion actual del Usuario
 document.getElementById('btnUbicacion').addEventListener('change', function () {
     if (this.checked) {
         mostrarRutasCercanas();
@@ -196,14 +200,17 @@ document.getElementById('btnUbicacion').addEventListener('change', function () {
     }
 });
 
+//eventos para cuando se seleccione alguno de los filtros(Barrio,Comuna,Sitio de Interes)  
 document.getElementById('cbBarrio').addEventListener('change', function () {
     document.getElementById("ruta").innerHTML = ""
     filtroBarrio()
 });
+
 document.getElementById('cbComuna').addEventListener('change', function () {
     document.getElementById("ruta").innerHTML = ""
     filtroComuna()
 });
+
 document.getElementById('cbSitioDeInteres').addEventListener('change', function () {
     document.getElementById("ruta").innerHTML = ""
     filtroSitio()
@@ -239,14 +246,23 @@ function getCookie(name) {
 
 var control;
 
-
-function removeRoute() {
+/**
+ * Funcion para ocutar la ruta que se encuentra visible
+ */
+function ocultarRuta() {
     if (control) {
         control.remove();
     }
 }
 
-// Función para calcular la distancia haversine entre dos puntos en la Tierra
+/**
+ * Funcion para caclular la distancia entre un punto de la ruta y la ubicacion acutal de Usuario
+ * @param {Double} lat1 latitud en la cual se encuentra el Usuario
+ * @param {Double} lon1 longitud en la cual se encuentra el Usuario
+ * @param {Double} lat2 latitud en la cual se encuentra un Punto de la Ruta
+ * @param {Double} lon2 longitud en la cual se encuentra un Punto de la Ruta
+ * @returns 
+ */
 function haversine(lat1, lon1, lat2, lon2) {
     // Radio de la Tierra en kilómetros
     var R = 6371;
@@ -275,7 +291,9 @@ function haversine(lat1, lon1, lat2, lon2) {
 }
 
 
-
+/**
+ * Funcion encargada de mostrar las rutas cercanas a la ubicacion actual de Usuario
+ */
 function mostrarRutasCercanas() {
     // Limpia el contenido actual del elemento <select>
     document.getElementById("ruta").innerHTML = `<option value="0" disabled selected>Seleccione</option>`;
@@ -311,8 +329,12 @@ function mostrarRutasCercanas() {
     });
 }
 
-
-function updateRoute(site) {
+/**
+ * Funcion encargada de Trazar la Ruta en el mapa y mostrar los valores de la ruta seleccionada (Nombre,Precio,Color,imagenes,Numero de Ruta)
+ * tambien muestra los Comentarios que se tienen relacionados con la Ruta (Si es que esta tiene)
+ * y por ultimo muestra en la mapa los sitios de interes por donde para la Ruta (Estos se muestran de un color) 
+ */
+function mostrarRuta() {
     map.eachLayer(function(layer) {
         if (layer instanceof L.Marker) {
             map.removeLayer(layer);
@@ -345,7 +367,7 @@ function updateRoute(site) {
         if (entradaC.ubiRuta == numeroRut){
             sitios.forEach(function(cuadrado) {
                 if(cuadrado.nombre == entradaC.ubiSitioDeInteres){
-                    var polygon = L.polygon(cuadrado.coordenadas, { color: cuadrado.color, weight: cuadrado.weight }).addTo(map);
+                    var polygon = L.polygon(cuadrado.coordenadas, { color:"#6f7fe2 ", weight: cuadrado.weight }).addTo(map);
                     // Calcular las coordenadas del centro del cuadrado
                     var squareCenter = polygon.getBounds().getCenter();
 
@@ -412,7 +434,7 @@ function updateRoute(site) {
             if (rutas[posR].preRuta == 2400){
                 if (rutas[posR].empRuta == "Coomotor") {
                     document.getElementById("txtColor").value = "Azul"
-                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Nuevas/RUTANUEVACOOMOTOR.jpg'
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Nuevas/RUTANUEVAVCOOMOTOR.jpg'
                     document.getElementById("txtImagenLado").src = '../../static/img/Buses/Nuevas/RUTANUEVACOOMOTROLADO.jpg'
                 }
                 if (rutas[posR].empRuta == "CootransHuila") {
@@ -454,8 +476,8 @@ function updateRoute(site) {
                 }
                 if (rutas[posR].empRuta == "CootransNeiva") {
                     document.getElementById("txtColor").value = "Blanco con Rojo"
-                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOTRANSNEIVA'
-                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOTRANSNEIVALADO'
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOTRANSNEIVA.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOTRANSNEIVALADO.jpg'
                 }
                 if (rutas[posR].empRuta == "AutoBuses") {
                     document.getElementById("txtColor").value = "Verde Oscuro"
@@ -491,9 +513,15 @@ function updateRoute(site) {
       });
 }
 
+/**
+ * Esta funcion es la encargada de ser un filtro por Barrios, mostrando las rutas que pasan por este
+ * cuando no se selecciona un Barrio esta volvera a mostrar todas las Rutas
+ */
 function filtroBarrio() {
     let rutasAgregadas = [];
     ubiBarrio = document.getElementById("cbBarrio").value
+    document.getElementById('cbSitioDeInteres').disabled = true;
+    document.getElementById('cbComuna').disabled = true;
     document.getElementById("ruta").innerHTML += `<option value="0" disabled selected>Seleccione</option>`
     ubicaciones.forEach(entradaU => {
         if (entradaU.ubiBarrio == ubiBarrio) {
@@ -508,6 +536,8 @@ function filtroBarrio() {
     if (ubiBarrio == "0") {
         document.getElementById("ruta").innerHTML = ""
         document.getElementById("ruta").innerHTML = `<option value="0">Seleccione</option>`
+        document.getElementById('cbSitioDeInteres').disabled = false;
+        document.getElementById('cbComuna').disabled = false;
         rutas.forEach(entradaR => {
             document.getElementById("ruta").innerHTML += `<option value="${entradaR.numRuta}">Ruta ${entradaR.numRuta}</option>`
         })
@@ -515,9 +545,15 @@ function filtroBarrio() {
 
 }
 
+/**
+ * Esta funcion es la encargada de ser un filtro por Comunas, mostrando las rutas que pasan por este
+ * cuando no se selecciona un Comuna esta volvera a mostrar todas las Rutas
+ */
 function filtroComuna() {
     let rutasAgregadas = [];
     ubiComuna = document.getElementById("cbComuna").value
+    document.getElementById('cbBarrio').disabled = true;
+    document.getElementById('cbSitioDeInteres').disabled = true;
     document.getElementById("ruta").innerHTML += `<option value="0" disabled selected>Seleccione</option>`
     ubicaciones.forEach(entradaU => {
         if (entradaU.ubiComuna == ubiComuna) {
@@ -531,6 +567,8 @@ function filtroComuna() {
     if (ubiComuna == "0") {
         document.getElementById("ruta").innerHTML = ""
         document.getElementById("ruta").innerHTML = `<option value="0">Seleccione</option>`
+        document.getElementById('cbBarrio').disabled = false;
+        document.getElementById('cbSitioDeInteres').disabled = false;
         rutas.forEach(entradaR => {
             document.getElementById("ruta").innerHTML += `<option value="${entradaR.numRuta}">Ruta ${entradaR.numRuta}</option>`
         })
@@ -538,9 +576,15 @@ function filtroComuna() {
 
 }
 
+/**
+ * Esta funcion es la encargada de ser un filtro por los Sitios de Interes, mostrando las rutas que pasan por este
+ * cuando no se selecciona un Sitio de Interes esta volvera a mostrar todas las Rutas
+ */
 function filtroSitio() {
     let rutasAgregadas = [];
     ubiSitioDeInteres = document.getElementById("cbSitioDeInteres").value
+    document.getElementById('cbBarrio').disabled = true;
+    document.getElementById('cbComuna').disabled = true;
     document.getElementById("ruta").innerHTML += `<option value="0" disabled selected>Seleccione</option>`
     ubicaciones.forEach(entradaU => {
         if (entradaU.ubiSitioDeInteres == ubiSitioDeInteres) {
@@ -555,6 +599,8 @@ function filtroSitio() {
     if (ubiSitioDeInteres == "0") {
         document.getElementById("ruta").innerHTML = ""
         document.getElementById("ruta").innerHTML = `<option value="0">Seleccione</option>`
+        document.getElementById('cbBarrio').disabled = false;
+        document.getElementById('cbComuna').disabled = false;
         rutas.forEach(entradaR => {
             document.getElementById("ruta").innerHTML += `<option value="${entradaR.numRuta}">Ruta ${entradaR.numRuta}</option>`
         })
@@ -562,6 +608,13 @@ function filtroSitio() {
 
 }
 
+/**
+ * Funcion encargada de Cargar los Comentarios existenten en la base de datos
+ * @param {String} comDescripcion Contenido del Comentario
+ * @param {String} conUsuario Usuario que realizo el Comentario
+ * @param {Int} conValoracion Valoracion que el Usuario le dio al Comentario
+ * @param {Int} comRuta Ruta a la cual el Usuario realizo el Comentario
+ */
 function cargarComentarios(comDescripcion, conUsuario, conValoracion, comRuta) {
     const comentario = {
         "comDescripcion": comDescripcion,
@@ -573,6 +626,13 @@ function cargarComentarios(comDescripcion, conUsuario, conValoracion, comRuta) {
 
 }
 
+/**
+ * Funcion encargada de Cargar las Rutas existenten en la base de datos
+ * @param {Int} idRuta Id de la ruta
+ * @param {Int} numRuta Numero que la Ruta tiene
+ * @param {String} empRuta Empresa que dueña de la Ruta
+ * @param {Int} preRuta Precio que tiene la Ruta
+ */
 function cargarRutas(idRuta, numRuta, empRuta, preRuta) {
     const ruta = {
         "id": idRuta,
@@ -584,6 +644,12 @@ function cargarRutas(idRuta, numRuta, empRuta, preRuta) {
 
 }
 
+/**
+ * Funcion encargada de Cargar las Coordenadas existenten en la base de datos
+ * @param {Int} idRuta 
+ * @param {Double} latitud 
+ * @param {Double} longitud 
+ */
 function cargasCoodernadas(idRuta, latitud, longitud,) {
     const coordenada = {
         "idRuta": idRuta,
@@ -593,6 +659,14 @@ function cargasCoodernadas(idRuta, latitud, longitud,) {
     coodernadas.push(coordenada);
 }
 
+/**
+ * Funcion encargada de Cargar las Ubicaciones existenten en la base de datos
+ * @param {Int} id Id de la Ubicacion
+ * @param {String} ubiBarrio Barrio donde se encuentra la Ubicacion
+ * @param {String} ubiComuna Comuna donde se encuentra la Ubicacion
+ * @param {String} ubiSitioDeInteres Sitio de Interes donde se encuentra la Ubicacion
+ * @param {Int} ubiRuta Ruta la cual pasa por la Ubicacion
+ */
 function cargarUbicaciones(id, ubiBarrio, ubiComuna, ubiSitioDeInteres, ubiRuta) {
     const ubicacion = {
         "id": id,
@@ -605,6 +679,11 @@ function cargarUbicaciones(id, ubiBarrio, ubiComuna, ubiSitioDeInteres, ubiRuta)
 
 }
 
+/**
+ * Funcion encargada de Cargar los Favoritos existenten en la base de datos
+ * @param {Int} ruta Ruta la cual fue Guardada en Favorito
+ * @param {Int} usuario Usuario el cual Guardo la Ruta en Favorito
+ */
 function cargarFavorito(ruta, usuario) {
     const favorito = {
         "ruta": ruta,
@@ -613,6 +692,9 @@ function cargarFavorito(ruta, usuario) {
     favoritos.push(favorito);
 }
 
+/**
+ * Esta funcion se encarga de verificar si el Usuario esta en session y si es asi muestra la modal de Favoritos
+ */
 function verFavoritos() {
     $.ajax({
         url: '/verificarSesion/',
@@ -631,6 +713,9 @@ function verFavoritos() {
     });
 }
 
+/**
+ * Esta Funcion se encarga de crear una modal con las Rutas Favoritas 
+ */
 function mostrarFavoritos() {
     document.getElementById("RutasFavoritas").innerHTML = ""
     favoritos.forEach(entradaF => {
@@ -653,6 +738,10 @@ function mostrarFavoritos() {
     })
 }
 
+/**
+ * Esta funcion se encarga de Vizualizar la Ruta Favorita que se seleccione 
+ * @param {Int} numeroRuta Numero de la Ruta Favorita
+ */
 function vizualizarRutaFavorita(numeroRuta) {
     removeRoute();
     var options = {
@@ -705,6 +794,10 @@ function vizualizarRutaFavorita(numeroRuta) {
     control.hide();
 }
 
+/**
+ * Esta funcion se encarga de Eliminar la Ruta Favorita que se seleccione 
+ * @param {Int} NumeroRuta Numero de la Ruta Favorita
+ */
 function eliminarFavorito(NumeroRuta) {
   var datos = {
     "numeroRuta": NumeroRuta,
@@ -723,6 +816,10 @@ function eliminarFavorito(NumeroRuta) {
   })
 }
 
+/**
+ * Esta funcion se encarga de guardar la cantidad de veces que se selecciona una ruta en el Local Storage
+ * para posteriormente graficar los datos
+ */
 function hacerGrafica() {
    var ruta=[];
    var cantidad=[];
@@ -764,6 +861,9 @@ function hacerGrafica() {
   })
 }
 
+/**
+ * Esta funcion se encarga de obtener la Ubicacion actual del Usuario
+ */
 function ubicacionDispositivo(){
     // Obtén la ubicación del dispositivo
     navigator.geolocation.getCurrentPosition(function (position) {

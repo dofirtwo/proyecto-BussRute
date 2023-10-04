@@ -47,6 +47,10 @@ function verificarSesion() {
   });
 }
 
+/**
+ * Esta funcion se encarga de realizar la peticion para añadir una Ruta a Favoritos
+ * y si sale correcto o hay error muestra una alerta
+ */
 function añadirFavorito(){
   if(document.getElementById("ruta").value==""){
       Swal.fire('Ruta', 'Debe Seleccionar la Ruta Primero', 'error');
@@ -61,9 +65,18 @@ function añadirFavorito(){
           dataType: 'json',
           cache: false,
           success: function(resultado){
-              Swal.fire('Cuenta', 'Ruta Agregada Correctamente', 'success');
-              window.location.reload();
-              console.log(resultado);
+              if (resultado.estado == false) {
+                Swal.fire('Cuenta', resultado.mensaje, 'error');
+              } else {
+                Swal.fire('Cuenta', resultado.mensaje, 'success')
+                  .then((result) => {
+                    if (result.isConfirmed) {
+                      window.location.reload();
+                    }
+                  });
+                
+              }
+              
           }
       })
   }
