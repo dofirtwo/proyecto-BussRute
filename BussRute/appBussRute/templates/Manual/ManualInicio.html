@@ -1,0 +1,89 @@
+{% extends "index.html" %}
+{% block encabezado %}
+{% include "encabezado.html" %}
+{% endblock %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock %}
+{% block contenido %}
+{% load static %}
+<!--Titulo-->
+<div class="container-fluid border border-primary p-4 text-center mb-4">
+    <h1 class="custom-h1">Manual de Usuario</h1>
+    <p class="custom-p">¡Bienvenido al manual de usuario de nuestra aplicación! Aquí encontrarás toda la información que
+        necesitas para comenzar a usar nuestra aplicación de manera efectiva.</p>
+
+</div>
+<!--Contenido del manual-->
+<!--EL INICIO DE SESION-->
+<div class="container-fluid border border-success p-4 contenido-manual">
+    <h1 class="custom-h1">Inicio de Sesión</h1>
+    <p class="custom-p">El inicio de sesión es el proceso mediante el cual puedes acceder a tu cuenta en nuestra
+        aplicación. Para iniciar sesión, sigue estos pasos:</p>
+    <!--1 Contenido-->
+    <ol>
+        <li class="Subtitulo">Acceso a la Página de Inicio de Sesión</li>
+    </ol>
+    <p class="Subparrafo">Para comenzar, ve a la página de inicio de sesión.
+        Desde allí, los usuarios pueden iniciar sesión en cuentas existentes o crear nuevas.</p>
+    <div class="imageN">
+        <img src="{% static '../static/img/imgManual/AccessPI.jpeg' %}" alt="">
+    </div>
+
+    <!--2 Contenido-->
+    <ol start="2">
+        <li class="Subtitulo">Acceso a la Interfaz de Creación de Cuenta: </li>
+    </ol>
+    <p class="Subparrafo">Cuando llegues a la página de inicio de sesión, encontrarás una interfaz para crear nuevas
+        cuentas.
+        Aquí comienza el proceso de registro.</p>
+    <div class="imageN"> <!-- Envuelve la imagen en un div centrado -->
+        <img src="{% static '../static/img/imgManual/createAccount.jpeg' %}" alt="">
+    </div>
+    <p class="Subparrafo">Tras completar el registro con éxito, verás una notificación en pantalla
+        confirmando que tu cuenta se ha creado satisfactoriamente y ya está lista para usar.</p>
+    <div class="imageN">
+        <img src="{% static '../static/img/imgManual/successfulconfirmation.jpeg' %}" alt="">
+    </div>
+
+    <!--3 Contenido-->
+    <ol start="3">
+        <li class="Subtitulo">Regreso a la Sección de Inicio de Sesión tras la Creación: </li>
+    </ol>
+    <p class="Subparrafo">Después de crear tu cuenta, serás redirigido de vuelta a la página de inicio de sesión.
+        Ahí podrás ingresar con tu nueva cuenta y acceder a todos nuestros servicios y características.</p>
+    <div class="imageN"> <!-- Envuelve la imagen en un div centrado -->
+        <img src="{% static '../static/img/imgManual/ReturntotheHomeSection.jpeg' %}" alt="">
+    </div>
+
+    <!--4 Contenido-->
+    <ol start="4">
+        <li class="Subtitulo">Acceso a la Página Principal Después de Iniciar Sesión: </li>
+    </ol>
+    <p class="Subparrafo">Al hacer clic en 'Iniciar sesión', irás a la página principal. En tu perfil,
+        verás el nombre de tu cuenta y una bienvenida personalizada.</p>
+    <div class="imageN"> <!-- Envuelve la imagen en un div centrado -->
+        <img src="{% static '../static/img/imgManual/Accesstothemainpage.jpeg' %}" alt="">
+    </div>
+
+    <!--4 Contenido-->
+    <ol start="5">
+        <li class="Subtitulo">Manejo de Credenciales Incorrectas: </li>
+    </ol>
+    <p class="Subparrafo">Si ingresaste mal el correo o contraseña, verás un mensaje de error que te pedirá verificar y
+        volver a intentar.</p>
+    <div class="imageN"> <!-- Envuelve la imagen en un div centrado -->
+        <img src="{% static '../static/img/imgManual/IncorrectCredentials.jpeg' %}" alt="">
+    </div>
+    <!-- Enlace a Sección 1 -->
+    <a href="/manual/">Como iniciar Sesion</a>
+    <a href="/manual1/">Agregar Comentario</a>
+    <a href="/manual2/">Registrarse con Google</a>
+    <a href="/manual3/">Olvido contraseña</a>
+    <a href="/manual4/">Como visualizar Rutas</a>
+
+</div>
+{% endblock %}
+{% block pie_pagina %}
+{% include "pie_pagina.html" %}
+{% endblock %}

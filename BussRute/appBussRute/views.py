@@ -158,6 +158,48 @@ def contacto(request):
         usuario = Usuario.objects.get(id=usuario_id)
     return render(request,'contacto.html', {'usuario':usuario})
 
+
+def manualInicio(request):
+    usuario_id = request.session.get('usuario_id')
+    usuario = None
+
+    if usuario_id:
+        usuario = Usuario.objects.get(id=usuario_id)
+    return render(request,'Manual/ManualInicio.html', {'usuario':usuario})
+
+def manualComentario(request):
+    usuario_id = request.session.get('usuario_id')
+    usuario = None
+
+    if usuario_id:
+        usuario = Usuario.objects.get(id=usuario_id)
+    return render(request,'Manual/ManualComentario.html', {'usuario':usuario})
+
+def manualRegistrarse(request):
+    usuario_id = request.session.get('usuario_id')
+    usuario = None
+
+    if usuario_id:
+        usuario = Usuario.objects.get(id=usuario_id)
+    return render(request,'Manual/ManualRegistrarCuentaGoogle.html', {'usuario':usuario})
+
+def manualOlvido(request):
+    usuario_id = request.session.get('usuario_id')
+    usuario = None
+
+    if usuario_id:
+        usuario = Usuario.objects.get(id=usuario_id)
+    return render(request,'Manual/ManualOlvidoContrasena.html', {'usuario':usuario})
+
+def manualVisualizar(request):
+    usuario_id = request.session.get('usuario_id')
+    usuario = None
+
+    if usuario_id:
+        usuario = Usuario.objects.get(id=usuario_id)
+    return render(request,'Manual/ManualVisualizarRutas.html', {'usuario':usuario})
+
+
 # BLOQUE DE VARGAS FUNCIONES -------------------------------------------------------------------------------------------
 
 def registroRuta(request):

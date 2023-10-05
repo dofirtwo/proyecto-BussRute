@@ -677,6 +677,69 @@ body {
 
 /* CSS DE ARIADNA */
 
+.imageN{
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+.custom-h1{
+    font-size: 40px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #2c3033; /* Azul */
+    margin-bottom: 20px;
+}
+
+.custom-p{
+    font-size: 23px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #2c3033; /* Azul */
+    margin-bottom: 20px;
+}
+.Subtitulo{
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #2c3033; /* Azul */
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+.Subparrafo{
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #2c3033; /* Azul */
+    margin-bottom: 20px;
+}
+
+.Alineacion{
+    display: inline-block;
+    margin-right: 32px;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    font-size: 16px;
+  }
+  
+  .pagination a {
+    text-decoration: none;
+    color: #007bff;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+  }
+  
+  .current-page {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+  }
+  
 .imagen {
     width: 80%;
     height: 400px;

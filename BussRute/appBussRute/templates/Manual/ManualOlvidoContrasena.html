@@ -1,0 +1,86 @@
+{% extends "index.html" %}
+{% block encabezado %}
+{% include "encabezado.html" %}
+{% endblock %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock %}
+{% block contenido %}
+{% load static %}<!--OLVIDO SU CONTRASEÑA-->
+<div class="container-fluid border border-success p-4">
+    <h1 class="custom-h1">¿Olvido su Contraseña?</h1>
+    <p class="custom-p">Aquí puedes encontrar instrucciones sobre cómo
+        restablecer tu contraseña si la has olvidado.
+        Sigue los pasos a continuación para recuperar el acceso a tu cuenta:</p>
+
+    <!--Contenido-->
+    <div>
+        <!--1 contenido-->
+        <ol class="Subtitulo">
+            <li>Recuperación de Contraseña Olvidada:</li>
+        </ol>
+        <p class="Subparrafo">Si olvidaste tu contraseña, ve a '¿Has olvidado tu contraseña?' y
+            sigue las instrucciones. Ingresa tu correo asociado a tu cuenta.</p>
+        <div class="imageN">
+            <img src="{% static '../static/img/imgManual/ForgotPasswordRecovery.jpeg'%}" alt="">
+        </div>
+
+        <!--2 contenido-->
+        <ol start="2">
+            <li class="Subtitulo">Envío de Correo de Recuperación:</li>
+        </ol>
+        <p class="Subparrafo">Al hacer clic en 'Enviar correo', se verificará la dirección de correo.
+            Si es correcta, verás un mensaje de confirmación que indica que se ha enviado un correo de recuperación.</p>
+        <div class="Alineacion2">
+            <img src="{% static '../static/img/imgManual/SendingRecoveryMail.jpeg'%}" alt="">
+        </div>
+        <div class="Alineacion2">
+            <img src="{% static '../static/img/imgManual/SendingRecoveryMail2.jpeg'%}" alt="">
+        </div>
+
+        <!--3 contenido-->
+        <ol start="3">
+            <li class="Subtitulo">Solicitud de Restablecimiento de Contraseña Enviada:</li>
+        </ol>
+        <p class="Subparrafo">Después de enviar el correo de recuperación, recibirás un mensaje
+            con instrucciones y un enlace para restablecer la contraseña en tu dirección de correo electrónico.</p>
+        <div class="imageN">
+            <img src="{% static '../static/img/imgManual/PasswordResetRequestSent.jpeg'%}" alt="">
+        </div>
+
+
+        <!--4 contenido-->
+        <ol start="4">
+            <li class="Subtitulo">Restablecimiento de Contraseña a través del Enlace de Solicitud:</li>
+        </ol>
+        <p class="Subparrafo">Al hacer clic en el enlace de restablecimiento de contraseña,
+            serás llevado a BussRute para crear una nueva contraseña. Recibirás un mensaje de confirmación una vez que
+            se complete el proceso.</p>
+        <div class="imageN">
+            <img src="{% static '../static/img/imgManual/PasswordResetviaRequestLink.jpeg'%}" alt="">
+        </div>
+
+        <!--5 contenido-->
+        <ol start="5">
+            <li class="Subtitulo">Iniciar Sesión con la Nueva Contraseña:</li>
+        </ol>
+        <p class="Subparrafo">Al hacer clic en el enlace de restablecimiento de contraseña,
+            serás llevado a BussRute para crear una nueva contraseña. Recibirás un mensaje de confirmación una vez que
+            se complete el proceso.</p>
+        <div class="imageN">
+            <img src="{% static '../static/img/imgManual/LoginwithNewPassword.jpeg'%}" alt="">
+        </div>
+
+
+    </div>
+    <a href="/manual/">Como iniciar Sesion</a>
+    <a href="/manual1/">Agregar Comentario</a>
+    <a href="/manual2/">Registrarse con Google</a>
+    <a href="/manual3/">Olvido contraseña</a>
+    <a href="/manual4/">Como visualizar Rutas</a>
+
+</div>
+{% endblock %}
+{% block pie_pagina %}
+{% include "pie_pagina.html" %}
+{% endblock %}

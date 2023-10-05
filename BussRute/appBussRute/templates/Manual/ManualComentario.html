@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+{% block encabezado %}
+{% include "encabezado.html" %}
+{% endblock %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock %}
+{% block contenido %}
+{% load static %}
+<!--REALIZAR COMENTARIOS-->
+<div class="container-fluid border border-success p-4">
+    <h1 class="custom-h1">Realizar Comentarios</h1>
+    <p class="custom-p">En esta sección, te proporcionaremos instrucciones detalladas sobre cómo ingresar un comentario.
+        Tu opinión es importante para nosotros, y aquí te guiaremos paso a paso para que puedas compartir tus
+        comentarios de manera sencilla y efectiva.</p>
+
+    <!--Contenido-->
+    <div>
+        <!--1 contenido-->
+        <ol>
+            <li class="Subtitulo"> Realizar comentarios en el sitio web: </li>
+        </ol>
+        <p class="Subparrafo">En esta sección, podrás compartir tu experiencia sobre las rutas o la aplicación. Después
+            de agregar tu comentario, este se mostrará exitosamente en la plataforma y quedará registrado en nuestra
+            base de datos. Tu retroalimentación es esencial para mejorar nuestros servicios y brindarte una experiencia
+            de usuario aún mejor.</p>
+
+        <div class="Alineacion">
+            <img src="{% static '../static/img/imgManual/Comentarios1.jpeg'%}" alt="">
+        </div>
+        <div class="Alineacion">
+            <img src="{% static '../static/img/imgManual/Comentarios2.jpeg'%}" alt="">
+        </div>
+
+    </div>
+    <a href="/manual/">Como iniciar Sesion</a>
+    <a href="/manual1/">Agregar Comentario</a>
+    <a href="/manual2/">Registrarse con Google</a>
+    <a href="/manual3/">Olvido contraseña</a>
+    <a href="/manual4/">Como visualizar Rutas</a>
+</div>
+{% endblock %}
+{% block pie_pagina %}
+{% include "pie_pagina.html" %}
+{% endblock %}
