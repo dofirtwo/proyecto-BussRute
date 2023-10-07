@@ -144,6 +144,14 @@ def vistaNombreUsuario(request):
     email = f.decrypt(encrypted_email.encode()).decode()
     return render(request, "nombreUsuario.html", {'email': email})
 
+def verGraficas(request):
+    usuario_id = request.session.get('usuario_id')
+    usuario = None
+
+    if usuario_id:
+        usuario = Usuario.objects.get(id=usuario_id)
+    return render(request,"admin/listaGrafica.html", {'usuario':usuario})
+
 def generarCodigoVerificacion():
     return str(random.randint(100000, 999999))
 
@@ -701,7 +709,7 @@ def registrarseUsuario(request):
                                                 align="center">\
                                                 <div\
                                                     style="color:#99aab5;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:12px;line-height:24px;text-align:center">\
-                                                    Derechos reservados: Ficha 2468288\
+                                                    Derechos reservados: BitCode\
                                                 </div>\
                                             </td>\
                                         </tr>\
@@ -995,7 +1003,7 @@ def enviarCorreoMovil(request):
                                                 align="center">\
                                                 <div\
                                                     style="color:#99aab5;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:12px;line-height:24px;text-align:center">\
-                                                    Derechos reservados: Ficha 2468288\
+                                                    Derechos reservados: BitCode\
                                                 </div>\
                                             </td>\
                                         </tr>\
@@ -1153,7 +1161,7 @@ def enviarCorreoRecuperarContraseña(request):
                                                                     align="center">\
                                                                     <div\
                                                                         style="color:#99aab5;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:12px;line-height:24px;text-align:center">\
-                                                                        Derechos reservados: Ficha 2468288\
+                                                                        Derechos reservados: BitCode\
                                                                     </div>\
                                                                 </td>\
                                                             </tr>\
@@ -1304,7 +1312,7 @@ def enviarCambioContrasena(request):
                                                                     align="center">\
                                                                     <div\
                                                                         style="color:#99aab5;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:12px;line-height:24px;text-align:center">\
-                                                                        Derechos reservados: Ficha 2468288\
+                                                                        Derechos reservados: BitCode\
                                                                     </div>\
                                                                 </td>\
                                                             </tr>\
@@ -1406,9 +1414,90 @@ def enviarMensajeContacto(request):
     correoUsuario = request.POST.get('emailUsuario')
     asuntoUsuario = request.POST.get('asuntoUsuario')
     mensajeUsuario = request.POST.get('mensajeUsuario')
+    
+    mensaje = f'<div style="background:#f9f9f9">\
+                        <div style="background-color:#f9f9f9">\
+                            <div style="max-width:640px;margin:0 auto;border-radius:4px;overflow:hidden">\
+                                <div style="margin:0px auto;max-width:640px;background:#ffffff">\
+                                    <table role="presentation" cellpadding="0" cellspacing="0"\
+                                        style="font-size:0px;width:100%;background:#ffffff" align="center" border="0">\
+                                        <tbody>\
+                                            <tr>\
+                                                <td style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:40px 50px">\
+                                                    <div aria-labelledby="mj-column-per-100" class="m_3451676835088794076mj-column-per-100" style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%">\
+                                                        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">\
+                                                            <tbody>\
+                                                                <tr>\
+                                                                    <td style="word-break:break-word;font-size:0px;padding:0px" align="left">\
+                                                                        <div style="color:#737f8d;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:16px;line-height:24px;text-align:left">\
+                                                                            <h2 style="font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-weight:500;font-size:20px;color:#4f545c;letter-spacing:0.27px">\
+                                                                                <h2 style="display: inline-block; margin-right: 10px;">De:</h2>\
+                                                                                <h2 style="display: inline-block;">{ correoUsuario }:</h2>\
+                                                                                <h3>Nombre usuario: { nombreUsuario }</h3>\
+                                                                                <h3 class="text-center">Mensaje del Usuario</h3>\
+                                                                                <p>{ mensajeUsuario }</p>\
+                                                                            </h2>\
+                                                                        </div>\
+                                                                    </td>\
+                                                                </tr>\
+                                                                <tr>\
+                                                                    <td style="word-break:break-word;font-size:0px;padding:30px 0px">\
+                                                                        <p\
+                                                                            style="font-size:1px;margin:0px auto;border-top:1px solid #dcddde;width:100%">\
+                                                                        </p>\
+                                                                    </td>\
+                                                                </tr>\
+                                                            </tbody>\
+                                                        </table>\
+                                                    </div>\
+                                                </td>\
+                                            </tr>\
+                                        </tbody>\
+                                    </table>\
+                                </div>\
+                            </div>\
+                            <div style="margin:0px auto;max-width:640px;background:transparent">\
+                                <table role="presentation" cellpadding="0" cellspacing="0"\
+                                    style="font-size:0px;width:100%;background:transparent" align="center" border="0">\
+                                    <tbody>\
+                                        <tr>\
+                                            <td\
+                                                style="text-align:center;vertical-align:top;direction:ltr;font-size:0px;padding:20px 0px">\
+                                                <div aria-labelledby="mj-column-per-100" class="m_3451676835088794076mj-column-per-100"\
+                                                    style="vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%">\
+                                                    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">\
+                                                        <tbody>\
+                                                            <tr>\
+                                                                <td style="word-break:break-word;font-size:0px;padding:0px"\
+                                                                    align="center">\
+                                                                    <div\
+                                                                        style="color:#99aab5;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:12px;line-height:24px;text-align:center">\
+                                                                        Enviado por <span class="il">BussRute</span>\
+                                                                    </div>\
+                                                                </td>\
+                                                            </tr>\
+                                                            <tr>\
+                                                                <td style="word-break:break-word;font-size:0px;padding:0px"\
+                                                                    align="center">\
+                                                                    <div\
+                                                                        style="color:#99aab5;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:12px;line-height:24px;text-align:center">\
+                                                                        Derechos reservados: BitCode\
+                                                                    </div>\
+                                                                </td>\
+                                                            </tr>\
+                                                        </tbody>\
+                                                    </table>\
+                                                </div>\
+                                            </td>\
+                                        </tr>\
+                                    </tbody>\
+                                </table>\
+                            </div>\
+                        </div>\
+                    </div>'
     try:
         thread = threading.Thread(target=enviarCorreoContacto,
-                              args=(asuntoUsuario, mensajeUsuario, [settings.EMAIL_HOST_USER], correoUsuario, nombreUsuario, request))
+                              args=(asuntoUsuario, mensaje, [settings.EMAIL_HOST_USER], request))
         thread.start()
         thread.join()
         mensaje = f'Correo enviado exitosamente.'
@@ -1419,15 +1508,12 @@ def enviarMensajeContacto(request):
         
     return JsonResponse({'mensaje': mensaje, 'estado': False})
 
-def enviarCorreoContacto(asunto=None, mensaje=None, destinatario=None, remitente=None, nombreUsuario=None, request=None):
+def enviarCorreoContacto(asunto=None, mensaje=None, destinatario=None, request=None):
     template = get_template('enviarCorreoContacto.html')
-    print(remitente)
     contenido = template.render({
         'destinatario': destinatario,
         'mensaje': mensaje,
         'asunto': asunto,
-        'remitente': remitente,
-        'nombreUsuario': nombreUsuario  
     })
     try: 
         correo = EmailMultiAlternatives(
@@ -1619,9 +1705,6 @@ def realizarGrafica(request):
     mensaje= "Funcion"
     retorno = {'mensaje': mensaje, 'estado': False}
     return JsonResponse(retorno)
-
-def verGraficas(request):
-    return render(request,"admin/listaGrafica.html")
 
 def get_data():
     # Obtiene los comentarios agrupados por ruta (excluyendo los que no tienen ruta)
