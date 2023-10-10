@@ -66,9 +66,9 @@ urlpatterns = [
     path('contacto/', views.contacto),
     path("mensajeUsuario/", views.enviarMensajeContacto),
     path('manual/', views.manualInicio),
-    path('manual1/', views.manualComentario),
-    path('manual2/', views.manualRegistrarse),
-    path('manual3/', views.manualOlvido),
-    path('manual4/', views.manualVisualizar),
+    path('manualComentario/', views.manualComentario),
+    path('manualGoogle/', views.manualRegistrarse),
+    path('manualOlvidarContrasena/', views.manualOlvido),
+    path('manual44/', views.manualVisualizar),
     path('', include('appBussRute.urls'))
 ]

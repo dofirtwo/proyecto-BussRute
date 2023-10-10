@@ -2,76 +2,56 @@
 {% block encabezado %}
 {% include "encabezado.html" %}
 {% endblock %}
-{% block menu %}
-{% include "menu.html" %}
-{% endblock %}
 {% block contenido %}
 {% load static %}
 <!--RUTA DE LOS BUSES-->
-<div class="container-fluid border border-success p-4">
-    <h1 class="custom-h1">Rutas de Buses</h1>
-    <p class="custom-p">En esta sección, te explicaremos cómo usar nuestra interfaz de rutas de autobuses para encontrar
-        rutas y horarios, para planificar tus viajes de forma conveniente por la ciudad.</p>
+<div class="container-fluid flex-grow-1">
+    <!-- Menú -->
+        <div class="row">
+            <div class="col-md-3">
+                {% include "Manual/menuManual.html" %}
+          </div>
+          <!-- Contenido -->
+          <div class="col-md-9">
+            <!--RUTA DE LOS BUSES-->
+            <div class="container-fluid border border-success p-4">
+                <h1 class="custom-h1">Rutas de Buses</h1>
+                <p class="custom-p">En esta sección, te explicaremos cómo usar nuestra interfaz de rutas de autobuses para encontrar rutas y horarios, para planificar tus viajes de forma conveniente por la ciudad.</p>
 
-    <!--Contenido-->
-    <div>
-        <!--1 contenido-->
-        <ol>
-            <li class="Subtitulo">Visualizar Ruta:</li>
-        </ol>
-        <p class="Subparrafo">Selecciona una ruta de la lista para ver detalles importantes, como su nombre, recorrido,
-            imagen, color, empresa y horario de funcionamiento. La información se actualizará automáticamente cuando
-            elijas la ruta deseada, lo que te permitirá planificar tus viajes de manera eficaz y obtener la información
-            que necesitas de manera rápida y sencilla.</p>
-        <div class="Alineacion">
-            <img src="{% static '../static/img/imgManual/VisualizarRuta1.jpeg'%}" alt="">
-        </div>
-        <div class="Alineacion">
-            <img src="{% static '../static/img/imgManual/VisualizarRuta2.jpeg'%}" alt="">
-        </div>
+                <!--Contenido-->
+                <div>
+                    <!--1 contenido-->
+                    <ol>
+                        <li class="Subtitulo">Visualizar Ruta:</li>
+                    </ol>
+                    <p class="Subparrafo">Selecciona una ruta de la lista para ver detalles importantes, como su nombre, recorrido, imagen, color, empresa y horario de funcionamiento. La información se actualizará automáticamente cuando elijas la ruta deseada, lo que te permitirá planificar tus viajes de manera eficaz y obtener la información que necesitas de manera rápida y sencilla.</p>
+                    <div class="Alineacion">
+                        <img src="{% static  '../static/img/imgManual/VisualizarRuta1.jpeg' %}" alt="">
+                    </div>
+                    <div class="Alineacion">
+                        <img src="{% static  '../static/img/imgManual/VisualizarRuta2.jpeg' %}" alt="">
+                    </div>
 
-        <!--2 contenido-->
-        <ol start="2">
-            <li class="Subtitulo">Ver el Horario de las Rutas: </li>
-        </ol>
-        <p class="Subparrafo">Selecciona una ruta de la lista y podrás visualizar el horario promedio de esa ruta
-            específica.
-            Cuando elijas una ruta, el campo de "Hora de Funcionamiento" se completará automáticamente con la hora
-            correspondiente a esa ruta.
-            Esto te permitirá conocer los horarios de funcionamiento de manera rápida y sencilla para planificar tus
-            viajes con precisión.</p>
-        <div class="imageN">
-            <img src="{% static '../static/img/imgManual/HorariodelasRutas1.jpeg'%}" alt="">
-        </div>
-        <div class="imageN">
-            <img src="{% static '../static/img/imgManual/HorariodelasRutas2.jpeg'%}" alt="">
-        </div>
+                    <!--3 contenido-->
+                    <ol start="3">
+                        <li class="Subtitulo">Guardar Rutas Favoritas: </li>
+                    </ol>
+                    <p class="Subparrafo">Una vez que hayas seleccionado la ruta deseada, simplemente haz clic en el botón correspondiente para guardarla con éxito. 
+                    Podrás confirmar que la ruta se ha guardado accediendo a la ventana de "Favoritos", donde encontrarás un registro de las rutas 
+                    que has guardado previamente. Esta función te permite acceder fácilmente a tus rutas favoritas para un rápido y conveniente acceso en el futuro.</p>
+                    <div class="imageN">
+                        <img src="{% static  '../static/img/imgManual/GuardarRutasFavoritas1.jpeg' %}" alt="">
+                    </div>
+                    <div class="imageN">
+                        <img src="{% static  '../static/img/imgManual/GuardarRutasFavoritas2.jpeg.jpeg' %}" alt="">
+                    </div>
 
-        <!--3 contenido-->
-        <ol start="3">
-            <li class="Subtitulo">Guardar Rutas Favoritas: </li>
-        </ol>
-        <p class="Subparrafo">Una vez que hayas seleccionado la ruta deseada, simplemente haz clic en el botón
-            correspondiente para guardarla con éxito.
-            Podrás confirmar que la ruta se ha guardado accediendo a la ventana de "Favoritos", donde encontrarás un
-            registro de las rutas
-            que has guardado previamente. Esta función te permite acceder fácilmente a tus rutas favoritas para un
-            rápido y conveniente acceso en el futuro.</p>
-        <div class="imageN">
-            <img src="{% static '../static/img/imgManual/GuardarRutasFavoritas1.jpeg'%}" alt="">
+                
+                </div>
+            </div>
+          </div>
         </div>
-        <div class="imageN">
-            <img src="{% static '../static/img/imgManual/GuardarRutasFavoritas2.jpeg'%}" alt="">
-        </div>
-
-
-    </div>
-    <a href="/manual/">Como iniciar Sesion</a>
-    <a href="/manual1/">Agregar Comentario</a>
-    <a href="/manual2/">Registrarse con Google</a>
-    <a href="/manual3/">Olvido contraseña</a>
-    <a href="/manual4/">Como visualizar Rutas</a>
-</div>
+      </div>
 {% endblock %}
 {% block pie_pagina %}
 {% include "pie_pagina.html" %}
