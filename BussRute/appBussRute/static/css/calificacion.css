@@ -1,21 +1,23 @@
-.heart {
-    font-size: 32px;
-    margin-top: 15px;
-    color: #bbb;
-    transition: color 0.3s;
-    cursor: pointer;
-  }
+.star {
+  font-size: 32px;
+  margin-top: 15px;
+  color: #bbb;
+  transition: color 0.3s;
+  cursor: pointer;
+}
 
-.hearti {
+.starti {
   font-size: 25px;
-  color:#bbb; 
-}  
-  .hearto{
-    font-size: 25px;
-    color: red;
-  }
-  .heart.selected,
-  .heart:hover {
-    color: red; /* Cambia el color cuando está seleccionado */
-  }
-  
+  color: #bbb;
+}
+
+.starto {
+  font-size: 25px;
+  color: #FFCC00;
+}
+
+.star.selected,
+.star:hover {
+  color: #FFCC00;
+  /* Cambia el color cuando está seleccionado */
+}

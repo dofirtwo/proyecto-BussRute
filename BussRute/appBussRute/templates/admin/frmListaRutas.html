@@ -9,40 +9,39 @@
 {% load static %}
 <script src="{%static '../static/js/trazarRuta.js'%}"></script>
 
-<div class="w-50 mt-3" style="margin: 0 auto;">
-    <form>
-        {% csrf_token %}
-        <div>
-            <table class="table table-bordered" style="margin: 0 auto;">
-                <thead class="bg-dark text-center">
-                    <tr>
-                        <td>Numero Ruta</td>
-                        <td>Empresa</td>
-                        <td>Precio</td>
-                        <td>Acción</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for ruta in listaRutas %}
-                    <tr>
-                        <td>{{ruta.rutNumero}}</td>
-                        <td>{{ruta.rutEmpresa}}</td>
-                        <td>{{ruta.rutPrecio}}</td>
-                        <td class="text-center d-flex align-items-center justify-content-center">
-                            <i class="fa fa-trash text-danger mr-3" onclick="abrirModalEliminar('{{ruta.id}}')"></i>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="activar{{ruta.id}}" onchange="cambiarEstado('{{ruta.id}}')" {% if ruta.rutEstado == 'A' %}checked{% endif %}>
-                            </div>
-                        </td>
-                        
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </form>
-    <div>
-        {% endblock %}
-        {% block pie_pagina %}
-        {% include "pie_pagina.html" %}
-        {% endblock %}
+    <div class="w-50 mt-3" style="margin: 0 auto;">
+        <form>
+            {% csrf_token %}
+            <div>
+                <table class="table table-bordered" style="margin: 0 auto;">
+                    <thead class="bg-dark text-center">
+                        <tr>
+                            <td>Numero Ruta</td>
+                            <td>Empresa</td>
+                            <td>Precio</td>
+                            <td>Accion</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ruta in listaRutas %}
+                            <tr>
+                                <td>{{ruta.rutNumero}}</td>
+                                <td>{{ruta.rutEmpresa}}</td>
+                                <td>{{ruta.rutPrecio}}</td>
+                                <td class="text-center d-flex align-items-center justify-content-center">
+                                    <i class="fa fa-trash text-danger mr-3" onclick="abrirModalEliminar('{{ruta.id}}')"></i>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="activar{{ruta.id}}" onchange="cambiarEstado('{{ruta.id}}')" {% if ruta.rutEstado == 'A' %}checked{% endif %}>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block pie_pagina %}
+{% include "pie_pagina.html" %}
+{% endblock %}

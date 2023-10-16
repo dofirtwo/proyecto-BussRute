@@ -9,11 +9,12 @@
 <section class="agregarComentarios">
   <div class="agregarComentarioHeader">
     <h1>Agregar Comentario</h1>
-    <span>Cuéntanos tu opinión sobre nuestro sitio.</span>
+    <span>Cuentanos tu opinión sobre nuestro sitio.</span>
   </div>
   <!-- Formulario para agregar comentarios -->
   <div class="agregarComentarioContenedor">
-    <form class="needs-validation" action="/agregarComentario/" method="POST" enctype="multipart/form-data" onsubmit="return validarComentario();">
+    <form class="needs-validation" action="/agregarComentario/" method="POST" enctype="multipart/form-data"
+      onsubmit="return validarComentario();">
       {% csrf_token %}
       <div class="">
         <div class="col">
@@ -25,7 +26,7 @@
                 aria-describedby="inputGroupPrepend" required disabled value="@{{ form.initial.txtNombre }}">
 
               <div class="invalid-feedback">
-                Por favor ingrese un nombre.
+                Porfavor ingrese un nombre.
               </div>
             </div>
           </div>
@@ -37,7 +38,7 @@
             <textarea type="text" class="form-control" id="txtComentario" name="txtComentario" cols="35" rows="10"
               required></textarea>
             <div class="invalid-feedback">
-              Por favor ingresar un comentario válido
+              Porfavor ingresar un comentario valido.
             </div>
           </div>
         </div>
@@ -47,15 +48,15 @@
 
         </div>
         <div class="text-center">
-          <label for="">¡Califícanos!</label>
+          <label for="">¡Calificanos!</label>
         </div>
         <div class="reseñas text-center">
           <div class="reseñas text-center">
-            <span class="fa fa-heart heart" data-value="1"></span>
-            <span class="fa fa-heart heart" data-value="2"></span>
-            <span class="fa fa-heart heart" data-value="3"></span>
-            <span class="fa fa-heart heart" data-value="4"></span>
-            <span class="fa fa-heart heart" data-value="5"></span>
+            <span class="fa fa-star star" data-value="1"></span>
+            <span class="fa fa-star star" data-value="2"></span>
+            <span class="fa fa-star star" data-value="3"></span>
+            <span class="fa fa-star star" data-value="4"></span>
+            <span class="fa fa-star star" data-value="5"></span>
           </div>
 
           <input type="hidden" id="txtValoracion" name="txtValoracion" value="0">
@@ -80,23 +81,23 @@
   }
 </script>
 <script>
- // Recupera el valor de txtRuta desde el localStorage
-var rutaSeleccionada = localStorage.getItem('rutaSeleccionada');
+  // Recupera el valor de txtRuta desde el localStorage
+  var rutaSeleccionada = localStorage.getItem('rutaSeleccionada');
 
-// Verifica si se encontró un valor en el localStorage
-if (rutaSeleccionada !== null) {
-  // Establece el valor en el campo de formulario txtRuta
-  document.getElementById('txtRuta').value = rutaSeleccionada;
+  // Verifica si se encontró un valor en el localStorage
+  if (rutaSeleccionada !== null) {
+    // Establece el valor en el campo de formulario txtRuta
+    document.getElementById('txtRuta').value = rutaSeleccionada;
 
-  // Luego de establecerlo en el campo, elimina el valor del localStorage
-  localStorage.removeItem('rutaSeleccionada');
-}
+    // Luego de establecerlo en el campo, elimina el valor del localStorage
+    localStorage.removeItem('rutaSeleccionada');
+  }
 </script>
 <script>
   function validarComentario() {
     // Obten el valor del comentario ingresado
     var comentario = document.getElementById('txtComentario').value;
-  
+
     // Verifica si la longitud del comentario excede 500 caracteres
     if (comentario.length > 500) {
       // Muestra un SweetAlert con un mensaje de error
@@ -105,15 +106,15 @@ if (rutaSeleccionada !== null) {
         title: 'Error',
         text: '¡El Comentario es Demasiado Extenso!.',
       });
-  
+
       // Evita que el formulario se envíe
       return false;
     }
-  
+
     // Si la validación pasa, permite que el formulario se envíe
     return true;
   }
-  
+
 </script>
 
 

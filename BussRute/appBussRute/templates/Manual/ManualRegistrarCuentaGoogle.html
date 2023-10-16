@@ -3,65 +3,123 @@
 {% include "encabezado.html" %}
 {% endblock %}
 {% block contenido %}
-{% load static %}<!--REGISTRAR LA CUENTA DE GOOGLE-->
-<div class="container-fluid flex-grow-1">
+{% load static %}
+<div class="d-flex">
     <!-- Menú -->
-        <div class="row">
-            <div class="col-md-3">
-                {% include "Manual/menuManual.html" %}
-          </div>
-          <!-- Contenido -->
-          <div class="col-md-9">
-            <!--REGISTRAR LA CUENTA DE GOOGLE-->
-            <div class="container-fluid border border-success p-4">
+    <nav class="navbar menuMaual">
+        <div class="container-fluid d-flex justify-content-center">
+            <ul class="navbar-nav flex-column fuenteA">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Inicio Sesion</a>
+                    <div class="dropdown-content">
+                        <a href="/manual/">Crear Cuenta</a>
+                        <a href="/manualOlvidarContrasena/">¿Olvido la contrasea?</a>
+                        <a href="/manualGoogle/">Registrarse con Google</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/manualComentario/">Comentarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/manualVisualizar/">Visualizar Rutas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/inicio/">Inicio</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <style>
+        .nav-item {
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: rgba(0, 0, 0, .5);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f8f9fa;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+
+
+    <!--CONTENIDO-->
+    <div class="container-fluid flex-grow-1">
+        <div class="p-4 fondoSecundario">
             <h1 class="custom-h1">Registrar la Cuenta de Google</h1>
             <p class="custom-p">Aquí puedes encontrar instrucciones sobre cómo crear una nueva cuenta de Google:</p>
 
-            <!--Contenido-->
-            <div>
-                <!--1 contenido-->
-                <ol>
-                    <li class="Subtitulo">Registro con Cuenta de Google:</li>
-                </ol>
-                <p class="Subparrafo">Para registrarte con tu cuenta de Google, 
+
+            <!--1 contenido-->
+            <ol>
+                <li class="Subtitulo">Registro con Cuenta de Google:</li>
+            </ol>
+            <p class="Subparrafo">Para registrarte con tu cuenta de Google,
                 ve a la sección de inicio de sesión y selecciona 'Iniciar sesión con Google'.</p>
-                <div class="imageN">
-                    <img src="{% static  '../static/img/imgManual/AccessPI.jpeg' %}" alt="">
-                </div>
-
-                <!--2 contenido-->
-                <ol start="2">
-                    <li class="Subtitulo">Acceso a la Interfaz de Cuentas de Gmail de Google:</li>
-                </ol>
-                <p class="Subparrafo">Al hacer clic en el botón "Google", serás redirigido a la interfaz de inicio de sesión de cuentas de Gmail de Google. 
-                Aquí podrás completar el proceso de registro utilizando tu cuenta de Google.</p>
-                <div class="imageN">
-                    <img src="{% static  '../static/img/imgManual/AccesoalaInterfazdeCuentasdeGmaildeGoogle .jpeg' %}" alt="">
-                </div>
-
-                <!--3 contenido-->
-                <ol start="3">
-                    <li class="Subtitulo">Interfaz de BussRute Después de Elegir el Correo Electrónico:</li>
-                </ol>
-                <p class="Subparrafo">Tras seleccionar tu correo de Google,
-                llegarás a BussRute. Allí verás tu correo de Google y un campo para tu nombre de usuario.</p>
-                <div class="imageN">
-                    <img src="{% static  '../static/img/imgManual/InterfazdeBussRuteDespuésdeElegirelCorreoElectrónico.jpeg' %}" alt="">
-                </div>
-
-                <!--4 contenido-->
-                <ol start="4">
-                    <li class="Subtitulo">Acceso a la Página Principal después de Continuar:</li>
-                </ol>
-                <p class="Subparrafo">Al hacer clic en 'Continuar', irás a la página principal de BussRute para explorar todas las funcionalidades.</p>
-                <div class="imageN">
-                    <img src="{% static  '../static/img/imgManual/PaginaInicio.jpeg' %}" alt="">
-                </div>
-
-
+            <div class="d-flex justify-content-center imgAGen">
+                <img src="{% static '../static/img/imgManual/AccessPI.jpeg' %}" alt="">
             </div>
+
+            <!--2 contenido-->
+            <ol start="2">
+                <li class="Subtitulo">Acceso a la Interfaz de Cuentas de Gmail de Google:</li>
+            </ol>
+            <p class="Subparrafo">Al hacer clic en el botón "Google", serás redirigido a la interfaz de inicio de sesión
+                de cuentas de Gmail de Google.
+                Aquí podrás completar el proceso de registro utilizando tu cuenta de Google.</p>
+            <div class="d-flex justify-content-center imgAGen">
+                <img src="{% static '../static/img/imgManual/AccesoalaInterfazdeCuentasdeGmaildeGoogle .jpeg' %}"
+                    alt="">
+            </div>
+
+            <!--3 contenido-->
+            <ol start="3">
+                <li class="Subtitulo">Interfaz de BussRute Después de Elegir el Correo Electrónico:</li>
+            </ol>
+            <p class="Subparrafo">Tras seleccionar tu correo de Google,
+                llegarás a BussRute. Allí verás tu correo de Google y un campo para tu nombre de usuario.</p>
+            <div class="d-flex justify-content-center imgAGen">
+                <img src="{% static '../static/img/imgManual/InterfazdeBussRuteDespuésdeElegirelCorreoElectrónico.jpeg' %}"
+                    alt="">
+            </div>
+
+            <!--4 contenido-->
+            <ol start="4">
+                <li class="Subtitulo">Acceso a la Página Principal después de Continuar:</li>
+            </ol>
+            <p class="Subparrafo">Al hacer clic en 'Continuar', irás a la página principal de BussRute para explorar
+                todas las funcionalidades.</p>
+            <div class="d-flex justify-content-center imgAGen">
+                <img src="{% static '../static/img/imgManual/paginaInicio.jpg' %}" alt="">
+            </div>
+
+
         </div>
     </div>
 </div>
-</div>
+{% endblock %}
+{% block pie_pagina %}
+{% include "pie_pagina.html" %}
 {% endblock %}

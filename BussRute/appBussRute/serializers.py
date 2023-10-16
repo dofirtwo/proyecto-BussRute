@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from appBussRute.models import Ruta, DetalleRuta, Usuario, Rol,FavoritoRuta
+from appBussRute.models import Ruta, DetalleRuta, Usuario, Rol,FavoritoRuta,UbicacionRuta
 from appBussRute.models import Comentario
 
 class RutaSerializers(serializers.ModelSerializer):
@@ -11,6 +11,11 @@ class FavoritoSerializers(serializers.ModelSerializer):
     class Meta:
         model = FavoritoRuta
         fields = ('id','favRuta','favUsuario')
+
+class UbicacionRutaSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = UbicacionRuta
+        fields = ('id','ubiRuta','ubiBarrio','ubiComuna','ubiSitioDeInteres')
 
 class DetalleRutaSerializers(serializers.ModelSerializer):
     class Meta:
@@ -35,7 +40,7 @@ class RolSerializers(serializers.ModelSerializer):
 class ComentarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comentario
-        fields = ('id', 'comDescripcion', 'comValoracion', 'comUsuario')
+        fields = ('id', 'comDescripcion', 'comValoracion', 'comUsuario', 'comRuta')
 
 class CorreoSerializer(serializers.Serializer):
     correoUsuarioIngresado = serializers.EmailField()

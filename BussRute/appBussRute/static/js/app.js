@@ -1,27 +1,27 @@
-$(function(){
+$(function () {
   //se utiliza para las peticiones ajax con query
   $.ajaxSetup({
-      headers:{
-          'X-CSRFToken':getCookie('csrftoken')
-      }
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken')
+    }
   })
-  $("#btnGuardar").click(function(){
+  $("#btnGuardar").click(function () {
     guardarRuta();
   })
 })
 
-function getCookie(name){
+function getCookie(name) {
   let cookieValue = null;
-  if (document.cookie && document.cookie !== ''){
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-          if (cookie.substring(0,name.length + 1) === (name + '=')){
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-          }
-
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
       }
+
+    }
   }
   return cookieValue;
 }
@@ -51,34 +51,34 @@ function verificarSesion() {
  * Esta funcion se encarga de realizar la peticion para añadir una Ruta a Favoritos
  * y si sale correcto o hay error muestra una alerta
  */
-function añadirFavorito(){
-  if(document.getElementById("ruta").value==""){
-      Swal.fire('Ruta', 'Debe Seleccionar la Ruta Primero', 'error');
-  }else{
-      var datos = {
-        "ruta": $("#ruta").val(),
-      }
-      $.ajax({
-          url: "/registroFavorito/",
-          data: datos,
-          type: 'post',
-          dataType: 'json',
-          cache: false,
-          success: function(resultado){
-              if (resultado.estado == false) {
-                Swal.fire('Cuenta', resultado.mensaje, 'error');
-              } else {
-                Swal.fire('Cuenta', resultado.mensaje, 'success')
-                  .then((result) => {
-                    if (result.isConfirmed) {
-                      window.location.reload();
-                    }
-                  });
-                
+function añadirFavorito() {
+  if (document.getElementById("ruta").value == "") {
+    Swal.fire('Ruta', 'Debe Seleccionar la Ruta Primero', 'error');
+  } else {
+    var datos = {
+      "ruta": $("#ruta").val(),
+    }
+    $.ajax({
+      url: "/registroFavorito/",
+      data: datos,
+      type: 'post',
+      dataType: 'json',
+      cache: false,
+      success: function (resultado) {
+        if (resultado.estado == false) {
+          Swal.fire('Cuenta', resultado.mensaje, 'error');
+        } else {
+          Swal.fire('Cuenta', resultado.mensaje, 'success')
+            .then((result) => {
+              if (result.isConfirmed) {
+                window.location.reload();
               }
-              
-          }
-      })
+            });
+
+        }
+
+      }
+    })
   }
 }
 
@@ -88,19 +88,19 @@ function redirigir() {
 
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   const txtValoracion = $('#txtValoracion');
   let selectedCount = 0;
 
-  $(document).on('click', '.heart', function() {
-    const index = $('.heart').index(this);
+  $(document).on('click', '.star', function () {
+    const index = $('.star').index(this);
 
     // Deseleccionar todos los corazones
-    $('.heart').removeClass('selected');
+    $('.star').removeClass('selected');
 
     // Seleccionar corazones hasta el índice actual
     for (let i = 0; i <= index; i++) {
-      $('.heart').eq(i).addClass('selected');
+      $('.star').eq(i).addClass('selected');
     }
 
     selectedCount = index + 1;
@@ -109,10 +109,10 @@ $(document).ready(function() {
     txtValoracion.val(selectedCount);
 
     // Imprimir el valor en la consola
-    console.log(`Valor del corazón: ${selectedCount}`);
+    console.log(`Valor del star: ${selectedCount}`);
   });
 
-  $('#btnEnviar').on('click', function(e) {
+  $('#btnEnviar').on('click', function (e) {
     if (selectedCount === 0) {
       // Mostrar mensaje de SweetAlert2 si no se ha seleccionado ningún corazón
       e.preventDefault(); // Evita que el formulario se envíe
@@ -146,18 +146,18 @@ function guardarRuta() {
     method: 'GET',
     success: function (data) {
       if (data.logueado) {
-          añadirFavorito()
+        añadirFavorito()
       } else {
-          Swal.fire('Cuenta', 'Debes iniciar sesión primero.', 'error');
+        Swal.fire('Cuenta', 'Debes iniciar sesión primero.', 'error');
       }
     }
   });
 }
 
-function a(){
+function a() {
   $(document).ready(function () {
-      event.preventDefault();
-      $('.dropdown-menu').toggle();
+    event.preventDefault();
+    $('.dropdown-menu').toggle();
   });
 
 }
@@ -177,3 +177,77 @@ function visualizarContraseña(inputId) {
 }
 visualizarContraseña('passwordUsuario');
 visualizarContraseña('pasNuevaContraseña');
+
+function resaltar(element) {
+  element.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+}
+
+function quitarResalte(element) {
+  element.style.boxShadow = "none";
+}
+
+$(document).ready(function () {
+  $('#passwordUsuario').on('input', function () {
+    var password = $(this).val();
+    var caracteres = /^(?=.*[0-9])(?=.*[a-zA-ZñÑ])([a-zA-Z0-9ñÑ\W_]+){8,}$/;
+
+    if (!caracteres.test(password)) {
+      $('#passwordError').text('La contraseña debe tener al menos 8 caracteres y contener letras y números.');
+      $('#submitButton').prop('disabled', true);
+    } else {
+      $('#passwordError').text('');
+      $('#submitButton').prop('disabled', false);
+    }
+  });
+
+  $('#passwordUsuario').on('blur', function () {
+    if ($(this).val() === '') {
+      $('#passwordError').text('');
+    }
+    $('#mayusActivadaCrear').text('');
+  });
+
+  $('#passwordUsuario').keydown(function (e) {
+    if (e.which === 20) {
+      if ($('#mayusActivadaCrear').text() === '') {
+        $('#mayusActivadaCrear').text('La tecla de mayúsculas está activada.');
+      } else {
+        $('#mayusActivadaCrear').text('');
+      }
+    }
+  });
+});
+
+
+$(document).ready(function () {
+  $('#pasNuevaContraseña').on('input', function () {
+    var password = $(this).val();
+    var caracteres = /^(?=.*[0-9])(?=.*[a-zA-ZñÑ])([a-zA-Z0-9ñÑ\W_]+){8,}$/;
+
+    if (!caracteres.test(password)) {
+      $('#passwordErrorCambio').text('La contraseña debe tener al menos 8 caracteres y contener letras y números.');
+      $('#submitButtonCambio').prop('disabled', true);
+    } else {
+      $('#passwordErrorCambio').text('');
+      $('#submitButtonCambio').prop('disabled', false);
+    }
+  });
+
+  $('#pasNuevaContraseña').on('blur', function () {
+    if ($(this).val() === '') {
+      $('#passwordError').text('');
+    }
+    $('#mayusActivadaCambio').text('');
+  });
+  $('#pasNuevaContraseña').keydown(function (e) {
+    if (e.which === 20) {
+      if ($('#mayusActivadaCambio').text() === '') {
+        $('#mayusActivadaCambio').text('La tecla de mayúsculas está activada.');
+      } else {
+        $('#mayusActivadaCambio').text('');
+      }
+    }
+  });
+});
+
+

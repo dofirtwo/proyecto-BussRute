@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /**
  * Esta funcion se encarga de inicializar el mapa de la api y lograr que al momento de darle click en algun punto
- * del mapa este guarde las coordenadas (latitud, longitd) en una lista 
+ * del mapa este guarde las coordenadas (latitud, longitd) en una lista
  */
 function trazarRuta() {
   // Crea un mapa
@@ -190,7 +190,7 @@ function cargarCoodernada(numRuta, Latitud, Longitud) {
 
 /**
  * Esta funcion se encarga de llenar la lista de ubicacionRuta con datos
- * tambien se encarga de mostrar en una tabla 
+ * tambien se encarga de mostrar en una tabla
  * @param {String} barrio Barrio de la Ubicacion
  * @param {String} comuna Comuna de la Ubicacion
  * @param {String} sitio Sitio de Interes de la Ubicacion
@@ -233,25 +233,25 @@ function mostrarDatosUnicacionTabla() {
 }
 
 /**
- * Esta funcion se encarga de abrir una modal para al momento de eliminar pueda tomar la decision final 
+ * Esta funcion se encarga de abrir una modal para al momento de eliminar pueda tomar la decision final
  * y si el selecciona que "Si" ejecuta la funcion eliminarRuta()
  * @param {Int} id Id de la Ruta
  */
-function abrirModalEliminar(id){
+function abrirModalEliminar(id) {
   Swal.fire({
-      title: 'Eliminar Ruta',
-      text: "¿Estan seguros de eliminar?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'No',
-      confirmButtonText: 'Si'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        eliminarRuta(id)
-      }
-    })
+    title: 'Eliminar Ruta',
+    text: "¿Estan seguros de eliminar?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    cancelButtonText: 'No',
+    confirmButtonText: 'Si'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      eliminarRuta(id)
+    }
+  })
 }
 
 /**
@@ -286,11 +286,11 @@ function eliminarRuta(id) {
  */
 function cambiarEstado(id) {
   $.ajax({
-      url: '/vistaListaNuevo/',
-      type: 'POST',
-      data: {
-          'id': id,
-          'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value
-      },
+    url: '/vistaListaNuevo/',
+    type: 'POST',
+    data: {
+      'id': id,
+      'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value
+    },
   });
 }

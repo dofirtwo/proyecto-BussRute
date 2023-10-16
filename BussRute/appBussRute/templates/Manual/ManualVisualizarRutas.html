@@ -4,54 +4,110 @@
 {% endblock %}
 {% block contenido %}
 {% load static %}
-<!--RUTA DE LOS BUSES-->
-<div class="container-fluid flex-grow-1">
+<div class="d-flex">
     <!-- Menú -->
-        <div class="row">
-            <div class="col-md-3">
-                {% include "Manual/menuManual.html" %}
-          </div>
-          <!-- Contenido -->
-          <div class="col-md-9">
-            <!--RUTA DE LOS BUSES-->
-            <div class="container-fluid border border-success p-4">
-                <h1 class="custom-h1">Rutas de Buses</h1>
-                <p class="custom-p">En esta sección, te explicaremos cómo usar nuestra interfaz de rutas de autobuses para encontrar rutas y horarios, para planificar tus viajes de forma conveniente por la ciudad.</p>
-
-                <!--Contenido-->
-                <div>
-                    <!--1 contenido-->
-                    <ol>
-                        <li class="Subtitulo">Visualizar Ruta:</li>
-                    </ol>
-                    <p class="Subparrafo">Selecciona una ruta de la lista para ver detalles importantes, como su nombre, recorrido, imagen, color, empresa y horario de funcionamiento. La información se actualizará automáticamente cuando elijas la ruta deseada, lo que te permitirá planificar tus viajes de manera eficaz y obtener la información que necesitas de manera rápida y sencilla.</p>
-                    <div class="Alineacion">
-                        <img src="{% static  '../static/img/imgManual/VisualizarRuta1.jpeg' %}" alt="">
+    <nav class="navbar menuMaual">
+        <div class="container-fluid d-flex justify-content-center">
+            <ul class="navbar-nav flex-column fuenteA">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Inicio Sesion</a>
+                    <div class="dropdown-content">
+                        <a href="/manual/">Crear Cuenta</a>
+                        <a href="/manualOlvidarContrasena/">¿Olvido la contrasea?</a>
+                        <a href="/manualGoogle/">Registrarse con Google</a>
                     </div>
-                    <div class="Alineacion">
-                        <img src="{% static  '../static/img/imgManual/VisualizarRuta2.jpeg' %}" alt="">
-                    </div>
-
-                    <!--3 contenido-->
-                    <ol start="3">
-                        <li class="Subtitulo">Guardar Rutas Favoritas: </li>
-                    </ol>
-                    <p class="Subparrafo">Una vez que hayas seleccionado la ruta deseada, simplemente haz clic en el botón correspondiente para guardarla con éxito. 
-                    Podrás confirmar que la ruta se ha guardado accediendo a la ventana de "Favoritos", donde encontrarás un registro de las rutas 
-                    que has guardado previamente. Esta función te permite acceder fácilmente a tus rutas favoritas para un rápido y conveniente acceso en el futuro.</p>
-                    <div class="imageN">
-                        <img src="{% static  '../static/img/imgManual/GuardarRutasFavoritas1.jpeg' %}" alt="">
-                    </div>
-                    <div class="imageN">
-                        <img src="{% static  '../static/img/imgManual/GuardarRutasFavoritas2.jpeg.jpeg' %}" alt="">
-                    </div>
-
-                
-                </div>
-            </div>
-          </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/manualComentario/">Comentarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/manualVisualizar/">Visualizar Rutas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/inicio/">Inicio</a>
+                </li>
+            </ul>
         </div>
-      </div>
+    </nav>
+
+    <style>
+        .nav-item {
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: rgba(0, 0, 0, .5);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f8f9fa;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+    <!--CONTENIDO-->
+    <div class="container-fluid flex-grow-1">
+        <div class="p-4 fondoSecundario">
+            <h1 class="custom-h1">Rutas de Buses</h1>
+            <p class="custom-p">En esta sección, te explicaremos cómo usar nuestra interfaz de rutas de autobuses para
+                encontrar rutas y horarios, para planificar tus viajes de forma conveniente por la ciudad.</p>
+
+
+            <!--1 contenido-->
+            <ol>
+                <li class="Subtitulo">Visualizar Ruta:</li>
+            </ol>
+            <p class="Subparrafo">Selecciona una ruta de la lista para ver detalles importantes, como su nombre,
+                recorrido, imagen, color, empresa y horario de funcionamiento. La información se actualizará
+                automáticamente cuando elijas la ruta deseada, lo que te permitirá planificar tus viajes de manera
+                eficaz y obtener la información que necesitas de manera rápida y sencilla.</p>
+            <div class="d-flex justify-content-center imgAGen">
+                <img src="{% static '../static/img/imgManual/VisualizarRuta1.jpeg' %}" alt="">
+            </div>
+            <div class="d-flex justify-content-center imgAGen">
+                <img src="{% static '../static/img/imgManual/VisualizarRuta2.jpeg' %}" alt="">
+            </div>
+
+            <!--3 contenido-->
+            <ol start="3">
+                <li class="Subtitulo">Guardar Rutas Favoritas: </li>
+            </ol>
+            <p class="Subparrafo">Una vez que hayas seleccionado la ruta deseada, simplemente haz clic en el botón
+                correspondiente para guardarla con éxito.
+                Podrás confirmar que la ruta se ha guardado accediendo a la ventana de "Favoritos", donde encontrarás un
+                registro de las rutas
+                que has guardado previamente. Esta función te permite acceder fácilmente a tus rutas favoritas para un
+                rápido y conveniente acceso en el futuro.</p>
+            <div class="d-flex justify-content-center imgAGen">
+                <img src="{% static '../static/img/imgManual/GuardarRutasFavoritas1.jpeg' %}" alt="">
+            </div>
+            <div class="d-flex justify-content-center imgAGen">
+                <img src="{% static '../static/img/imgManual/GuardarRutasFavoritas2.jpeg' %}" alt="">
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
 {% endblock %}
 {% block pie_pagina %}
 {% include "pie_pagina.html" %}

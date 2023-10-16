@@ -12,7 +12,7 @@
             <img src="../static/img/Logo Empresa3.0.png" class="img-fluid logo" />
         </div>
         <div class="align-self-center w-100 px-lg-5 py-lg-4 p-4">
-            <h1 class="text-center font-weight-bold mb-4">Cambiar Contraseña</h1>
+            <h1 class="text-center font-weight-bold mb-4">Solicitud de Cambio de Contraseña</h1>
             <form action="/enviarCambioContrasena/" class="mb-5" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="mb-4">
@@ -29,7 +29,7 @@
                     Swal.fire('Cuenta', '{{mensaje}}', 'success').then(function () {
                         setTimeout(function () {
                             window.location.href = '/inicioSesion/';
-                        }, 1000);
+                        }, 500);
                     });
                 </script>
                 {% else %}

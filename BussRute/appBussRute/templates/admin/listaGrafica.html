@@ -7,7 +7,7 @@
 {% endblock %}
 {% block contenido %}
 {% load static %}
-<script src="{% static 'js/mapa.js' %}"></script>
+<script src="{% static '../static/js/mapa.js' %}"></script>
 
 <div class="w-50 mt-3" style="margin: 0 auto;">
     <form>
@@ -17,7 +17,6 @@
         </div>
     </form>
 <div>
-
 {% endblock %}
 {% block pie_pagina %}
 {% include "pie_pagina.html" %}

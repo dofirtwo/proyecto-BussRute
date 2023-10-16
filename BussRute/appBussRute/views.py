@@ -33,6 +33,7 @@ from django.core.mail import EmailMessage
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.models import Count
+from django.views.generic import TemplateView
 
 # Generar una clave de cifrado
 key = Fernet.generate_key()
@@ -181,7 +182,7 @@ def manualComentario(request):
 
     if usuario_id:
         usuario = Usuario.objects.get(id=usuario_id)
-    return render(request,'Manual/ManualComentario.html', {'usuario':usuario})
+    return render(request,'Manual/ManualComentarios.html', {'usuario':usuario})
 
 def manualRegistrarse(request):
     usuario_id = request.session.get('usuario_id')
@@ -321,7 +322,7 @@ def registroFavorito(request):
                             mensaje="Ruta Añadida a Favorito Correctamente"
                             estado = True
                     else:
-                        mensaje="Debe Iniciar Sesion Primero"                 
+                        mensaje="Debe Iniciar Sesion Primero"
         except Error as error:
             transaction.rollback()
             mensaje = f"{error}"
@@ -1230,8 +1231,8 @@ def enviarCambioContrasena(request):
                     usuario.save()
 
                     asunto = 'Solicitud para restablecer contraseña de BussRute'
-                    #url = f"https://bussrute.pythonanywhere.com/vistaCambioContrasena/?token={token}"
-                    url = f"http://127.0.0.1:8000/vistaCambioContrasena/?token={token}"
+                    url = f"https://bussrute.pythonanywhere.com/vistaCambioContrasena/?token={token}"
+                    #url = f"http://127.0.0.1:8000/vistaCambioContrasena/?token={token}"
                     mensaje = f'<div style="background:#f9f9f9">\
                         <div style="background-color:#f9f9f9">\
                             <div style="max-width:640px;margin:0 auto;border-radius:4px;overflow:hidden">\
@@ -1249,7 +1250,7 @@ def enviarCambioContrasena(request):
                                                                         <div style="color:#737f8d;font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-size:16px;line-height:24px;text-align:left">\
                                                                             <h2 style="font-family:Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;font-weight:500;font-size:20px;color:#4f545c;letter-spacing:0.27px">\
                                                                                 Hola, {usuario.usuNombre}:</h2>\
-                                                                            <p>Haz clic en el siguiente botón para restablecer tu contraseña de <span class="il">BussRute</span>. Si no has solicitado una nueva contraseña, ignora este correo.</p>\
+                                                                            <p>Haz clic en el siguiente botón para restablecer tu contraseña de <span class="il">BussRute</span> Ten en cuenta que este enlace expirará después de 10 minutos. Si no has solicitado una nueva contraseña, ignora este correo.</p>\
                                                                         </div>\
                                                                     </td>\
                                                                 </tr>\
@@ -1357,7 +1358,7 @@ def vistaCambioContrasena(request):
             return render(request, "cambiarContrasena.html")
         else:
             # Token inválido, mostrar un mensaje de error utilizando SweetAlert en la página "inicioSesion.html"
-            mensaje = "No se ha solicitado un cambio de contraseña"
+            mensaje = "Lo sentimos, pero el token para cambiar tu contraseña ha expirado. Por favor, solicita un nuevo enlace para restablecer tu contraseña."
             request.session['mensajeError'] = mensaje
             return redirect('/inicioSesion/')
 
@@ -1414,7 +1415,7 @@ def enviarMensajeContacto(request):
     correoUsuario = request.POST.get('emailUsuario')
     asuntoUsuario = request.POST.get('asuntoUsuario')
     mensajeUsuario = request.POST.get('mensajeUsuario')
-    
+
     mensaje = f'<div style="background:#f9f9f9">\
                         <div style="background-color:#f9f9f9">\
                             <div style="max-width:640px;margin:0 auto;border-radius:4px;overflow:hidden">\
@@ -1505,7 +1506,7 @@ def enviarMensajeContacto(request):
         return JsonResponse(retorno)
     except ValidationError:
         mensaje = f'No se pudo enviar el correo'
-        
+
     return JsonResponse({'mensaje': mensaje, 'estado': False})
 
 def enviarCorreoContacto(asunto=None, mensaje=None, destinatario=None, request=None):
@@ -1515,7 +1516,7 @@ def enviarCorreoContacto(asunto=None, mensaje=None, destinatario=None, request=N
         'mensaje': mensaje,
         'asunto': asunto,
     })
-    try: 
+    try:
         correo = EmailMultiAlternatives(
             asunto, mensaje, settings.EMAIL_HOST_USER, destinatario)
         correo.attach_alternative(contenido, 'text/html')
@@ -1607,6 +1608,14 @@ class DetalleRutaList(generics.ListCreateAPIView):
     queryset = DetalleRuta.objects.all()
     serializer_class = DetalleRutaSerializers
 
+class UbicacionRutaList(generics.ListCreateAPIView):
+    queryset = UbicacionRuta.objects.all()
+    serializer_class = UbicacionRutaSerializers
+
+class UbicacionRutaDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = UbicacionRuta.objects.all()
+    serializer_class = UbicacionRutaSerializers
+
 class DetalleRutaDetail(generics.ListAPIView):  # Cambiamos RetrieveUpdateDestroyAPIView por ListAPIView
     serializer_class = DetalleRutaSerializers
     lookup_field = 'detRuta'
@@ -1615,6 +1624,9 @@ class DetalleRutaDetail(generics.ListAPIView):  # Cambiamos RetrieveUpdateDestro
         detRuta_value = self.kwargs[self.lookup_field]
         queryset = DetalleRuta.objects.filter(detRuta=detRuta_value)
         return queryset
+
+class Error404View(TemplateView):
+    template_name = 'error404.html'
 
 #PARTE DE USUARIO
 class UsuarioList(generics.ListCreateAPIView):
@@ -1742,5 +1754,5 @@ def graficaComentario():
     grafica = os.path.join(settings.MEDIA_ROOT, "graficaCom.png")
     plt.savefig(grafica)
 
-    
+
 graficaComentario()

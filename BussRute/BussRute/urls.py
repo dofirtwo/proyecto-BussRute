@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from appBussRute import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -30,15 +30,13 @@ urlpatterns = [
     path('listaRutas/', views.listaRutas),
     path('registroFavorito/',views.registroFavorito),
     path('eliminarFavorito/', views.eliminarFavorito),
-    path('agregarComentario/', views.agregarComentario, name='agregarComentario'),
+    path('agregarComentario/', views.agregarComentario),
     path('inicioSesion/',views.inicioSesion),
     path('vistaRegistrarRuta/',views.vistaRegistrarRuta),
     path('vistaRegistrarCuenta/', views.crearCuenta),
     path('registrarCuenta/',views.registrarseUsuario),
-    path('iniciarSesion/', views.iniciarSesion, name='iniciarSesion'),
-    path('cerrarSesion/', views.cerrarSesion),
     path('iniciarSesion/', views.iniciarSesion),
-    path('cerrarSesion/', views.cerrarSesion, name='cerrarSesion'),
+    path('cerrarSesion/', views.cerrarSesion),
     path('vistaEnvioCorreo/',views.vistaEnvioCorreo),
     path('enviarCambioContrasena/',views.enviarCambioContrasena),
     path('vistaCambioContrasena/',views.vistaCambioContrasena),
@@ -46,15 +44,15 @@ urlpatterns = [
     path('verificarSesion/', views.verificarSesion, name='verificarSesion'),
     path('registroRuta/', views.registroRuta),
     path('vistaNombre/', views.vistaNombreUsuario),
-    path('enviarNombreUsuario/', views.registrarUsuarioIniciadoGoogle, name='enviarNombreUsuario'),
+    path('enviarNombreUsuario/', views.registrarUsuarioIniciadoGoogle),
     path('google-login/', views.google_login, name='google-login'),
     path('google-auth/', views.google_auth, name='google-auth'),
     path('github-login/', views.github_login, name='github-login'),
     path('github-auth/', views.github_callback, name='github-auth'),
     path('eliminarRuta/',views.eliminarRuta),
-    path('eliminarComentario/<int:id>/',views.eliminarComentario, name='eliminarComentario'),
-    path('consultarComentario/<int:id>/',views.consultarComentario, name='consultarComentario'),
-    path('actualizarComentario/<int:id>/',views.actualizarComentario, name='actualizarComentario'),
+    path('eliminarComentario/<int:id>/',views.eliminarComentario),
+    path('consultarComentario/<int:id>/',views.consultarComentario),
+    path('actualizarComentario/<int:id>/',views.actualizarComentario),
     path('vistaVerificarCorreo/', views.vistaVerificarCorreo),
     path('enviarVerificacionCorreo/', views.verificarCodigoDeVerificacion),
     path('eliminarSesionRegistro/', views.eliminarSesionRegistro),
@@ -62,13 +60,17 @@ urlpatterns = [
     path('enviarCorreoRecuperacion/<str:tokenCambio>', views.mostrarInterfaz),
     path('cambioAndroid/', views.cambioAndroid),
     path('verGraficas/', views.verGraficas),
-    path('vistaListaNuevo/', views.desactivarOActivar, name='desactivarOActivar'),
+    path('vistaListaNuevo/', views.desactivarOActivar),
     path('contacto/', views.contacto),
     path("mensajeUsuario/", views.enviarMensajeContacto),
     path('manual/', views.manualInicio),
     path('manualComentario/', views.manualComentario),
     path('manualGoogle/', views.manualRegistrarse),
     path('manualOlvidarContrasena/', views.manualOlvido),
-    path('manual44/', views.manualVisualizar),
-    path('', include('appBussRute.urls'))
+    path('manualVisualizar/', views.manualVisualizar),
+    path('', include('appBussRute.urls')),
+]
+
+urlpatterns += [
+    path('<path:path>', views.Error404View.as_view(), name='error404'),
 ]

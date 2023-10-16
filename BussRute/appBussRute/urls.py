@@ -7,6 +7,8 @@ urlpatterns = [
     path('rutaAndroid/<int:pk>', views.RutaDetailAndroid.as_view()),
     path('detalleRuta', views.DetalleRutaList.as_view()),
     path('detalleRuta/<int:detRuta>', views.DetalleRutaDetail.as_view()),
+    path('ubicacion', views.UbicacionRutaList.as_view()),
+    path('ubicacion/<int:pk>', views.UbicacionRutaDetail.as_view()),
     path('favorito', views.FavoritoList.as_view()),
     path('favorito/<int:favUsuario>', views.FavoritoDetail.as_view()),
     path('favoritoAndroid/<int:favUsuario>/<int:favRuta>', views.FavoritoDetailAndroid.as_view()),

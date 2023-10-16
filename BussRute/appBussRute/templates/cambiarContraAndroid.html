@@ -15,28 +15,69 @@
                     <div class="input-group">
                         <input type="password" class="form-control border-0 mb-2 text-light"
                             placeholder="Nueva Contraseña" id="androidNuevaContra" name="androidNuevaContra" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="mostrarContraseña"><i
+                                    class="fas fa-eye"></i></button>
+                        </div>
                     </div>
+                    <div id="passwordErrorCA"></div>
                 </div>
-                <button class="btn btn-primary w-100 bg-dark-y">Cambiar Contraseña</button>
+                <button id="submitButtonCA" class="btn btn-primary w-100 bg-dark-y">Cambiar Contraseña</button>
             </form>
             <div>
                 {% if mensaje %}
-                    {% if estado %}
-                        <script>
-                            Swal.fire('Cuenta', '{{mensaje}}', 'success').then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = 'myapp://';
-                                }
-                            });
-                        </script>
+                {% if estado %}
+                <script>
+                    Swal.fire('Cuenta', '{{mensaje}}', 'success').then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = 'myapp://';
+                        }
+                    });
+                </script>
                 {% else %}
-                        <script>
-                            Swal.fire('Cuenta', '{{mensaje}}', 'error');
-                        </script>
-                    {% endif %}
+                <script>
+                    Swal.fire('Cuenta', '{{mensaje}}', 'error');
+                </script>
+                {% endif %}
                 {% endif %}
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('#androidNuevaContra').on('input', function () {
+            var password = $(this).val();
+            var caracteres = /^(?=.*[0-9])(?=.*[a-zA-ZñÑ])([a-zA-Z0-9ñÑ\W_]+){8,}$/;
+
+            if (!caracteres.test(password)) {
+                $('#passwordErrorCA').text('La contraseña debe tener al menos 8 caracteres y contener letras y números.');
+                $('#submitButtonCA').prop('disabled', true);
+            } else {
+                $('#passwordErrorCA').text('');
+                $('#submitButtonCA').prop('disabled', false);
+            }
+        });
+
+        $('#androidNuevaContra').on('blur', function () {
+            if ($(this).val() === '') {
+                $('#passwordErrorCA').text('');
+            }
+        });
+    });
+    function visualizarContraseña(inputId) {
+        const mostrarContraseña = document.querySelector('#mostrarContraseña');
+        const passwordInput = document.querySelector(`#${inputId}`);
+
+        mostrarContraseña.addEventListener('click', function (e) {
+            // Cambiar el tipo de entrada del campo de contraseña
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            // Cambiar el icono del botón
+            this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+    }
+    visualizarContraseña('androidNuevaContra');
+
+</script>
 {% endblock %}

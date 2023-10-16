@@ -1,9 +1,9 @@
 from django.db import models
-from django.contrib.auth.hashers import make_password, check_password
-from django.core.validators import MinValueValidator, MaxValueValidator
-import hashlib
-
+#from django.contrib.auth.hashers import make_password, check_password
 # Create your models here.
+from django.core.validators import MinValueValidator, MaxValueValidator
+
+import hashlib
 
 barrios = [('Calamari', 'Calamari'),('Villa Marcela', 'Villa Marcela'),
            ('Asentamiento Villa Nazar', 'Asentamiento Villa Nazareth'),
@@ -72,6 +72,9 @@ sitiosDeInteres =[
     ('La Cruz Roja','La Cruz Roja'),('Cementario','Cementario'),('Biblioteca Banco de la Republica','Biblioteca Banco de la Republica'),
     ('Universidad Antonio Ñariño','Universidad Antonio Ñariño'),
     ('Canchas El Jardin','Canchas El Jardin'),('Coca-Cola','Coca-Cola'),('Terminal de Trasportes','Terminal de Trasportes'),
+    ('Comuneros','Comuneros'),('Corregimiento: El Caguan','Corregimiento: El Caguan'),
+    ('Corregimiento: Fortalecillas','Corregimiento: Fortalecillas'),
+    ('Corregimiento: El Triunfo','Corregimiento: El Triunfo'),
 ]
 
 class Rol(models.Model):
@@ -126,7 +129,7 @@ class Ruta(models.Model):
 
     def __str__(self):
         return f"{self.rutNumero}"
-    
+
 class Comentario(models.Model):
     comDescripcion = models.CharField(max_length=500)
     comValoracion = models.PositiveIntegerField(
@@ -139,7 +142,7 @@ class Comentario(models.Model):
 
     def __str__(self):
         return f"{self.comDescripcion} - Valoración: {self.comValoracion}"
-    
+
 class DetalleRuta(models.Model):
     detRuta = models.ForeignKey(Ruta,on_delete=models.PROTECT,
                                     db_comment="Hace referencia a la ruta que se va a registrar")

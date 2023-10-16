@@ -159,63 +159,6 @@
 
 
 /* CSS DE VARGAS */
-#comentarios {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Mostrar 4 elementos a lo ancho */
-    grid-gap: 16px; /* Espacio entre elementos */
-  }
-
-.comment {
-    display: flex;
-}
-
-.comment.author-comment {
-    justify-content: flex-end;
-}
-
-.comment.author-comment .info {
-    order: 3;
-}
-
-.comment.author-comment .avatar {
-    order: 2;
-}
-
-.comment.author-comment p {
-    order: 1;
-}
-
-@media (max-width: 800px) {
-
-    /* Reverse the order of elements in the user comments,
-    so that the avatar and info appear after the text. */
-    .comment.user-comment .info {
-        order: 3;
-    }
-
-    .comment.user-comment .avatar {
-        order: 2;
-    }
-
-    .comment.user-comment p {
-        order: 1;
-    }
-
-
-    /* Make the paragraph in the comments take up the whole width,
-    forcing the avatar and user info to wrap to the next line*/
-    .comment p {
-        width: 100%;
-    }
-
-
-    /* Align toward the beginning of the container (to the left)
-    all the elements inside the author comments. */
-    .comment.author-comment {
-        justify-content: flex-start;
-    }
-}
-
 
 .location .location-form .form-control:-ms-input-placeholder,
 .location .location-form .form-control::-ms-input-placeholder {
@@ -339,11 +282,11 @@
 }
 
 
-
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 
 /* * {
     font-family: 'Poppins', sans-serif;
@@ -451,6 +394,7 @@ input {
     border-radius: 100px;
 }
 
+
 .agregarComentarioContenedor {
     display: flex;
     justify-content: center;
@@ -471,11 +415,13 @@ input {
 
 #txtComentario {
     border-radius: 25px;
+
 }
 
 #txtMensaje {
     border-radius: 25px;
 }
+
 
 .txtNombre {
     border-radius: 25px;
@@ -492,8 +438,6 @@ input {
 .txtMensaje {
     border-radius: 25px;
 }
-
-
 
 
 
@@ -582,8 +526,25 @@ body {
 }
 
 .logoMenu {
-    width: 115%;
+    width: 75%;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+@media screen and (max-width: 600px) {
+    .logoMenu {
+        margin-left: 50px;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .logoMenu {
+        margin-left: 60px;
+    }
+}
+
 
 
 .logo1 {
@@ -676,40 +637,46 @@ body {
 
 
 /* CSS DE ARIADNA */
-
-.imageN{
+.imageN {
     text-align: center;
     margin-bottom: 40px;
     margin-top: 40px;
 }
-.custom-h1{
+
+.custom-h1 {
     font-size: 40px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: #2c3033; /* Azul */
+    color: #2c3033;
+    /* Azul */
     margin-bottom: 20px;
 }
 
-.custom-p{
+.custom-p {
     font-size: 23px;
     font-family: Arial, Helvetica, sans-serif;
-    color: #2c3033; /* Azul */
+    color: #2c3033;
+    /* Azul */
     margin-bottom: 20px;
 }
-.Subtitulo{
+
+.Subtitulo {
     font-size: 20px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: #2c3033; /* Azul */
+    color: #2c3033;
+    /* Azul */
     margin-top: 50px;
     margin-bottom: 20px;
 }
-.Subparrafo{
+
+.Subparrafo {
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
-    color: #2c3033; /* Azul */
+    color: #2c3033;
+    /* Azul */
     margin-bottom: 20px;
 }
 
-.Alineacion{
+.Alineacion {
     display: inline-block;
     margin-right: 32px;
     justify-content: center;
@@ -723,35 +690,51 @@ body {
     justify-content: space-between;
     margin: 20px 0;
     font-size: 16px;
-  }
-  
-  .pagination a {
+}
+
+.pagination a {
     text-decoration: none;
     color: #007bff;
     padding: 5px 10px;
     border: 1px solid #007bff;
     border-radius: 5px;
-  }
-  
-  .current-page {
+}
+
+.current-page {
     padding: 5px 10px;
     background-color: #007bff;
     color: #fff;
     border-radius: 5px;
-  }
-  
-.imagen {
-    width: 80%;
-    height: 400px;
+}
+
+.imagenMapa {
+    width: 70%;
+    height: 380px;
     margin-top: 20px;
 }
 
+.imagen {
+    width: 650px;
+    height: 291px;
+    margin-top: 20px;
+}
 
-.circulo {
-    background-color: #52a900;
-    border-radius: 50%;
-    width: 200px;
-    height: 200px;
+.iconoXD {
+    width: 150%;
+    height: 100px;
+
+}
+
+.iconoXD2 {
+    width: 50%;
+    height: 100px;
+
+}
+
+#mapInicio {
+    border-radius: 90%;
+    width: 300px;
+    height: 300px;
 }
 
 .clasexd {
@@ -888,6 +871,76 @@ body {
 
 .parrafoComent {
     width: 70%;
+}
+
+.imgAGen {
+    margin-top: 60px;
+    margin-bottom: 80px;
+}
+
+.custom-h1 {
+    font-size: 50px;
+    font-family: 'Onest', sans-serif;
+    color: #000000;
+    /* Azul */
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.custom-p {
+    font-size: 30px;
+    font-family: 'Work Sans', sans-serif;
+    color: #000000;
+    /* Azul */
+    margin: 20px;
+}
+
+.Subtitulo {
+    font-size: 28px;
+    font-family: 'Onest', sans-serif;
+    color: #000000;
+    /* Azul */
+    margin-top: 50px;
+    margin-left: 60px;
+}
+
+.Subparrafo {
+    font-size: 27px;
+    font-family: 'Work Sans', sans-serif;
+    color: #000000;
+    /* Azul */
+    margin-left: 60px;
+}
+
+.Alineacion {
+    display: inline-block;
+    margin-right: 32px;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+.menuMaual {
+    width: 18%;
+    background-color: rgba(127, 172, 255, 0.7);
+}
+
+
+
+.fuenteA {
+    font-family: 'Mohave', sans-serif;
+    font-size: 25px;
+    color: #000000;
+}
+
+.fondoPrincipal {
+    background-color: rgb(187, 187, 224);
+}
+
+.fondoSecundario {
+    background-color: rgb(204, 209, 255);
+
 }
 
 /* CSS DEL MENU */
@@ -1266,3 +1319,13 @@ body {
 .testimonial .owl-dot.active {
     background: #E81C2E;
 } */
+
+
+/* mensaje crear cuenta y cambio de contraseña*/
+
+#passwordError,
+#mayusActivadaCrear,
+#passwordErrorCambio,
+#mayusActivadaCambio {
+    color: #E81C2E;
+}

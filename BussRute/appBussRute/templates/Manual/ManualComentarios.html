@@ -1,0 +1,99 @@
+{% extends "index.html" %}
+{% block encabezado %}
+{% include "encabezado.html" %}
+{% endblock %}
+{% block contenido %}
+{% load static %}
+<div class="d-flex">
+    <!-- Menú -->
+    <nav class="navbar menuMaual">
+        <div class="container-fluid d-flex justify-content-center">
+            <ul class="navbar-nav flex-column fuenteA">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Inicio Sesion</a>
+                    <div class="dropdown-content">
+                        <a href="/manual/">Crear Cuenta</a>
+                        <a href="/manualOlvidarContrasena/">¿Olvido la contrasea?</a>
+                        <a href="/manualGoogle/">Registrarse con Google</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/manualComentario/">Comentarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/manualVisualizar/">Visualizar Rutas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/inicio/">Inicio</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <style>
+        .nav-item {
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: rgba(0, 0, 0, .5);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f8f9fa;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+
+
+    <!--CONTENIDO-->
+    <div class="container-fluid flex-grow-1">
+        <div class="p-4 fondoSecundario">
+            <h1 class="custom-h1">Realizar Comentarios</h1>
+            <p class="custom-p">En esta sección, te proporcionaremos instrucciones detalladas sobre cómo ingresar un
+                comentario. Tu opinión es importante para nosotros, y aquí te guiaremos paso a paso para que puedas
+                compartir tus comentarios de manera sencilla y efectiva.</p>
+
+
+            <ol>
+                <li class="Subtitulo"> Realizar comentarios en el sitio web: </li>
+            </ol>
+            <p class="Subparrafo">Para acceder a la opción de 'comentarios', simplemente navega hasta
+                la sección 'Rutas' en el menú principal y haz clic en el botón 'Comentar'. Una vez allí,
+                podrás expresar tus ideas y sugerencias en nuestra plataforma.</p>
+
+            <div class="d-flex justify-content-center imgAGen">
+                <img src="{% static '../static/img/imgManual/Comentarios1.jpeg' %}" alt="">
+            </div>
+            <div class="d-flex justify-content-center imgAGen">
+                <img src="{% static '../static/img/imgManual/Comentarios2.jpeg' %}" alt="">
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block pie_pagina %}
+{% include "pie_pagina.html" %}
+{% endblock %}

@@ -17,6 +17,7 @@
                 {% csrf_token %}
                 <div class="mb-4">
                     <label for="passwordCambioContraseña" class="form-label font-weight-bold">Nueva Contraseña:</label>
+                    <div id="mayusActivadaCambio"></div>
                     <div class="input-group">
                         <input type="password" class="form-control border-0 mb-2 text-light"
                             placeholder="Nueva Contraseña" id="pasNuevaContraseña" name="pasNuevaContraseña" required>
@@ -25,8 +26,10 @@
                                     class="fas fa-eye"></i></button>
                         </div>
                     </div>
+                    <div id="passwordErrorCambio"></div>
                 </div>
-                <button class="btn btn-primary w-100 bg-dark-y">Cambiar Contraseña</button>
+                <button class="btn btn-primary w-100 bg-dark-y" id="submitButtonCambio" disabled>Cambiar
+                    Contraseña</button>
             </form>
             <div>
                 {% if mensaje %}
@@ -35,7 +38,7 @@
                     Swal.fire('Cuenta', '{{mensaje}}', 'success').then(function () {
                         setTimeout(function () {
                             window.location.href = '/inicioSesion/';
-                        }, 1000);
+                        }, 500);
                     });
                 </script>
                 {% else %}

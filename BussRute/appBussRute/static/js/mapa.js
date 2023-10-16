@@ -9,12 +9,12 @@ let sitios = [
     {
         nombre: "Estadio Guillermo Plazas Alcid",
         coordenadas: [
-            [2.937096, -75.280227],   
-            [2.936764, -75.281488], 
-            [2.936202, -75.281423],  
-            [2.934809, -75.280806], 
-            [2.935168, -75.279310], 
-            [2.936764, -75.279685], 
+            [2.937096, -75.280227],
+            [2.936764, -75.281488],
+            [2.936202, -75.281423],
+            [2.934809, -75.280806],
+            [2.935168, -75.279310],
+            [2.936764, -75.279685],
         ],
         weight: 1
     },
@@ -46,50 +46,50 @@ let sitios = [
     {
         nombre: "Biblioteca Banco de la Republica",
         coordenadas: [
-            [2.925263, -75.288289],  
-            [2.925121, -75.288658], 
-            [2.924864, -75.288557],  
-            [2.924993, -75.288192], 
+            [2.925263, -75.288289],
+            [2.925121, -75.288658],
+            [2.924864, -75.288557],
+            [2.924993, -75.288192],
         ],
         weight: 1
     },
     {
         nombre: "Parque Leesburg",
         coordenadas: [
-            [2.937551, -75.289330],  
-            [2.937221, -75.290126], 
-            [2.936755, -75.290024],  
-            [2.936889, -75.289254], 
+            [2.937551, -75.289330],
+            [2.937221, -75.290126],
+            [2.936755, -75.290024],
+            [2.936889, -75.289254],
         ],
         weight: 1
     },
     {
         nombre: "Centro Comercial San Pedro Plaza",
         coordenadas: [
-            [2.950750, -75.287006],  
-            [2.952571, -75.287711], 
-            [2.950868, -75.289755],  
-            [2.950621, -75.289539], 
-            [2.950392, -75.289325], 
-            [2.950068, -75.289083], 
-            [2.949837, -75.288947], 
-            [2.949597, -75.288835], 
-            [2.948754, -75.288458], 
-            [2.948623, -75.288490], 
-            [2.948363, -75.288451], 
+            [2.950750, -75.287006],
+            [2.952571, -75.287711],
+            [2.950868, -75.289755],
+            [2.950621, -75.289539],
+            [2.950392, -75.289325],
+            [2.950068, -75.289083],
+            [2.949837, -75.288947],
+            [2.949597, -75.288835],
+            [2.948754, -75.288458],
+            [2.948623, -75.288490],
+            [2.948363, -75.288451],
         ],
         weight: 1
     },
     {
         nombre: "La Cruz Roja",
         coordenadas: [
-            [2.942958, -75.293270],  
-            [2.943104, -75.293900], 
-            [2.941589, -75.294304],  
-            [2.941495, -75.294296], 
-            [2.941646, -75.294243],  
-            [2.941804, -75.294159], 
-            [2.941854, -75.294113],  
+            [2.942958, -75.293270],
+            [2.943104, -75.293900],
+            [2.941589, -75.294304],
+            [2.941495, -75.294296],
+            [2.941646, -75.294243],
+            [2.941804, -75.294159],
+            [2.941854, -75.294113],
             [2.941927, -75.294005],
             [2.942039, -75.293732],
             [2.942071, -75.293616],
@@ -100,32 +100,32 @@ let sitios = [
     {
         nombre: "Universidad Antonio Ñariño",
         coordenadas: [
-            [2.940017, -75.255730],  
-            [2.940048, -75.256516], 
-            [2.940058, -75.256805],  
-            [2.940163, -75.257485], 
-            [2.938842, -75.257492],  
-            [2.938834, -75.255797], 
+            [2.940017, -75.255730],
+            [2.940048, -75.256516],
+            [2.940058, -75.256805],
+            [2.940163, -75.257485],
+            [2.938842, -75.257492],
+            [2.938834, -75.255797],
         ],
         weight: 1
     },
     {
         nombre: "Canchas El Jardin",
         coordenadas: [
-            [2.940614, -75.268698],  
-            [2.940595, -75.269305], 
-            [2.939758, -75.269313],  
-            [2.939781, -75.268656], 
+            [2.940614, -75.268698],
+            [2.940595, -75.269305],
+            [2.939758, -75.269313],
+            [2.939781, -75.268656],
         ],
         weight: 1
     },
     {
         nombre: "Coca-Cola",
         coordenadas: [
-            [2.954642, -75.297719],  
-            [2.955389, -75.301990], 
-            [2.954181, -75.302167],  
-            [2.953447, -75.297907], 
+            [2.954642, -75.297719],
+            [2.955389, -75.301990],
+            [2.954181, -75.302167],
+            [2.953447, -75.297907],
         ],
         weight: 1
     },
@@ -133,29 +133,50 @@ let sitios = [
         nombre: "Terminal de Trasportes",
         coordenadas: [
             [2.918369, -75.280876],
-            [2.918363, -75.281518], 
-            [2.918265, -75.281590],  
-            [2.918227, -75.281739], 
-            [2.918264, -75.282755], 
-            [2.917948, -75.282967], 
-            [2.916646, -75.283001], 
-            [2.916350, -75.283030],  
-            [2.916243, -75.283065], 
-            [2.916104, -75.283181], 
-            [2.916081, -75.283179], 
-            [2.915365, -75.282635], 
-            [2.915323, -75.282188],  
-            [2.915264, -75.281860], 
-            [2.915264, -75.281860], 
-            [2.915240, -75.281615],  
-            [2.915264, -75.281578], 
-            [2.915307, -75.281614],           
+            [2.918363, -75.281518],
+            [2.918265, -75.281590],
+            [2.918227, -75.281739],
+            [2.918264, -75.282755],
+            [2.917948, -75.282967],
+            [2.916646, -75.283001],
+            [2.916350, -75.283030],
+            [2.916243, -75.283065],
+            [2.916104, -75.283181],
+            [2.916081, -75.283179],
+            [2.915365, -75.282635],
+            [2.915323, -75.282188],
+            [2.915264, -75.281860],
+            [2.915264, -75.281860],
+            [2.915240, -75.281615],
+            [2.915264, -75.281578],
+            [2.915307, -75.281614],
             [2.915677, -75.281528],
             [2.916168, -75.281332],
-            [2.916738, -75.281025],         
-            [2.917159, -75.280712], 
-            [2.917334, -75.280886], 
-            [2.917473, -75.280938], 
+            [2.916738, -75.281025],
+            [2.917159, -75.280712],
+            [2.917334, -75.280886],
+            [2.917473, -75.280938],
+        ],
+        weight: 1
+    },
+    {
+        nombre: "Comuneros",
+        coordenadas: [
+            [2.926991, -75.292068],
+            [2.926765, -75.292694],
+            [2.925603, -75.292357],
+            [2.925957, -75.291694],
+
+        ],
+        weight: 1
+    },
+    {
+        nombre: "centro de Convenciones José Eustásio Rivera",
+        coordenadas: [
+            [2.937277, -75.294000],
+            [2.937075, -75.294600],
+            [2.935752, -75.294062],
+            [2.935999, -75.293479],
         ],
         weight: 1
     },
@@ -173,15 +194,30 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //evento para cuando se seleccione una ruta y esta se pueda vizualizar
 document.getElementById('ruta').addEventListener('change', function () {
     ocultarRuta();
-    if (document.getElementById('ruta').value == 0){
+    if (document.getElementById('ruta').value == 0) {
+        // Limpia el mapa eliminando todas las capas
+        map.eachLayer(function (layer) {
+            map.removeLayer(layer);
+        });
+        document.getElementById("map").style.height = "600px"
+        document.getElementById("txtImagenFrente").hidden = true
+        document.getElementById("txtImagenLado").hidden = true
+        document.getElementById("barrioRut").hidden = true
+        document.getElementById("comunaRut").hidden = true
+        document.getElementById("barrioRuta").innerHTML = "";
+        document.getElementById("comunaRuta").innerHTML = "";
+        document.getElementById("adventencia").innerHTML = ""
+        document.getElementById("adventenciaContenido").innerHTML = ``
+        document.getElementById("nota").innerHTML = ""
+        document.getElementById("notaContenido").innerHTML = ``
+        document.getElementById("contenedorComent").innerHTML = ""
         document.getElementById("txtEmpresa").value = ""
         document.getElementById("txtPrecio").value = ""
         document.getElementById("txtNumero").value = ""
-        document.getElementById("comentarios").innerHTML=""
         document.getElementById("txtColor").value = ""
         document.getElementById("txtImagenFrente").src = ""
         document.getElementById("txtImagenLado").src = ""
-    } else{
+    } else {
         mostrarRuta();
     }
 });
@@ -200,7 +236,7 @@ document.getElementById('btnUbicacion').addEventListener('change', function () {
     }
 });
 
-//eventos para cuando se seleccione alguno de los filtros(Barrio,Comuna,Sitio de Interes)  
+//eventos para cuando se seleccione alguno de los filtros(Barrio,Comuna,Sitio de Interes)
 document.getElementById('cbBarrio').addEventListener('change', function () {
     document.getElementById("ruta").innerHTML = ""
     filtroBarrio()
@@ -245,13 +281,17 @@ function getCookie(name) {
 }
 
 var control;
+var control2;
 
 /**
  * Funcion para ocutar la ruta que se encuentra visible
  */
 function ocultarRuta() {
-    if (control) {
-        control.remove();
+    if (control || control2) {
+        control.remove()
+    }
+    if (control2) {
+        control2.remove();
     }
 }
 
@@ -261,7 +301,7 @@ function ocultarRuta() {
  * @param {Double} lon1 longitud en la cual se encuentra el Usuario
  * @param {Double} lat2 latitud en la cual se encuentra un Punto de la Ruta
  * @param {Double} lon2 longitud en la cual se encuentra un Punto de la Ruta
- * @returns 
+ * @returns
  */
 function haversine(lat1, lon1, lat2, lon2) {
     // Radio de la Tierra en kilómetros
@@ -279,8 +319,8 @@ function haversine(lat1, lon1, lat2, lon2) {
 
     // Fórmula haversine
     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(lat1Rad) * Math.cos(lat2Rad) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
 
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
@@ -329,24 +369,39 @@ function mostrarRutasCercanas() {
     });
 }
 
+
+var currentRoute = null; // Variable para mantener la ruta actual
+var currentRoute2 = null; // Variable para mantener la ruta actual
 /**
  * Funcion encargada de Trazar la Ruta en el mapa y mostrar los valores de la ruta seleccionada (Nombre,Precio,Color,imagenes,Numero de Ruta)
  * tambien muestra los Comentarios que se tienen relacionados con la Ruta (Si es que esta tiene)
- * y por ultimo muestra en la mapa los sitios de interes por donde para la Ruta (Estos se muestran de un color) 
+ * y por ultimo muestra en la mapa los sitios de interes por donde para la Ruta (Estos se muestran de un color)
  */
 function mostrarRuta() {
-    map.eachLayer(function(layer) {
+    document.getElementById("txtImagenFrente").hidden = false
+    document.getElementById("txtImagenLado").hidden = false
+    document.getElementById("map").style.height = "950px"
+    document.getElementById("nota").innerHTML = ""
+    document.getElementById("notaContenido").innerHTML = ``
+    document.getElementById("contenedorComent").innerHTML = ""
+    document.getElementById("contenedorComent").innerHTML += `  <div class='testimonios_header mt-1'>
+                                                                    <h2>Comentario</h2>
+                                                                </div>
+                                                                <div class="owl-carousel testimonials-carousel">
+
+                                                                </div>`
+    map.eachLayer(function (layer) {
         if (layer instanceof L.Marker) {
             map.removeLayer(layer);
         }
     });
     ubicacionDispositivo()
-    map.eachLayer(function(layer) {
+    map.eachLayer(function (layer) {
         if (layer instanceof L.Polygon) {
             map.removeLayer(layer);
         }
     });
-    
+
     var options = {
         lineOptions: {
             styles: [{ color: '#46668d' }]
@@ -359,27 +414,86 @@ function mostrarRuta() {
     };
 
     control = L.Routing.control(options).addTo(map);
+    // Verificar si existe una ruta actual y eliminarla si es necesario
+    if (currentRoute !== null) {
+        map.removeLayer(currentRoute.routeLine); // Eliminar la línea de ruta
+        map.removeLayer(currentRoute.decorator); // Eliminar los indicadores de dirección
+    }
+    // Verificar si existe una ruta actual y eliminarla si es necesario
+    if (currentRoute2 !== null) {
+        map.removeLayer(currentRoute2.routeLine); // Eliminar la línea de ruta
+        map.removeLayer(currentRoute2.decorator); // Eliminar los indicadores de dirección
+    }
+    // Escuchar el evento 'routeselected' para agregar indicadores de dirección
+    control.on('routeselected', function (e) {
+        var route = e.route; // La ruta seleccionada
+
+        // Crear un arreglo de coordenadas para la línea de ruta
+        var routeCoordinates = route.coordinates.map(function (coord) {
+            return [coord.lat, coord.lng];
+        });
+
+        // Crear la línea de ruta en el mapa
+        var routeLine = L.polyline(routeCoordinates, { color: '#46668d' }).addTo(map);
+
+        // Crear un decorador de línea para agregar indicadores de dirección
+        var decorator = L.polylineDecorator(routeLine, {
+            patterns: [
+                {
+                    offset: 25, // Ajustar la posición de los indicadores en la línea
+                    repeat: 100, // Espacio entre indicadores de dirección
+                    symbol: L.Symbol.arrowHead({
+                        pixelSize: 10,
+                        polygon: false,
+                        pathOptions: { color: '#6f7fe2' } // Color de los indicadores de dirección
+                    })
+                }
+            ]
+        }).addTo(map);
+
+        // Actualizar la ruta actual
+        currentRoute = {
+            routeLine: routeLine,
+            decorator: decorator
+        };
+    });
     // Crear un arreglo para almacenar las coordenadas
     var waypoints = [];
     numeroRut = document.getElementById("ruta").value
-    
+    var estado = false
+    var customIcon = L.divIcon({
+        className: 'custom-icon',
+        html: '<i class="fa-solid fa-location-dot fa-2xl" style="color: #d02525;"></i>',
+    });
+    // Crear un conjunto para almacenar valores únicos
+    var barriosRuta = new Set();
+    var comunasRuta = new Set();
     ubicaciones.forEach(entradaC => {
-        if (entradaC.ubiRuta == numeroRut){
-            sitios.forEach(function(cuadrado) {
-                if(cuadrado.nombre == entradaC.ubiSitioDeInteres){
-                    var polygon = L.polygon(cuadrado.coordenadas, { color:"#6f7fe2 ", weight: cuadrado.weight }).addTo(map);
+        if (entradaC.ubiRuta == numeroRut) {
+            sitios.forEach(function (cuadrado) {
+                if (cuadrado.nombre == entradaC.ubiSitioDeInteres) {
+                    var polygon = L.polygon(cuadrado.coordenadas, { color: "#6f7fe2 ", weight: cuadrado.weight }).addTo(map);
                     // Calcular las coordenadas del centro del cuadrado
                     var squareCenter = polygon.getBounds().getCenter();
 
                     // Crear un marcador en el centro del cuadrado
-                    var marker = L.marker(squareCenter).addTo(map);
+                    var marker = L.marker(squareCenter, { icon: customIcon }).addTo(map);
                     polygon.bindPopup(cuadrado.nombre); // Agregar nombre como etiqueta emergente
                 }
-               
+                barriosRuta.add(entradaC.ubiBarrio);
+                comunasRuta.add(entradaC.ubiComuna);
             });
         }
     });
+    // Convertir el conjunto en una cadena separada por guiones
+    var barrios = Array.from(barriosRuta).join('-');
+    var comunas = Array.from(comunasRuta).join('-');
 
+    // Mostrar la cadena en el elemento con el id "barrioRuta" con la palabra "Barrio" en negrilla
+    document.getElementById("barrioRut").hidden = false
+    document.getElementById("comunaRut").hidden = false
+    document.getElementById("barrioRuta").innerHTML = barrios;
+    document.getElementById("comunaRuta").innerHTML = comunas;
 
     //Guardar ruta en local Storage
     var cantidad = 1;
@@ -388,50 +502,92 @@ function mostrarRuta() {
     var rutasGuardadas = JSON.parse(localStorage.getItem('datos') || '[]');
 
     // Verificar si la opción ya existe en el arreglo
-    var opcionExistente = rutasGuardadas.find(function(item) {
-      return item.ruta === numeroRut;
+    var opcionExistente = rutasGuardadas.find(function (item) {
+        return item.ruta === numeroRut;
     });
 
     if (opcionExistente) {
-      // Si la opción ya existe, aumentar la cantidad
-      opcionExistente.cantidad += cantidad;
+        // Si la opción ya existe, aumentar la cantidad
+        opcionExistente.cantidad += cantidad;
     } else {
-      // Si la opción no existe, agregarla al arreglo
-      rutasGuardadas.push({
-        ruta: numeroRut,
-        cantidad: cantidad
-      });
+        // Si la opción no existe, agregarla al arreglo
+        rutasGuardadas.push({
+            ruta: numeroRut,
+            cantidad: cantidad
+        });
     }
 
     // Guardar los datos actualizados en el almacenamiento local
     localStorage.setItem('datos', JSON.stringify(rutasGuardadas));
+    $(document).ready(function () {
+        var owl = $(".testimonials-carousel");
 
-    let datos = "";
-    // Recorrer el arreglo de comentarios para mostrarlos
-    comentarios.forEach(entradaC => {
-        if (entradaC.comRuta == numeroRut){
+        // Función para crear elementos de comentario
+        function crearElementoComentario(entradaC) {
+            const testimonialItem = $("<div class='testimonial-item'></div>");
 
-            datos += `
-
-            <div class="card text-center"" style="width: 18rem;">
-                            <div class="card-body">
-                            <h5 class="card-title">${entradaC.conUsuario}</h5>
-                            <p class="card-text">${entradaC.comDescripcion}</p>
-                            <div class="testimonial-text testimonios" data-valoracion="${entradaC.comValoracion}">
-                                <div class="reseñas">
-                                </div>
-                            </div>
-                            <p class="card-text">Ruta ${entradaC.comRuta}</p>
-                            </div>
-                        </div>`;
+            const testimonialText = $(`
+          <div class="testimonial-text testimonios" data-valoracion="${entradaC.comValoracion}">
+            <h3 class="name-user">${entradaC.conUsuario}</h3>
+            <h4>Ruta: ${entradaC.comRuta}</h4>
+            <div class="reseñas"></div>
+            <p>${entradaC.comDescripcion}</p>
+          </div>
+        `);
+            testimonialItem.append(testimonialText);
+            return testimonialItem;
         }
+
+        // Función para cargar comentarios en el carrusel
+        function cargarComentarios() {
+            let comentariosFiltrados = comentarios.filter(entradaC => entradaC.comRuta == numeroRut);
+
+            // Limpia el contenido del carrusel
+            owl.trigger('destroy.owl.carousel');
+            owl.empty();
+
+            comentariosFiltrados.forEach(entradaC => {
+                const elementoComentario = crearElementoComentario(entradaC);
+                owl.owlCarousel('add', elementoComentario);
+            });
+
+            owl.owlCarousel({
+                center: true,
+                autoplay: true,
+                smartSpeed: 2000,
+                dots: true,
+                loop: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    576: {
+                        items: 1
+                    },
+                    768: {
+                        items: 2
+                    },
+                    992: {
+                        items: 3
+                    }
+                }
+            });
+
+            owl.trigger('refresh.owl.carousel');
+        }
+
+        // Llamar a la función para cargar los comentarios
+        cargarComentarios();
     });
-    document.getElementById("comentarios").innerHTML=datos
+
+
+
+
     // Recorrer el arreglo de coordenadas y agregar cada punto al arreglo de waypoints
     coodernadas.forEach(entradaR => {
         posR = rutas.findIndex(ruta => ruta.numRuta == entradaR.idRuta);
         if (rutas[posR].numRuta == numeroRut) {
-            if (rutas[posR].preRuta == 2400){
+            if (rutas[posR].preRuta == 2400) {
                 if (rutas[posR].empRuta == "Coomotor") {
                     document.getElementById("txtColor").value = "Azul"
                     document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Nuevas/RUTANUEVAVCOOMOTOR.jpg'
@@ -439,8 +595,8 @@ function mostrarRuta() {
                 }
                 if (rutas[posR].empRuta == "CootransHuila") {
                     document.getElementById("txtColor").value = "Verde Claro con Blanco"
-                    document.getElementById("txtImagenFrente").src = ''
-                    document.getElementById("txtImagenLado").src = ''
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Nuevas/RUTANUEVACOOTRANSHUILA.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Nuevas/RUTANUEVACOOTRANSHUILALADO.jpg'
                 }
                 if (rutas[posR].empRuta == "FlotaHuila") {
                     document.getElementById("txtColor").value = "Gris / Plateado"
@@ -449,8 +605,8 @@ function mostrarRuta() {
                 }
                 if (rutas[posR].empRuta == "CootransNeiva") {
                     document.getElementById("txtColor").value = "Blanco con Rojo"
-                    document.getElementById("txtImagenFrente").src = ''
-                    document.getElementById("txtImagenLado").src = ''
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Nuevas/RUTANUEVACOOTRANSNEIVA.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Nuevas/RUTANUEVACOOTRANSNEIVALADO.jpg'
                 }
                 if (rutas[posR].empRuta == "AutoBuses") {
                     document.getElementById("txtColor").value = "Verde Oscuro"
@@ -458,7 +614,7 @@ function mostrarRuta() {
                     document.getElementById("txtImagenLado").src = '../../static/img/Buses/Nuevas/RUTANUEVAAUTOBUSESLADO.jpg'
                 }
             }
-            if (rutas[posR].preRuta == 2300){
+            if (rutas[posR].preRuta == 2300) {
                 if (rutas[posR].empRuta == "Coomotor") {
                     document.getElementById("txtColor").value = "Azul"
                     document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOMOTOR.jpg'
@@ -466,8 +622,8 @@ function mostrarRuta() {
                 }
                 if (rutas[posR].empRuta == "CootransHuila") {
                     document.getElementById("txtColor").value = "Verde Claro con Blanco"
-                    document.getElementById("txtImagenFrente").src = ''
-                    document.getElementById("txtImagenLado").src = ''
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOTRANSHUILA.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOTRANSHUILALADO.jpg'
                 }
                 if (rutas[posR].empRuta == "FlotaHuila") {
                     document.getElementById("txtColor").value = "Gris / Plateado"
@@ -481,36 +637,122 @@ function mostrarRuta() {
                 }
                 if (rutas[posR].empRuta == "AutoBuses") {
                     document.getElementById("txtColor").value = "Verde Oscuro"
-                    document.getElementById("txtImagenFrente").src = ''
-                    document.getElementById("txtImagenLado").src = ''
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Viejas/RUTAVIEJAAUTOBUSES.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Viejas/RUTAVIEJAAUTOBUSESLADO.jpg'
                 }
             }
+            document.getElementById("nota").innerHTML = "Nota:"
+            document.getElementById("notaContenido").innerHTML = `Las rutas en Horario Nocturno, Fin de Semana y Festivos cobran 100COP más`
+            if (rutas[posR].numRuta == 19) {
+                document.getElementById("notaContenido").innerHTML += `, La ruta ${rutas[posR].numRuta} cobra un extra por ir hasta Fortalecillas/El Caguán`
+            }
+            if (rutas[posR].numRuta == 73) {
+                document.getElementById("notaContenido").innerHTML += `, La ruta ${rutas[posR].numRuta} cobra un extra por ir a hasta El Caguán/El Triunfo `
+            }
+            if (rutas[posR].empRuta == "FlotaHuila" || rutas[posR].empRuta == "CootransHuila") {
+                document.getElementById("adventencia").innerHTML = ""
+                document.getElementById("adventenciaContenido").innerHTML = ``
+            } else {
+                document.getElementById("adventencia").innerHTML = "Advertencia:"
+                document.getElementById("adventenciaContenido").innerHTML = `Es posible que las rutas de la empresa ${rutas[posR].empRuta} se encuentren Desactualizadas o Inhabilitadas`
 
+            }
             document.getElementById("txtEmpresa").value = rutas[posR].empRuta
-            document.getElementById("txtPrecio").value = "$"+rutas[posR].preRuta
+            document.getElementById("txtPrecio").value = rutas[posR].preRuta + "COP"
             document.getElementById("txtNumero").value = rutas[posR].numRuta
-            waypoints.push(L.latLng(entradaR.latitud, entradaR.longitud));
+            // Coordenadas específicas donde deseas trazar una línea recta
+            var lineCoordinates = [
+                [2.946162, -75.305428],
+                [2.9462665651785755, -75.30530711448327],
+            ];
+            var lineCoordinates2 = [
+                [2.949905, -75.289339],
+                [2.950033, -75.289143],
+            ];
+            if (entradaR.latitud == "2.946181387404214" && entradaR.longitud == "-75.30550394940154" || entradaR.latitud == "2.9462665651785755" && entradaR.longitud == "-75.30530711448327" || entradaR.latitud == "2.949703917774272" && entradaR.longitud == "-75.28995137671255" || entradaR.latitud == "2.950303936407456" && entradaR.longitud == "-75.28939357717871") {
+                if (entradaR.latitud == "2.946181387404214") {
+                    var polyline = L.polyline(lineCoordinates, { color: '#46668d' }).addTo(map);
+                }
+                if (entradaR.latitud == "2.949703917774272") {
+                    var polyline = L.polyline(lineCoordinates2, { color: '#46668d' }).addTo(map);
+                    var polyline = L.polyline([[2.950033, -75.289143], [2.950572, -75.289658]], { color: '#46668d' }).addTo(map);
+                }
+                console.log(waypoints.length)
+                if (waypoints.length == 0) {
+                    waypoints.push(L.latLng(entradaR.latitud, entradaR.longitud));
+                    console.log("vacio")
+                } else {
+                    console.log("lleno")
+                    estado = true
+                    control.setWaypoints(waypoints)
+                    waypoints = [];
+                }
+
+
+            } else {
+                waypoints.push(L.latLng(entradaR.latitud, entradaR.longitud));
+            }
         }
     });
 
     // Establecer el arreglo de waypoints en el control de enrutamiento
-    control.setWaypoints(waypoints);
+    if (estado) {
+        control2 = L.Routing.control(options).addTo(map);
 
-    control.hide();
+        // Escuchar el evento 'routeselected' para agregar indicadores de dirección
+        control2.on('routeselected', function (e) {
+            var route = e.route; // La ruta seleccionada
+
+            // Crear un arreglo de coordenadas para la línea de ruta
+            var routeCoordinates = route.coordinates.map(function (coord) {
+                return [coord.lat, coord.lng];
+            });
+
+            // Crear la línea de ruta en el mapa
+            var routeLine = L.polyline(routeCoordinates, { color: '#46668d' }).addTo(map);
+
+            // Crear un decorador de línea para agregar indicadores de dirección
+            var decorator = L.polylineDecorator(routeLine, {
+                patterns: [
+                    {
+                        offset: 25, // Ajustar la posición de los indicadores en la línea
+                        repeat: 100, // Espacio entre indicadores de dirección
+                        symbol: L.Symbol.arrowHead({
+                            pixelSize: 10,
+                            polygon: false,
+                            pathOptions: { color: '#6f7fe2' } // Color de los indicadores de dirección
+                        })
+                    }
+                ]
+            }).addTo(map);
+
+            // Actualizar la ruta actual
+            currentRoute2 = {
+                routeLine: routeLine,
+                decorator: decorator
+            };
+        });
+        control2.setWaypoints(waypoints)
+        control2.hide()
+    } else {
+        control.setWaypoints(waypoints)
+    }
+    control.hide()
+
     $(document).ready(function () {
         $('.testimonios').each(function () {
-          const valoracion = $(this).data('valoracion');
-          const reseñasContainer = $(this).find('.reseñas');
+            const valoracion = $(this).data('valoracion');
+            const reseñasContainer = $(this).find('.reseñas');
 
-          for (let i = 1; i <= 5; i++) {
-            if (i <= valoracion) {
-              reseñasContainer.append('<i class="fa fa-heart hearto"></i>');
-            } else {
-              reseñasContainer.append('<i class="fa fa-heart hearti"></i>');
+            for (let i = 1; i <= 5; i++) {
+                if (i <= valoracion) {
+                    reseñasContainer.append('<i class="fa fa-star starto"></i>');
+                } else {
+                    reseñasContainer.append('<i class="fa fa-star starti"></i>');
+                }
             }
-          }
         });
-      });
+    });
 }
 
 /**
@@ -646,9 +888,9 @@ function cargarRutas(idRuta, numRuta, empRuta, preRuta) {
 
 /**
  * Funcion encargada de Cargar las Coordenadas existenten en la base de datos
- * @param {Int} idRuta 
- * @param {Double} latitud 
- * @param {Double} longitud 
+ * @param {Int} idRuta
+ * @param {Double} latitud
+ * @param {Double} longitud
  */
 function cargasCoodernadas(idRuta, latitud, longitud,) {
     const coordenada = {
@@ -714,7 +956,7 @@ function verFavoritos() {
 }
 
 /**
- * Esta Funcion se encarga de crear una modal con las Rutas Favoritas 
+ * Esta Funcion se encarga de crear una modal con las Rutas Favoritas
  */
 function mostrarFavoritos() {
     document.getElementById("RutasFavoritas").innerHTML = ""
@@ -739,11 +981,35 @@ function mostrarFavoritos() {
 }
 
 /**
- * Esta funcion se encarga de Vizualizar la Ruta Favorita que se seleccione 
+ * Esta funcion se encarga de Vizualizar la Ruta Favorita que se seleccione
  * @param {Int} numeroRuta Numero de la Ruta Favorita
  */
 function vizualizarRutaFavorita(numeroRuta) {
-    removeRoute();
+    ocultarRuta();
+    document.getElementById("txtImagenFrente").hidden = false
+    document.getElementById("txtImagenLado").hidden = false
+    document.getElementById("map").style.height = "950px"
+    document.getElementById("nota").innerHTML = ""
+    document.getElementById("notaContenido").innerHTML = ``
+    document.getElementById("contenedorComent").innerHTML = ""
+    document.getElementById("contenedorComent").innerHTML += `  <div class='testimonios_header mt-1'>
+                                                                    <h2>Comentario</h2>
+                                                                </div>
+                                                                <div class="owl-carousel testimonials-carousel">
+
+                                                                </div>`
+    map.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+    ubicacionDispositivo()
+    map.eachLayer(function (layer) {
+        if (layer instanceof L.Polygon) {
+            map.removeLayer(layer);
+        }
+    });
+
     var options = {
         lineOptions: {
             styles: [{ color: '#46668d' }]
@@ -756,64 +1022,343 @@ function vizualizarRutaFavorita(numeroRuta) {
     };
 
     control = L.Routing.control(options).addTo(map);
+    // Verificar si existe una ruta actual y eliminarla si es necesario
+    if (currentRoute !== null) {
+        map.removeLayer(currentRoute.routeLine); // Eliminar la línea de ruta
+        map.removeLayer(currentRoute.decorator); // Eliminar los indicadores de dirección
+    }
+    // Verificar si existe una ruta actual y eliminarla si es necesario
+    if (currentRoute2 !== null) {
+        map.removeLayer(currentRoute2.routeLine); // Eliminar la línea de ruta
+        map.removeLayer(currentRoute2.decorator); // Eliminar los indicadores de dirección
+    }
+    // Escuchar el evento 'routeselected' para agregar indicadores de dirección
+    control.on('routeselected', function (e) {
+        var route = e.route; // La ruta seleccionada
+
+        // Crear un arreglo de coordenadas para la línea de ruta
+        var routeCoordinates = route.coordinates.map(function (coord) {
+            return [coord.lat, coord.lng];
+        });
+
+        // Crear la línea de ruta en el mapa
+        var routeLine = L.polyline(routeCoordinates, { color: '#46668d' }).addTo(map);
+
+        // Crear un decorador de línea para agregar indicadores de dirección
+        var decorator = L.polylineDecorator(routeLine, {
+            patterns: [
+                {
+                    offset: 25, // Ajustar la posición de los indicadores en la línea
+                    repeat: 100, // Espacio entre indicadores de dirección
+                    symbol: L.Symbol.arrowHead({
+                        pixelSize: 10,
+                        polygon: false,
+                        pathOptions: { color: '#6f7fe2' } // Color de los indicadores de dirección
+                    })
+                }
+            ]
+        }).addTo(map);
+
+        // Actualizar la ruta actual
+        currentRoute = {
+            routeLine: routeLine,
+            decorator: decorator
+        };
+    });
     // Crear un arreglo para almacenar las coordenadas
     var waypoints = [];
+    var estado = false
+    var customIcon = L.divIcon({
+        className: 'custom-icon',
+        html: '<i class="fa-solid fa-location-dot fa-2xl" style="color: #d02525;"></i>',
+    });
+    // Crear un conjunto para almacenar valores únicos
+    var barriosRuta = new Set();
+    var comunasRuta = new Set();
+    ubicaciones.forEach(entradaC => {
+        if (entradaC.ubiRuta == numeroRuta) {
+            sitios.forEach(function (cuadrado) {
+                if (cuadrado.nombre == entradaC.ubiSitioDeInteres) {
+                    var polygon = L.polygon(cuadrado.coordenadas, { color: "#6f7fe2 ", weight: cuadrado.weight }).addTo(map);
+                    // Calcular las coordenadas del centro del cuadrado
+                    var squareCenter = polygon.getBounds().getCenter();
+
+                    // Crear un marcador en el centro del cuadrado
+                    var marker = L.marker(squareCenter, { icon: customIcon }).addTo(map);
+                    polygon.bindPopup(cuadrado.nombre); // Agregar nombre como etiqueta emergente
+                }
+                barriosRuta.add(entradaC.ubiBarrio);
+                comunasRuta.add(entradaC.ubiComuna);
+            });
+        }
+    });
+    // Convertir el conjunto en una cadena separada por guiones
+    var barrios = Array.from(barriosRuta).join('-');
+    var comunas = Array.from(comunasRuta).join('-');
+
+    // Mostrar la cadena en el elemento con el id "barrioRuta" con la palabra "Barrio" en negrilla
+    document.getElementById("barrioRut").hidden = false
+    document.getElementById("comunaRut").hidden = false
+    document.getElementById("barrioRuta").innerHTML = barrios;
+    document.getElementById("comunaRuta").innerHTML = comunas;
+
+
+    $(document).ready(function () {
+        var owl = $(".testimonials-carousel");
+
+        // Función para crear elementos de comentario
+        function crearElementoComentario(entradaC) {
+            const testimonialItem = $("<div class='testimonial-item'></div>");
+
+            const testimonialText = $(`
+          <div class="testimonial-text testimonios" data-valoracion="${entradaC.comValoracion}">
+            <h3 class="name-user">${entradaC.conUsuario}</h3>
+            <h4>Ruta: ${entradaC.comRuta}</h4>
+            <div class="reseñas"></div>
+            <p>${entradaC.comDescripcion}</p>
+          </div>
+        `);
+            testimonialItem.append(testimonialText);
+            return testimonialItem;
+        }
+
+        // Función para cargar comentarios en el carrusel
+        function cargarComentarios() {
+            let comentariosFiltrados = comentarios.filter(entradaC => entradaC.comRuta == numeroRuta);
+
+            // Limpia el contenido del carrusel
+            owl.trigger('destroy.owl.carousel');
+            owl.empty();
+
+            comentariosFiltrados.forEach(entradaC => {
+                const elementoComentario = crearElementoComentario(entradaC);
+                owl.owlCarousel('add', elementoComentario);
+            });
+
+            owl.owlCarousel({
+                center: true,
+                autoplay: true,
+                smartSpeed: 2000,
+                dots: true,
+                loop: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    576: {
+                        items: 1
+                    },
+                    768: {
+                        items: 2
+                    },
+                    992: {
+                        items: 3
+                    }
+                }
+            });
+
+            owl.trigger('refresh.owl.carousel');
+        }
+
+        // Llamar a la función para cargar los comentarios
+        cargarComentarios();
+    });
+
+
+
+
     // Recorrer el arreglo de coordenadas y agregar cada punto al arreglo de waypoints
     coodernadas.forEach(entradaR => {
-        posC = rutas.findIndex(ruta => ruta.numRuta == entradaR.idRuta);
-        if (rutas[posC].numRuta == numeroRuta) {
-            if (rutas[posC].empRuta == "Coomotor") {
-                document.getElementById("txtColor").value = "Azul"
-                document.getElementById("txtImagen").src = '../../static/img/Coomotor.jpg'
+        posR = rutas.findIndex(ruta => ruta.numRuta == entradaR.idRuta);
+        if (rutas[posR].numRuta == numeroRuta) {
+            if (rutas[posR].preRuta == 2400) {
+                if (rutas[posR].empRuta == "Coomotor") {
+                    document.getElementById("txtColor").value = "Azul"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Nuevas/RUTANUEVAVCOOMOTOR.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Nuevas/RUTANUEVACOOMOTROLADO.jpg'
+                }
+                if (rutas[posR].empRuta == "CootransHuila") {
+                    document.getElementById("txtColor").value = "Verde Claro con Blanco"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Nuevas/RUTANUEVACOOTRANSHUILA.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Nuevas/RUTANUEVACOOTRANSHUILALADO.jpg'
+                }
+                if (rutas[posR].empRuta == "FlotaHuila") {
+                    document.getElementById("txtColor").value = "Gris / Plateado"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Nuevas/RUTANUEVAFLOTA.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Nuevas/RUTANUEVAFLOTALADO.jpg'
+                }
+                if (rutas[posR].empRuta == "CootransNeiva") {
+                    document.getElementById("txtColor").value = "Blanco con Rojo"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Nuevas/RUTANUEVACOOTRANSNEIVA.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Nuevas/RUTANUEVACOOTRANSNEIVALADO.jpg'
+                }
+                if (rutas[posR].empRuta == "AutoBuses") {
+                    document.getElementById("txtColor").value = "Verde Oscuro"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Nuevas/RUTANUEVAAUTOBUSES.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Nuevas/RUTANUEVAAUTOBUSESLADO.jpg'
+                }
             }
-            if (rutas[posC].empRuta == "Cootranshuila") {
-                document.getElementById("txtColor").value = "Verde Claro con Blanco"
-                document.getElementById("txtImagen").src = '../../static/img/Cootranshuila.jpg'
+            if (rutas[posR].preRuta == 2300) {
+                if (rutas[posR].empRuta == "Coomotor") {
+                    document.getElementById("txtColor").value = "Azul"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOMOTOR.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOMOTORLADO.jpg'
+                }
+                if (rutas[posR].empRuta == "CootransHuila") {
+                    document.getElementById("txtColor").value = "Verde Claro con Blanco"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOTRANSHUILA.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOTRANSHUILALADO.jpg'
+                }
+                if (rutas[posR].empRuta == "FlotaHuila") {
+                    document.getElementById("txtColor").value = "Gris / Plateado"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Viejas/RUTAVIEJAFLOTA.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Viejas/RUTAVIEJAFLOTALADO.jpg'
+                }
+                if (rutas[posR].empRuta == "CootransNeiva") {
+                    document.getElementById("txtColor").value = "Blanco con Rojo"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOTRANSNEIVA.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Viejas/RUTAVIEJACOOTRANSNEIVALADO.jpg'
+                }
+                if (rutas[posR].empRuta == "AutoBuses") {
+                    document.getElementById("txtColor").value = "Verde Oscuro"
+                    document.getElementById("txtImagenFrente").src = '../../static/img/Buses/Viejas/RUTAVIEJAAUTOBUSES.jpg'
+                    document.getElementById("txtImagenLado").src = '../../static/img/Buses/Viejas/RUTAVIEJAAUTOBUSESLADO.jpg'
+                }
             }
-            if (rutas[posC].empRuta == "Flotahuila") {
-                document.getElementById("txtColor").value = "Gris / Plateado"
-                document.getElementById("txtImagen").src = '../../static/img/Flotahuila.jpg'
+            document.getElementById("nota").innerHTML = "Nota:"
+            document.getElementById("notaContenido").innerHTML = `Las rutas en Horario Nocturno, Fin de Semana y Festivos cobran 100COP más`
+            if (rutas[posR].numRuta == 19) {
+                document.getElementById("notaContenido").innerHTML += `, La ruta ${rutas[posR].numRuta} cobra un extra por ir hasta Fortalecillas/El Caguán `
             }
-            if (rutas[posC].empRuta == "Cootransneiva") {
-                document.getElementById("txtColor").value = "Blanco con Rojo"
-                document.getElementById("txtImagen").src = '../../static/img/CootransNeiva.jpg'
+            if (rutas[posR].numRuta == 73) {
+                document.getElementById("notaContenido").innerHTML += `, La ruta ${rutas[posR].numRuta} cobra un extra por ir a hasta El Caguán/El Triunfo `
             }
-            if (rutas[posC].empRuta == "Autobuses") {
-                document.getElementById("txtColor").value = "Verde Oscuro"
-                document.getElementById("txtImagen").src = '../../static/img/AutobuseseKool.jpg'
+            if (rutas[posR].empRuta == "FlotaHuila" || rutas[posR].empRuta == "CootransHuila") {
+                document.getElementById("adventencia").innerHTML = ""
+                document.getElementById("adventenciaContenido").innerHTML = ``
+            } else {
+                document.getElementById("adventencia").innerHTML = "Advertencia:"
+                document.getElementById("adventenciaContenido").innerHTML = `Es posible que las rutas de la empresa ${rutas[posR].empRuta} se encuentren Desactualizadas o Inhabilitadas`
+
             }
-            document.getElementById("txtEmpresa").value = rutas[posC].empRuta
-            document.getElementById("txtPrecio").value = rutas[posC].preRuta
-            document.getElementById("txtNumero").value = rutas[posC].numRuta
-            waypoints.push(L.latLng(entradaR.latitud, entradaR.longitud));
+            document.getElementById("txtEmpresa").value = rutas[posR].empRuta
+            document.getElementById("txtPrecio").value = rutas[posR].preRuta + "COP"
+            document.getElementById("txtNumero").value = rutas[posR].numRuta
+            // Coordenadas específicas donde deseas trazar una línea recta
+            var lineCoordinates = [
+                [2.946162, -75.305428],
+                [2.9462665651785755, -75.30530711448327],
+            ];
+            var lineCoordinates2 = [
+                [2.949905, -75.289339],
+                [2.950033, -75.289143],
+            ];
+            if (entradaR.latitud == "2.946181387404214" && entradaR.longitud == "-75.30550394940154" || entradaR.latitud == "2.9462665651785755" && entradaR.longitud == "-75.30530711448327" || entradaR.latitud == "2.949703917774272" && entradaR.longitud == "-75.28995137671255" || entradaR.latitud == "2.950303936407456" && entradaR.longitud == "-75.28939357717871") {
+                if (entradaR.latitud == "2.946181387404214") {
+                    var polyline = L.polyline(lineCoordinates, { color: '#46668d' }).addTo(map);
+                }
+                if (entradaR.latitud == "2.949703917774272") {
+                    var polyline = L.polyline(lineCoordinates2, { color: '#46668d' }).addTo(map);
+                    var polyline = L.polyline([[2.950033, -75.289143], [2.950572, -75.289658]], { color: '#46668d' }).addTo(map);
+                }
+                console.log(waypoints.length)
+                if (waypoints.length == 0) {
+                    waypoints.push(L.latLng(entradaR.latitud, entradaR.longitud));
+                    console.log("vacio")
+                } else {
+                    console.log("lleno")
+                    estado = true
+                    control.setWaypoints(waypoints)
+                    waypoints = [];
+                }
+
+
+            } else {
+                waypoints.push(L.latLng(entradaR.latitud, entradaR.longitud));
+            }
         }
     });
 
     // Establecer el arreglo de waypoints en el control de enrutamiento
-    control.setWaypoints(waypoints);
-    control.hide();
+    if (estado) {
+        control2 = L.Routing.control(options).addTo(map);
+
+        // Escuchar el evento 'routeselected' para agregar indicadores de dirección
+        control2.on('routeselected', function (e) {
+            var route = e.route; // La ruta seleccionada
+
+            // Crear un arreglo de coordenadas para la línea de ruta
+            var routeCoordinates = route.coordinates.map(function (coord) {
+                return [coord.lat, coord.lng];
+            });
+
+            // Crear la línea de ruta en el mapa
+            var routeLine = L.polyline(routeCoordinates, { color: '#46668d' }).addTo(map);
+
+            // Crear un decorador de línea para agregar indicadores de dirección
+            var decorator = L.polylineDecorator(routeLine, {
+                patterns: [
+                    {
+                        offset: 25, // Ajustar la posición de los indicadores en la línea
+                        repeat: 100, // Espacio entre indicadores de dirección
+                        symbol: L.Symbol.arrowHead({
+                            pixelSize: 10,
+                            polygon: false,
+                            pathOptions: { color: '#6f7fe2' } // Color de los indicadores de dirección
+                        })
+                    }
+                ]
+            }).addTo(map);
+
+            // Actualizar la ruta actual
+            currentRoute2 = {
+                routeLine: routeLine,
+                decorator: decorator
+            };
+        });
+        control2.setWaypoints(waypoints)
+        control2.hide()
+    } else {
+        control.setWaypoints(waypoints)
+    }
+    control.hide()
+
+    $(document).ready(function () {
+        $('.testimonios').each(function () {
+            const valoracion = $(this).data('valoracion');
+            const reseñasContainer = $(this).find('.reseñas');
+
+            for (let i = 1; i <= 5; i++) {
+                if (i <= valoracion) {
+                    reseñasContainer.append('<i class="fa fa-star starto"></i>');
+                } else {
+                    reseñasContainer.append('<i class="fa fa-star starti"></i>');
+                }
+            }
+        });
+    });
 }
 
 /**
- * Esta funcion se encarga de Eliminar la Ruta Favorita que se seleccione 
+ * Esta funcion se encarga de Eliminar la Ruta Favorita que se seleccione
  * @param {Int} NumeroRuta Numero de la Ruta Favorita
  */
 function eliminarFavorito(NumeroRuta) {
-  var datos = {
-    "numeroRuta": NumeroRuta,
-  }
-  $.ajax({
-    url: "/eliminarFavorito/",
-    data: datos,
-    type: 'post',
-    dataType: 'json',
-    cache: false,
-    success: function (resultado) {
-      console.log(resultado);
-      window.location.reload();
-      Swal.fire("Registro de Solicitud", resultado.mensaje, "success")
+    var datos = {
+        "numeroRuta": NumeroRuta,
     }
-  })
+    $.ajax({
+        url: "/eliminarFavorito/",
+        data: datos,
+        type: 'post',
+        dataType: 'json',
+        cache: false,
+        success: function (resultado) {
+            console.log(resultado);
+            window.location.reload();
+            Swal.fire("Registro de Solicitud", resultado.mensaje, "success")
+        }
+    })
 }
 
 /**
@@ -821,50 +1366,50 @@ function eliminarFavorito(NumeroRuta) {
  * para posteriormente graficar los datos
  */
 function hacerGrafica() {
-   var ruta=[];
-   var cantidad=[];
-   // Obtén los datos de local storage
-   var dataString = localStorage.getItem("datos");
+    var ruta = [];
+    var cantidad = [];
+    // Obtén los datos de local storage
+    var dataString = localStorage.getItem("datos");
 
-   // Convierte la cadena JSON en un arreglo de objetos JavaScript
-   var data = JSON.parse(dataString);
+    // Convierte la cadena JSON en un arreglo de objetos JavaScript
+    var data = JSON.parse(dataString);
 
-   // Verifica si los datos son un arreglo
-   if (Array.isArray(data)) {
-       // Itera sobre la lista de objetos
-       for (var i = 0; i < data.length; i++) {
-           var elemento = data[i];
+    // Verifica si los datos son un arreglo
+    if (Array.isArray(data)) {
+        // Itera sobre la lista de objetos
+        for (var i = 0; i < data.length; i++) {
+            var elemento = data[i];
 
-           // Accede a los valores de "ruta" y "cantidad" para cada elemento
-            ruta.push("Ruta"+" "+elemento.ruta);
+            // Accede a los valores de "ruta" y "cantidad" para cada elemento
+            ruta.push("Ruta" + " " + elemento.ruta);
             cantidad.push(parseInt(elemento.cantidad));
 
 
-       }
-   } else {
-       console.log("Los datos no son un arreglo o están vacíos.");
-   }
-   var datos = {
-    "ruta": JSON.stringify(ruta),
-    "cantidad": JSON.stringify(cantidad),
-  }
-   console.log(datos)
-   $.ajax({
-    url: "/realizarGrafica/",
-    data: datos,
-    type: 'GET',
-    dataType: 'json',
-    cache: false,
-    success: function (resultado) {
-        location.href = `/verGraficas/`;
+        }
+    } else {
+        console.log("Los datos no son un arreglo o están vacíos.");
     }
-  })
+    var datos = {
+        "ruta": JSON.stringify(ruta),
+        "cantidad": JSON.stringify(cantidad),
+    }
+    console.log(datos)
+    $.ajax({
+        url: "/realizarGrafica/",
+        data: datos,
+        type: 'GET',
+        dataType: 'json',
+        cache: false,
+        success: function (resultado) {
+            location.href = `/verGraficas/`;
+        }
+    })
 }
 
 /**
  * Esta funcion se encarga de obtener la Ubicacion actual del Usuario
  */
-function ubicacionDispositivo(){
+function ubicacionDispositivo() {
     // Obtén la ubicación del dispositivo
     navigator.geolocation.getCurrentPosition(function (position) {
         var lat = position.coords.latitude;

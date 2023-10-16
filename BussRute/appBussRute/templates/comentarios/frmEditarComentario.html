@@ -9,7 +9,7 @@
 <section class="agregarComentarios">
   <div class="agregarComentarioHeader">
     <h1>Actualizar Comentario</h1>
-    <span>Cuéntanos tu opinión sobre nuestro sitio</span>
+    <span>Cuentanos tu opinión sobre nuestro sitio.</span>
   </div>
   <!-- Formulario para agregar comentarios -->
   <div class="agregarComentarioContenedor">
@@ -35,7 +35,7 @@
             <textarea type="text" class="form-control needs-validation" id="txtComentario" name="txtComentario"
               cols="35" rows="10" required>{{comentario.comDescripcion}}</textarea>
             <div class="invalid-feedback">
-              Por favor ingresar un comentario válido
+              Porfavor ingresar un comentario valido.
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@
         <div class="reseñas text-center">
           <div class="reseñas text-center">
             {% for i in "12345" %}
-            <span class="fa fa-heart heart {% if i|add:0 <= comentario.comValoracion %}selected{% endif %}"
+            <span class="fa fa-star star {% if i|add:0 <= comentario.comValoracion %}selected{% endif %}"
               data-value="{{ i }}"></span>
             {% endfor %}
           </div>
@@ -56,7 +56,7 @@
       </div>
       <br>
       <div class="col-12 d-flex justify-content-center">
-        <button class="btn btn-inicio " id="btnActualizars" type="submit">Actualizar</button>
+        <button class="btn btn-inicio" id="btnActualizars" type="submit">Actualizar</button>
         <a href="#"><button class="btn btn-inicio ml-2" id="btnRegresar" name="regresar"
             onclick="disableValidation()">Regresar</button></a>
       </div>
