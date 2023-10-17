@@ -1387,23 +1387,22 @@ def tokenValido(token):
         return False
 
 def cambiarContrasena(request):
+    token = request.session.get('token')
+    if not tokenValido(token):
+        return render(request, "error500.html")
+
     estado = False
     try:
-        # Obtener el token de la sesión del usuario
-        token = request.session.get('token')
         contraNueva = request.POST["pasNuevaContraseña"]
         usuario = Usuario.objects.get(usuTokenCambioContrasena=token)
-        if tokenValido(token):
-            usuario.set_password(contraNueva)
-            usuario.usuTokenCambioContrasena = None
-            usuario.save()
-            estado = True
-            mensaje = "Contraseña cambiada con éxito"
-            del request.session['token']
-        else:
-            mensaje = "El token ha caducado o no es válido para cambiar la contraseña"
+        usuario.set_password(contraNueva)
+        usuario.usuTokenCambioContrasena = None
+        usuario.save()
+        estado = True
+        mensaje = "Contraseña cambiada con éxito"
+        del request.session['token']
     except Usuario.DoesNotExist:
-        mensaje = "No se encontró un usuario asociado a este token"
+        return render(request, "error500.html")
     except Error as error:
         mensaje = f"{error}"
 
